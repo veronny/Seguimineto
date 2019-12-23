@@ -13,6 +13,10 @@
 
 $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function(){
 
+    //Sulfato
+    Route::get('sulfato', 'SulfatoController@index')->name('admin.sulfato');
+    
+    ///*****************************************************************************************//
     //Reporte
     Route::get('reporte/{paciente}', 'ReporteController@show')->name('admin.reporte.show'); 
     
