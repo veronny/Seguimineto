@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^0.8.2",
         "fideloper/proxy": "^4.0",
         "jeroennoten/laravel-adminlte": "^1.23",
+        "laravel-admin-ext/chartjs": "^1.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.6"

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Auditor SIS',
+    'title' => 'SS SALUD',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Auditor</b> SIS',
+    'logo' => '<b>SS</b> SALUD',
 
-    'logo_mini' => '<b>A</b>SIS',
+    'logo_mini' => '<b>SS</b>J',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,11 +121,30 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
-        'SERVICIOS',
+        'INDICADORES DE SALUD',
         [
             'text' => 'Consulta Externa',
             'url'  => 'admin/pacientesis',
             'icon' => 'user-md',
+        ],
+        [
+            'text'    => 'INDICARES AP-ENDIS',
+            'icon'    => 'child',
+            'submenu' => [
+                [
+                    'text' => 'Hierro en gotas a 4 meses',
+                    'url'  => 'admin/sulfato',
+                    
+                ],
+                [
+                    'text'    => 'Tratamiento anemia a 12 meses',
+                    'url'     => '#',
+                ],
+                [
+                    'text'    => 'Gestantes y atencion pre natal',
+                    'url'     => '#',
+                ],
+            ],
         ],
         [
             'text' => 'Hospitalizacion',
