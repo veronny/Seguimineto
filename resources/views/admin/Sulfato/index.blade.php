@@ -23,7 +23,7 @@
     <div class="col-md-2">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Region</h3>
+                <h3 class="box-title">Avance Regional</h3>
                     <div class="box-tools pull-right"></div>
             <!-- /.box-tools -->
             </div>
@@ -38,7 +38,7 @@
     <div class="col-md-5">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Provincias de Junin</h3>
+                <h3 class="box-title">Avance por provincias de Junin</h3>
                     <div class="box-tools pull-right"></div>
             <!-- /.box-tools -->
             </div>
@@ -53,7 +53,7 @@
     <div class="col-md-5">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Redes de Salud</h3>
+                <h3 class="box-title">Avance por redes de Salud</h3>
                     <div class="box-tools pull-right"></div>
             <!-- /.box-tools -->
             </div>
@@ -141,7 +141,13 @@ var ctx = document.getElementById("region");
     },
     options: {
         rotation: 1 * Math.PI,
-        circumference: 1 * Math.PI
+        circumference: 1 * Math.PI,
+        legend: {
+            display: false,
+            labels:{
+                fontSize: 5,
+            }
+        },
     }
 });
 //Grafico por provincia
@@ -181,7 +187,31 @@ $(function () {
                                         },
                                 title: {
                                         display: true,
-                                        }
+                                        },
+                                legend: {
+                                        display: false,
+                                        labels:{
+                                                fontSize: 10,
+                                            }
+                                    },
+                                scales: {
+                                        yAxes: [{
+                                                ticks:{
+                                                        fontSize: 10,
+                                                        gridLines: {
+                                                                    display: false,
+                                                                    }
+                                                }
+                                            }],
+                                        xAxes: [{
+                                            ticks:{
+                                                fontSize: 8,
+                                                gridLines: {
+                                                            display: false,
+                                                            }
+                                            }
+                                            }],
+                                        },
                     }
              });
 });    
@@ -204,7 +234,7 @@ $(function () {
     var barChartData = {
         labels: <?php echo json_encode($Redes); ?>,
         datasets: [{
-                    label: 'Cantidad de Niños',
+                    label:'Cantidad de Niños',      
                     borderColor: window.chartColors.green,
                     borderWidth: 1,
                     data: <?php echo json_encode($Data_red); ?>
@@ -222,7 +252,28 @@ $(function () {
                                         },
                                 title: {
                                         display: true,
-                                        }
+                                        },
+                                legend: {
+                                        display: false,
+                                },
+                                scales: {
+                                            yAxes: [{
+                                                    ticks:{
+                                                            fontSize: 10,
+                                                            gridLines: {
+                                                                        display: false,
+                                                                        }
+                                                    }
+                                                }],
+                                            xAxes: [{
+                                                ticks:{
+                                                    fontSize: 8,
+                                                    gridLines: {
+                                                                display: false,
+                                                                }
+                                                }
+                                                }],
+                                            },
                     }
              });
 });    
