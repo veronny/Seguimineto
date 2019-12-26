@@ -15,6 +15,8 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
 
     //Sulfato
     Route::get('sulfato', 'SulfatoController@index')->name('admin.sulfato');
+
+   // Route::get('sulfato', 'SulfatoController@distrito')->name('admin.sulfato');
     
     ///*****************************************************************************************//
     //Reporte
