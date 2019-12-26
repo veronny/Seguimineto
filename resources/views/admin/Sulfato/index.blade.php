@@ -76,9 +76,40 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body" style="display: block;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                <canvas id="canvas" style="width: 100%; display: block;" width="507" height="253" class="chartjs-render-monitor"></canvas>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th width="20px">PERIODO</th>
+                                <th>AÑO</th>
+                                <th>MES</th>
+                                <th>DISTRITO</th>
+                                <th>TOTAL NIÑOS</th>
+                                <th>NIÑOS CUMPLEN</th>
+                                <th>PORCENTAJE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($distrito as $d)
+                            <tr>
+                                <td>{{ $d->PERIODO }}</td>
+                                <td>{{ $d->ANNO }}</td>
+                                <td>{{ $d->MES }}</td>
+                                <td>{{ $d->DISTRITO }}</td>
+                                <td>{{ $d->NUM }}</td>
+                                <td>{{ $d->DEN }}</td>
+                                <td>{{ $d->PORCENTAJE }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.box-body -->
+            
+
+            <!-- /.Tabla de distritos-->
+
         </div>
     </div>
 
