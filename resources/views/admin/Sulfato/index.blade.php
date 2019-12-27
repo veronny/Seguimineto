@@ -1,23 +1,79 @@
 @extends('adminlte::page') @section('title', 'Paciente') @section('content_header')
-<h1>Niñas y Niños que cumplen 130 dias de edad en el mes de evaluacion, que han recibido gotas con hierro</h1>
+<h1>Niñas y Niños que cumplen 130 dias de edad, que han recibido gotas con hierro</h1>
 <ol class="breadcrumb" style="margin-right: 30px;">
     <li><a href="#">Principal</a></li>
     <li><a href="#">AP ENDIS</a></li>
     <li><a href="#">Hierro en Gotas a 4 meses</a></li>
 </ol>
-
-    <div class="row">
-        <div class="col-md-12">
-            <h4 style="background-color:#D3D3D3; font-size: 18px; text-align: left; padding: 7px 10px; margin-top: 0;">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-success">
-                    Informacion Nominal
-                </button>
-            </h4>
-        </div>
-    </div>
 @stop
 
 @section('content')
+<div class="row">
+    <div class="col-md-8">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <div class="box-tools">                       
+                        {{ Form::open(['route' => 'admin.sulfato' , 'method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                            <div class="form-group">
+                                <span id="anno">
+                                    <select name="anno" class="form-control dynamic anno">
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <span id="mes">
+                                    <select name="mes" class="form-control dynamic mes">
+                                        <option value="00">--- Mes ---</option>
+                                        <option value="01">Enero</option>
+                                        <option value="02">Febrero</option>
+                                        <option value="03">Marzo</option>
+                                        <option value="04">Abril</option>
+                                        <option value="05">Mayo</option>
+                                        <option value="06">Junio</option>
+                                        <option value="07">Julio</option>
+                                        <option value="08">Agosto</option>
+                                        <option value="09">Setiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </div>
+                        {{ Form::close()}}         
+                    </div>
+                </h3>
+            </div>                
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                <div class="box-tools">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-success">
+                        Informacion Nominal
+                    </button>  
+                </div>
+                </h3>
+            <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <div class="row">
     <div class="col-md-2">
@@ -70,7 +126,7 @@
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Distritos</h3>
+                <h3 class="box-title">Avance por Distritos</h3>
                     <div class="box-tools pull-right"></div>
             <!-- /.box-tools -->
             </div>
@@ -80,21 +136,15 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th width="20px">PERIODO</th>
-                                <th>AÑO</th>
-                                <th>MES</th>
                                 <th>DISTRITO</th>
-                                <th>TOTAL NIÑOS</th>
-                                <th>NIÑOS CUMPLEN</th>
+                                <th>NIÑOS</th>
+                                <th>CUMPLEN</th>
                                 <th>PORCENTAJE</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($distrito as $d)
                             <tr>
-                                <td>{{ $d->PERIODO }}</td>
-                                <td>{{ $d->ANNO }}</td>
-                                <td>{{ $d->MES }}</td>
                                 <td>{{ $d->DISTRITO }}</td>
                                 <td>{{ $d->NUM }}</td>
                                 <td>{{ $d->DEN }}</td>
@@ -146,6 +196,17 @@
 @stop
 
 @section('adminlte_js')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.anno').select2({
+            dropdownAutoWidth: true
+        });
+        $('.mes').select2({
+            dropdownAutoWidth: true
+        });
+    });
+</script>
+
 <script>
 //Grafico por region
 var ctx = document.getElementById("region");
