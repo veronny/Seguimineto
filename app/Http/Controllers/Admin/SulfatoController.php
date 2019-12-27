@@ -13,7 +13,6 @@ class SulfatoController extends Controller
     {
         $anno = $request->get('anno');
         $mes = $request->get('mes');
-        $periodo = $anno.$mes;
        
         // $provincia = 
         $provincia = array('CHANCHAMAYO', 'CHUPACA', 'CONCEPCION', 'HUANCAYO', 'JAUJA','JUNIN','SATIPO','TARMA','YAULI');
@@ -21,24 +20,68 @@ class SulfatoController extends Controller
         $data_p  = array(195, 69, 54, 594, 72, 30, 303, 93,22);
         $data_red = array(9.14,60,80,84,18,69,97,81,77,96,51);
         
-        $distrito = DB::select('SELECT 
-                                PERIODO,
-                                ANNO,
-                                MES,
-                                DISTRITO,
-                                COUNT(DNI_CUMPLE_HIS) AS NUM,
-                                SUM(DNI_CUMPLE_HIS) AS DEN,
-                                ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE
-                                FROM indicador_sulfato
-                                WHERE MES = ?
-                                GROUP BY 
-                                PERIODO,
-                                ANNO,
-                                MES,
-                                DISTRITO
-                                ORDER BY PERIODO, PORCENTAJE',[$mes]);
-               
-        return view('admin.sulfato.index',['Provincia' => $provincia, 'Data_p' => $data_p,'Redes' => $redes,'Data_red' => $data_red])->with(compact('distrito'));
+         
+        $regionden = Sulfato::where('ANNO','=',$anno)->where('MES','=', $mes)->count();
+        
+        $region = DB::table('indicador_sulfato')
+                    ->select([
+                            DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                            DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                          //  DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                            ])
+                    ->where('ANNO','=',$anno)
+                    ->where('MES','=', $mes)
+                    ->groupBy('PERIODO')
+                    ->groupBy('ANNO')
+                    ->groupBy('MES')
+                  //  ->orderBy('PORCENTAJE', 'desc')
+                    ->get();
+        
+        $regionnum = DB::table('indicador_sulfato')
+                    ->select([
+                            DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                            ])
+                    ->where('ANNO','=',$anno)
+                    ->where('MES','=', $mes)
+                    ->groupBy('PERIODO')
+                    ->groupBy('ANNO')
+                    ->groupBy('MES')
+                  //  ->orderBy('PORCENTAJE', 'desc')
+                    ->get();
+        
+        $regionden = DB::table('indicador_sulfato')
+                    ->select([
+                            DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                          //  DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                            ])
+                    ->where('ANNO','=',$anno)
+                    ->where('MES','=', $mes)
+                    ->groupBy('PERIODO')
+                    ->groupBy('ANNO')
+                    ->groupBy('MES')
+                  //  ->orderBy('PORCENTAJE', 'desc')
+                    ->get();
+
+        $distrito = DB::table('indicador_sulfato')
+                    ->select([
+                            'PERIODO',
+                            'ANNO',
+                            'MES',
+                            'DISTRITO',
+                            DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                            DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                            DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                            ])
+                    ->where('ANNO','=', $anno)
+                    ->where('MES','=', $mes)
+                    ->groupBy('PERIODO')
+                    ->groupBy('ANNO')
+                    ->groupBy('MES')
+                    ->groupBy('DISTRITO')
+                    ->orderBy('PORCENTAJE', 'desc')
+                    ->paginate(5);
+
+        return view('admin.sulfato.index',['Regionnum'=> $regionnum,'Regionden'=> $regionden, 'Provincia' => $provincia, 'Data_p' => $data_p,'Redes' => $redes,'Data_red' => $data_red])->with(compact('distrito','region'));
                 
     }
 

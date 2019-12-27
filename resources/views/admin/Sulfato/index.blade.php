@@ -71,10 +71,6 @@
     </div>
 </div>
 
-
-
-
-
 <div class="row">
     <div class="col-md-2">
         <div class="box">
@@ -156,10 +152,7 @@
                 </div>
             </div>
             <!-- /.box-body -->
-            
-
             <!-- /.Tabla de distritos-->
-
         </div>
     </div>
 
@@ -210,14 +203,13 @@
 <script>
 //Grafico por region
 var ctx = document.getElementById("region");
-    var myChart = new Chart(ctx, {
-
+    var myChart = new Chart(ctx, {  
     type: 'doughnut',
     data: {
         labels: ["Avance","Faltantes"],
         datasets: [{
           //  label: '# de niños que cumplen',
-            data: ['80','20'],
+            data: [10,5],         
             backgroundColor: [ 
                       //  'rgba(255,99,132,1)', //red
                         'rgb(75, 192, 192)', //green
