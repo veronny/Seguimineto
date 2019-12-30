@@ -162,7 +162,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //App\Providers\AnotationsServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
@@ -216,6 +216,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
