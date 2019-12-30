@@ -133,7 +133,7 @@
             <!-- /.box-header -->
             <div class="box-body" style="display: block;">
                 <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped" id="distrito">
+                    <table id="distrito" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>DISTRITO</th>
@@ -152,10 +152,7 @@
                                     <td><font color="#FF0000">{{ $d->PORCENTAJE }}</font></td>         
                                 @else
                                     <td><font color="#008000">{{ $d->PORCENTAJE }}</font></td>          
-                                @endif
-                                
-                                
-                                
+                                @endif                                
                             </tr>
                             @endforeach
                         </tbody>
@@ -199,27 +196,16 @@
 </div>
 @stop
 
-@section('adminlte_js')
-<script type="text/javascript">
+@section('js')
+<script type="text/javascript">   
     $(document).ready(function() {
-        $('.anno').select2({
-            dropdownAutoWidth: true
-        });
-        $('.mes').select2({
-            dropdownAutoWidth: true
-        });
-    });
-</script>
-//DataTable Distrito
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#distrito').DataTable({
+        $('#distrito').DataTable({  
             "language": {
                 "info": "_TOTAL_ registros",
                 "search":"Buscar",
                 "paginate": {
-                    "next": "Siguiente",
-                    "previous": "Anterior",
+                        "next": "Siguiente",
+                        "previous": "Anterior",
                 },
                 "lengthMenu": 'Ver <select>'+
                                 '<option value="10">10</option>'+
@@ -235,10 +221,21 @@
             }
         });
     });
+</script>    
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.anno').select2({
+            dropdownAutoWidth: true
+        });
+        $('.mes').select2({
+            dropdownAutoWidth: true
+        });
+    });
 </script>
 
 <script type="text/javascript">
-//Grafico por region
+// Grafico por region
 var ctx = document.getElementById("region");    
 var regionnum = <?php echo $regionnum; ?>;
 var regionden = <?php echo $regionden; ?>;
@@ -270,7 +267,7 @@ var myChart = new Chart(ctx, {
     },
 });
 
-//Grafico por provincia
+// Grafico por provincia
 $(function () {
     function randomScalingFactor() {
     return Math.floor(Math.random() * 100)
@@ -347,7 +344,7 @@ $(function () {
              });
 });    
 
-//Grafico por redes
+// Grafico por redes
 $(function () {
     function randomScalingFactor() {
     return Math.floor(Math.random() * 100)

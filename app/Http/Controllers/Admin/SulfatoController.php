@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Sulfato;
 use App\Charts\ProvinciaChart;
+use DataTables;
 
 class SulfatoController extends Controller
 {
@@ -116,26 +117,25 @@ class SulfatoController extends Controller
         $red_den = array_column($red_den,'DEN_RED');
 
         // Tabla de Distrito
-        $distrito = DB::table('indicador_sulfato')
-                    ->select([
-                            'PERIODO',
-                            'ANNO',
-                            'MES',
-                            'DISTRITO',
-                            DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
-                            DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
-                            DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
-                            ])
-                    ->where('ANNO','=', $anno)
-                    ->where('MES','=', $mes)
-                    ->groupBy('PERIODO')
-                    ->groupBy('ANNO')
-                    ->groupBy('MES')
-                    ->groupBy('DISTRITO')
-                    ->orderBy('PORCENTAJE', 'desc')
-                    ->get();
-                    //->paginate();
-
+                $distrito = DB::table('indicador_sulfato')
+                ->select([
+                        'PERIODO',
+                        'ANNO',
+                        'MES',
+                        'DISTRITO',
+                        DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                        DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                        DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                        ])
+                ->where('ANNO','=', $anno)
+                ->where('MES','=', $mes)
+                ->groupBy('PERIODO')
+                ->groupBy('ANNO')
+                ->groupBy('MES')
+                ->groupBy('DISTRITO')
+                ->orderBy('PORCENTAJE', 'desc')
+                ->get();
+                    
         return view('admin.sulfato.index')
                 ->with('regionnum',json_encode($regionnum,JSON_NUMERIC_CHECK))
                 ->with('regionden',json_encode($regionden,JSON_NUMERIC_CHECK))
@@ -144,8 +144,8 @@ class SulfatoController extends Controller
                 ->with('prov_den',json_encode($prov_den,JSON_NUMERIC_CHECK))
                 ->with('red',json_encode($red,JSON_NUMERIC_CHECK))
                 ->with('red_num',json_encode($red_num,JSON_NUMERIC_CHECK)) 
-                ->with('red_den',json_encode($red_den,JSON_NUMERIC_CHECK)) 
-                ->with(compact('distrito'));
+                ->with('red_den',json_encode($red_den,JSON_NUMERIC_CHECK))
+                ->with(['distrito' => $distrito]);
                 
     }
 
