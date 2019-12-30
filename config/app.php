@@ -147,7 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
-
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
         /*
          * Package Service Providers...
          */

@@ -15,17 +15,14 @@
                 <h3 class="box-title">
                     <div class="box-tools">                       
                         {{ Form::open(['route' => 'admin.sulfato' , 'method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
-                            <div class="form-group">
-                                <span id="anno">
-                                    <select name="anno" class="form-control dynamic anno">
+                            <div class="form-group">                                
+                                    <select name="anno" class="form-control dynamic anno" id="anno">
                                         <option value="2019">2019</option>
                                         <option value="2020">2020</option>
                                     </select>
-                                </span>
                             </div>
                             <div class="form-group">
-                                <span id="mes">
-                                    <select name="mes" class="form-control dynamic mes">
+                                    <select name="mes" class="form-control dynamic mes" id="mes">
                                         <option value="00">--- Mes ---</option>
                                         <option value="01">Enero</option>
                                         <option value="02">Febrero</option>
@@ -40,7 +37,6 @@
                                         <option value="11">Noviembre</option>
                                         <option value="12">Diciembre</option>
                                     </select>
-                                </span>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default">
@@ -95,8 +91,16 @@
             <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="display: block;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0;top:0"></div></div></div>
-                <canvas id="provincia" style="width: 100%; display: block;" width="507" height="253" class="chartjs-render-monitor"></canvas>
+            <div class="box-body" style="display: block;">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                <div class="chartjs-size-monitor-shrink">
+                    <div class=""></div>
+                    </div>
+                </div>
+                <canvas id="provincia" style="width: 100%; display: block;" width="1000" height="500" class="chartjs-render-monitor"></canvas>     
             </div>
             <!-- /.box-body -->
         </div>
@@ -127,24 +131,31 @@
             <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="display: block;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <div class="box-body" style="display: block;">
                 <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped" id="distrito">
                         <thead>
                             <tr>
                                 <th>DISTRITO</th>
                                 <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
-                                <th>PORCENTAJE</th>
+                                <th>%</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($distrito as $d)
                             <tr>
-                                <td>{{ $d->DISTRITO }}</td>
+                                <td><font color="#4682B4">{{ $d->DISTRITO }}</font></td>
                                 <td>{{ $d->NUM }}</td>
                                 <td>{{ $d->DEN }}</td>
-                                <td>{{ $d->PORCENTAJE }}</td>
+                                @if($d->PORCENTAJE <= 90)         
+                                    <td><font color="#FF0000">{{ $d->PORCENTAJE }}</font></td>         
+                                @else
+                                    <td><font color="#008000">{{ $d->PORCENTAJE }}</font></td>          
+                                @endif
+                                
+                                
+                                
                             </tr>
                             @endforeach
                         </tbody>
@@ -199,41 +210,66 @@
         });
     });
 </script>
+//DataTable Distrito
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#distrito').DataTable({
+            "language": {
+                "info": "_TOTAL_ registros",
+                "search":"Buscar",
+                "paginate": {
+                    "next": "Siguiente",
+                    "previous": "Anterior",
+                },
+                "lengthMenu": 'Ver <select>'+
+                                '<option value="10">10</option>'+
+                                '<option value="30">30</option>'+
+                                '<option value="124">124</option>'+
+                                '</select> registros',
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando",
+                "emptyTable": "No hay datos",
+                "zeroRecords":"No hay conincidencias",
+                "infoEmpty": "",
+                "infoFiltered":"",
+            }
+        });
+    });
+</script>
 
-<script>
+<script type="text/javascript">
 //Grafico por region
-var ctx = document.getElementById("region");
-    var myChart = new Chart(ctx, {  
+var ctx = document.getElementById("region");    
+var regionnum = <?php echo $regionnum; ?>;
+var regionden = <?php echo $regionden; ?>;
+
+var myChart = new Chart(ctx, {  
     type: 'doughnut',
     data: {
         labels: ["Avance","Faltantes"],
         datasets: [{
-          //  label: '# de niños que cumplen',
-            data: [10,5],         
+            data: [regionnum,regionden],         
             backgroundColor: [ 
-                      //  'rgba(255,99,132,1)', //red
                         'rgb(75, 192, 192)', //green
                         'rgb(201, 203, 207)' // grey
             ],
             borderColor: [
-                     //   'rgba(255,99,132,1)', //red
                         'rgb(75, 192, 192)', //green
                         'rgb(201, 203, 207)' // grey
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
         rotation: 1 * Math.PI,
         circumference: 1 * Math.PI,
+        percentageInnerCutout: 40,
         legend: {
             display: false,
-            labels:{
-                fontSize: 5,
-            }
         },
-    }
+    },
 });
+
 //Grafico por provincia
 $(function () {
     function randomScalingFactor() {
@@ -250,14 +286,28 @@ $(function () {
         grey  : 'rgb(201, 203, 207)'
     };
     
+    var data_prov = <?php echo $prov; ?>;
+    var prov_num = <?php echo $prov_num; ?>;
+    var prov_den = <?php echo $prov_den; ?>;
     var barChartData = {
-        labels: <?php echo json_encode($Provincia); ?>,
-        datasets: [{
-                    label: 'Cantidad de Niños',
+        labels: data_prov,
+        datasets:[
+                {
+                    label: 'Niños que Cumplen',
+                    stack: 'Stack 0',
                     borderColor: window.chartColors.green,
-                    borderWidth: 1,
-                    data: <?php echo json_encode($Data_p); ?>
-                }]
+                    backgroundColor: window.chartColors.green,
+                    borderWidth: 2,
+                    data: prov_den
+                },
+                {
+                    label: 'Cantidad de Niños',
+                    stack: 'Stack 0',
+                    borderColor: window.chartColors.grey,
+                    borderWidth: 2,
+                    data: prov_num
+                },
+                ],        
     };
 
     var ctx = document.getElementById('provincia').getContext('2d');
@@ -274,9 +324,6 @@ $(function () {
                                         },
                                 legend: {
                                         display: false,
-                                        labels:{
-                                                fontSize: 10,
-                                            }
                                     },
                                 scales: {
                                         yAxes: [{
@@ -299,6 +346,7 @@ $(function () {
                     }
              });
 });    
+
 //Grafico por redes
 $(function () {
     function randomScalingFactor() {
@@ -315,19 +363,33 @@ $(function () {
         grey  : 'rgb(201, 203, 207)'
     };
     
+    var data_red = <?php echo $red; ?>;
+    var red_num = <?php echo $red_num; ?>;
+    var red_den = <?php echo $red_den; ?>;
     var barChartData = {
-        labels: <?php echo json_encode($Redes); ?>,
-        datasets: [{
-                    label:'Cantidad de Niños',      
+        labels: data_red,
+        datasets:[
+                {
+                    label: 'Niños que Cumplen',
+                    stack: 'Stack 0',
                     borderColor: window.chartColors.green,
-                    borderWidth: 1,
-                    data: <?php echo json_encode($Data_red); ?>
-                }]
+                    backgroundColor: window.chartColors.green,
+                    borderWidth: 2,
+                    data: red_den
+                },
+                {
+                    label: 'Cantidad de Niños',
+                    stack: 'Stack 0',
+                    borderColor: window.chartColors.grey,
+                    borderWidth: 2,
+                    data: red_num
+                },
+                ]         
     };
 
     var ctx = document.getElementById('redes').getContext('2d');
     new Chart(ctx, {
-                    type: 'bar',
+                    type: 'horizontalBar',
                     data: barChartData,
                     options: {
                                 responsive: true,
@@ -343,7 +405,7 @@ $(function () {
                                 scales: {
                                             yAxes: [{
                                                     ticks:{
-                                                            fontSize: 10,
+                                                            fontSize: 8,
                                                             gridLines: {
                                                                         display: false,
                                                                         }
@@ -351,7 +413,7 @@ $(function () {
                                                 }],
                                             xAxes: [{
                                                 ticks:{
-                                                    fontSize: 8,
+                                                    fontSize: 10,
                                                     gridLines: {
                                                                 display: false,
                                                                 }
@@ -361,7 +423,5 @@ $(function () {
                     }
              });
 });    
-
 </script>
-
 @stop
