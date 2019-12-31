@@ -14,28 +14,19 @@
             <div class="box-header with-border">
                 <h3 class="box-title">
                     <div class="box-tools">                       
-                        {{ Form::open(['route' => 'admin.sulfato' , 'method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.sulfato','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                     <select name="anno" class="form-control dynamic anno" id="anno">
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
+                                        @foreach($m_anno as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach      
                                     </select>
                             </div>
                             <div class="form-group">
                                     <select name="mes" class="form-control dynamic mes" id="mes">
-                                        <option value="00">--- Mes ---</option>
-                                        <option value="01">Enero</option>
-                                        <option value="02">Febrero</option>
-                                        <option value="03">Marzo</option>
-                                        <option value="04">Abril</option>
-                                        <option value="05">Mayo</option>
-                                        <option value="06">Junio</option>
-                                        <option value="07">Julio</option>
-                                        <option value="08">Agosto</option>
-                                        <option value="09">Setiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
+                                        @foreach($m_mes as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach
                                     </select>
                             </div>
                             <div class="form-group">
@@ -127,8 +118,30 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
-                    <div class="box-tools pull-right"><a class="btn btn-success btn-sm" href="{{ route('admin.sulfato.excel') }}"><i class="fa fa-file-excel-o"></i> Descargar</a></div>
-            <!-- /.box-tools -->
+                    <div class="box-tools pull-right">
+                        {{ Form::open(['route' => 'admin.sulfato.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        <div class="form-group">                                
+                            <select name="anno" class="form-control dynamic anno" id="anno">
+                                @foreach($m_anno as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option> 
+                                @endforeach      
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="mes" class="form-control dynamic mes" id="mes">
+                                @foreach($m_mes as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Descargar</a>
+                            </button>                           
+                        </div>
+                        {{ Form::close()}} 
+                        <!-- /.box-tools -->
+                    </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body" style="display: block;">
