@@ -127,7 +127,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
-                    <div class="box-tools pull-right"></div>
+                    <div class="box-tools pull-right"><a class="btn btn-success btn-sm" href="{{ route('admin.sulfato.excel') }}"><i class="fa fa-file-excel-o"></i> Descargar</a></div>
             <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
