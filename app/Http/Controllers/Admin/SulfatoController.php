@@ -5,19 +5,18 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Sulfato;
-use App\Charts\ProvinciaChart;
-use DataTables;
+use App\Exports\SulfatoExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SulfatoController extends Controller
 {
     Public function index(Request $request)
     {
-        //REQUEST
+        // REQUEST
         $anno = $request->get('anno');
         $mes = $request->get('mes');
 
-        //Grafico de Region
+        // Grafico de Region
         $regionnum = DB::table('indicador_sulfato')
                     ->select([
                             DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM_R'),
@@ -117,7 +116,7 @@ class SulfatoController extends Controller
         $red_den = array_column($red_den,'DEN_RED');
 
         // Tabla de Distrito
-                $distrito = DB::table('indicador_sulfato')
+        $distrito = DB::table('indicador_sulfato')
                 ->select([
                         'PERIODO',
                         'ANNO',
@@ -135,7 +134,7 @@ class SulfatoController extends Controller
                 ->groupBy('DISTRITO')
                 ->orderBy('PORCENTAJE', 'desc')
                 ->get();
-                    
+
         return view('admin.sulfato.index')
                 ->with('regionnum',json_encode($regionnum,JSON_NUMERIC_CHECK))
                 ->with('regionden',json_encode($regionden,JSON_NUMERIC_CHECK))
@@ -147,6 +146,11 @@ class SulfatoController extends Controller
                 ->with('red_den',json_encode($red_den,JSON_NUMERIC_CHECK))
                 ->with(['distrito' => $distrito]);
                 
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new SulfatoExport,'Sulfato-list.xlsx');
     }
 
 }
