@@ -8,14 +8,34 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\SulfatoExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class SulfatoController extends Controller
 {
     Public function index(Request $request)
     {
+        $m_anno = [ 2018 => "2018",
+                    2019 => "2019",
+                    2020 => "2020",
+                ];
+        
+        $m_mes = [      
+                   1 => "Enero",
+                   2 => "Febrero",
+                   3 => "Marzo",
+                   4 => "Abril",
+                   5 => "Mayo",
+                   6 => "Junio",
+                   7 => "Julio",
+                   8 => "Agosto",
+                   9 => "Setiembre",
+                  10 => "Octubre",
+                  11 =>"Noviembre",
+                  12 =>"Diciembre",
+                ];
+                
         // REQUEST
         $anno = $request->get('anno');
         $mes = $request->get('mes');
-
         // Grafico de Region
         $regionnum = DB::table('indicador_sulfato')
                     ->select([
@@ -144,13 +164,17 @@ class SulfatoController extends Controller
                 ->with('red',json_encode($red,JSON_NUMERIC_CHECK))
                 ->with('red_num',json_encode($red_num,JSON_NUMERIC_CHECK)) 
                 ->with('red_den',json_encode($red_den,JSON_NUMERIC_CHECK))
-                ->with(['distrito' => $distrito]);
-                
+                ->with(['distrito' => $distrito])
+                ->with(['m_anno' => $m_anno])
+                ->with(['m_mes' => $m_mes]);
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new SulfatoExport,'Sulfato-list.xlsx');
+        // REQUEST
+        $anno = $request->get('anno');
+        $mes = $request->get('mes');
+        return Excel::download(new SulfatoExport($anno,$mes),'Sulfato-list.xlsx');
     }
 
 }

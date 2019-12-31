@@ -9,9 +9,20 @@ use Illuminate\Support\Facades\DB;
 
 class SulfatoExport implements FromCollection
 {  
+
+    
+    public function __construct($anno,$mes) {
+        
+        $this->anno = $anno;
+        $this->mes = $mes;
+      
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
+
+        
     public function collection()
     {       
         
@@ -25,8 +36,8 @@ class SulfatoExport implements FromCollection
                             DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
                             DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
                             ])
-                    ->where('ANNO','=', 2019)
-                    ->where('MES','=', 11)
+                    ->where('ANNO','=',$this->anno)
+                    ->where('MES','=', $this->mes)
                     ->groupBy('PERIODO')
                     ->groupBy('ANNO')
                     ->groupBy('MES')
