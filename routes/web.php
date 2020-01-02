@@ -16,9 +16,11 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     //Sulfato
     Route::get('sulfato', 'SulfatoController@index')->name('admin.sulfato');
     //Excel distrito
-    //Route::get('sulfato-list/{anno}', 'SulfatoController@exportExcel')->name('admin.sulfato.excel');
-    //Route::get('sulfato-list/{mes}', 'SulfatoController@exportExcel')->name('admin.sulfato.excel');
     Route::get('sulfato-list', 'SulfatoController@exportExcel')->name('admin.sulfato.excel');
+    //Excel microred
+    Route::get('sulfato-microred', 'SulfatoController@exportExcelMicrored')->name('admin.sulfato.excel.microred');
+    //Excel establecimineto
+    Route::get('sulfato-establecimiento', 'SulfatoController@exportExcelEstablecimiento')->name('admin.sulfato.excel.establecimiento');
     ///*****************************************************************************************//
     //Reporte
     Route::get('reporte/{paciente}', 'ReporteController@show')->name('admin.reporte.show'); 

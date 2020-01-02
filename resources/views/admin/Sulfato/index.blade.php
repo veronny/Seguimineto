@@ -30,8 +30,8 @@
                                     </select>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search"></span>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i>  Consultar
                                 </button>
                             </div>
                         {{ Form::close()}}         
@@ -45,11 +45,11 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                <div class="box-tools">
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-success">
-                        Informacion Nominal
-                    </button>  
-                </div>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myMo">
+                            Informacion Nominal
+                        </button>  
+                    </div>
                 </h3>
             <!-- /.box-tools -->
             </div>
@@ -59,7 +59,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Avance Regional</h3>
@@ -74,46 +74,81 @@
         </div>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Avance por provincias de Junin</h3>
-                    <div class="box-tools pull-right"></div>
+                <h3 class="box-title">Avance por redes de Salud</h3>
+                    <div class="box-tools pull-right">
+                    <!-- modal grafico -->
+                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalProv">
+                            <i class="fa fa-bar-chart"></i> Grafico Estadistico
+                        </button>
+                                                                      
+                        <div class="modal fade" id="myModalProv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Cerrar</span>
+                                        </button>
+                                        <h4 class="provincia" id="myModalLabel">Grafico Avance</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class='modal-body1'>
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div class=""></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                                <canvas id="provincia" style="width: 100%; display: block;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body" style="display: block;">
-                <div class="chartjs-size-monitor">
-                    <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
-                    </div>
-                <div class="chartjs-size-monitor-shrink">
-                    <div class=""></div>
-                    </div>
+                <div class="box-body table-responsive no-padding">
+                    <table id="prov" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>PROVINCIA</th>
+                                <th>NIÑOS</th>
+                                <th>CUMPLEN</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($provincia as $provin)
+                            <tr>
+                                <td><font color="#4682B4">{{ $provin->PROVINCIA }}</font></td>
+                                <td>{{ $provin->NUM }}</td>
+                                <td>{{ $provin->DEN }}</td>
+                                @if($provin->PORCENTAJE <= 90)         
+                                    <td><font color="#FF0000">{{ $provin->PORCENTAJE }}</font></td>         
+                                @else
+                                    <td><font color="#008000">{{ $provin->PORCENTAJE }}</font></td>          
+                                @endif                                
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <canvas id="provincia" style="width: 100%; display: block;" width="1000" height="500" class="chartjs-render-monitor"></canvas>     
             </div>
             <!-- /.box-body -->
         </div>
     </div>
 
-    <div class="col-md-5">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Avance por redes de Salud</h3>
-                    <div class="box-tools pull-right"></div>
-            <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body" style="display: block;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                <canvas id="redes" style="width: 100%; display: block;" width="507" height="253" class="chartjs-render-monitor"></canvas>
-            </div>
-            <!-- /.box-body -->
-        </div>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
@@ -121,22 +156,14 @@
                     <div class="box-tools pull-right">
                         {{ Form::open(['route' => 'admin.sulfato.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
-                            <select name="anno" class="form-control dynamic anno" id="anno">
-                                @foreach($m_anno as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option> 
-                                @endforeach      
-                            </select>
+                            <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden" />
                         </div>
                         <div class="form-group">
-                            <select name="mes" class="form-control dynamic mes" id="mes">
-                                @foreach($m_mes as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option> 
-                                @endforeach
-                            </select>
+                            <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden" />
                         </div>
                             <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">
-                                <i class="fa fa-file-excel-o"></i> Descargar</a>
+                                <i class="fa fa-file-excel-o"></i> Descargar
                             </button>                           
                         </div>
                         {{ Form::close()}} 
@@ -176,17 +203,133 @@
             <!-- /.Tabla de distritos-->
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Avance por redes de Salud</h3>
+                    <div class="box-tools pull-right">
+                    <!-- modal grafico -->
+                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalRedes">
+                            <i class="fa fa-bar-chart"></i> Grafico Estadistico
+                        </button>
+                                                                      
+                        <div class="modal fade" id="myModalRedes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Cerrar</span>
+                                        </button>
+                                        <h4 class="redes" id="myModalLabel">Grafico Avance</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class='modal-body1Redes'>
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div class=""></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                                <canvas id="redes" style="width: 100%; display: block;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="display: block;">
+                <div class="box-body table-responsive no-padding">
+                    <table id="redes" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>REDES</th>
+                                <th>NIÑOS</th>
+                                <th>CUMPLEN</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($redes as $re)
+                            <tr>
+                                <td><font color="#4682B4">{{ $re->NOMBRE_RED }}</font></td>
+                                <td>{{ $re->NUM }}</td>
+                                <td>{{ $re->DEN }}</td>
+                                @if($re->PORCENTAJE <= 90)         
+                                    <td><font color="#FF0000">{{ $re->PORCENTAJE }}</font></td>         
+                                @else
+                                    <td><font color="#008000">{{ $re->PORCENTAJE }}</font></td>          
+                                @endif                                
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
 
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Micro Redes</h3>
-                    <div class="box-tools pull-right"></div>
+                    <div class="box-tools pull-right">
+                        {{ Form::open(['route' => 'admin.sulfato.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        <div class="form-group">                                
+                            <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden" />
+                        </div>
+                        <div class="form-group">
+                            <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden" />
+                        </div>
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Descargar
+                            </button>                           
+                        </div>
+                        {{ Form::close()}} 
+                    </div>
             <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="display: block;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                <canvas id="scatter" style="width: 100%; display: block;" width="507" height="253" class="chartjs-render-monitor"></canvas>
+            <div class="box-body" style="display: block;">
+                <div class="box-body table-responsive no-padding">
+                    <table id="microred" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>MICRORED</th>
+                                <th>NIÑOS</th>
+                                <th>CUMPLEN</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($microred as $mr)
+                            <tr>
+                                <td><font color="#4682B4">{{ $mr->NOMBRE_MICRORED }}</font></td>
+                                <td>{{ $mr->NUM }}</td>
+                                <td>{{ $mr->DEN }}</td>
+                                @if($mr->PORCENTAJE <= 90)         
+                                    <td><font color="#FF0000">{{ $mr->PORCENTAJE }}</font></td>         
+                                @else
+                                    <td><font color="#008000">{{ $mr->PORCENTAJE }}</font></td>          
+                                @endif                                
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.box-body -->
         </div>
@@ -196,12 +339,53 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Establecimientos</h3>
-                    <div class="box-tools pull-right"></div>
+                    <div class="box-tools pull-right">
+                        <div class="box-tools pull-right">
+                            {{ Form::open(['route' => 'admin.sulfato.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                            <div class="form-group">                                
+                                <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden" />
+                            </div>
+                            <div class="form-group">
+                                <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden" />
+                            </div>
+                                <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fa fa-file-excel-o"></i> Descargar
+                                </button>                           
+                            </div>
+                            {{ Form::close()}} 
+                        </div>
+                    </div>
             <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="display: block;"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                <canvas id="line" style="width: 100%; display: block;" width="507" height="253" class="chartjs-render-monitor"></canvas>
+            <div class="box-body" style="display: block;">
+                <div class="box-body table-responsive no-padding">
+                    <table id="establecimiento" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ESTABLECIMIENTO</th>
+                                <th>NIÑOS</th>
+                                <th>CUMPLEN</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($establecimiento as $e)
+                            <tr>
+                                <td><font color="#4682B4">{{ $e->Nombre_EESS_atencion }}</font></td>
+                                <td>{{ $e->NUM }}</td>
+                                <td>{{ $e->DEN }}</td>
+                                @if($e->PORCENTAJE <= 90)         
+                                    <td><font color="#FF0000">{{ $e->PORCENTAJE }}</font></td>         
+                                @else
+                                    <td><font color="#008000">{{ $e->PORCENTAJE }}</font></td>          
+                                @endif                                
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.box-body -->
         </div>
@@ -213,6 +397,7 @@
 <script type="text/javascript">   
     $(document).ready(function() {
         $('#distrito').DataTable({  
+            "lengthMenu": [[6, 25, 50, -1], [6, 25, 50, "Todos"]],
             "language": {
                 "info": "_TOTAL_ registros",
                 "search":"Buscar",
@@ -221,9 +406,10 @@
                         "previous": "Anterior",
                 },
                 "lengthMenu": 'Ver <select>'+
-                                '<option value="10">10</option>'+
-                                '<option value="30">30</option>'+
-                                '<option value="124">124</option>'+
+                                '<option value="6">6</option>'+
+                                '<option value="25">25</option>'+
+                                '<option value="50">50</option>'+
+                                '<option value="-1">Todos</option>'+
                                 '</select> registros',
                 "loadingRecords": "Cargando...",
                 "processing": "Procesando",
@@ -234,9 +420,83 @@
             }
         });
     });
-</script>    
+</script>
+
+<script type="text/javascript">   
+    $(document).ready(function() {
+        $('#microred').DataTable({  
+            "lengthMenu": [[8, 25, 50, -1], [8, 25, 50, "Todos"]],
+            "language": {
+                "info": "_TOTAL_ registros",
+                "search":"Buscar",
+                "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                },
+                "lengthMenu": 'Ver <select>'+
+                                '<option value="8">8</option>'+
+                                '<option value="25">25</option>'+
+                                '<option value="50">50</option>'+
+                                '<option value="-1">Todos</option>'+
+                                '</select> registros',
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando",
+                "emptyTable": "No hay datos",
+                "zeroRecords":"No hay conincidencias",
+                "infoEmpty": "",
+                "infoFiltered":"",
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">   
+    $(document).ready(function() {
+        $('#establecimiento').DataTable({  
+            "lengthMenu": [[8, 25, 50, -1], [8, 25, 50, "Todos"]],
+            "language": {
+                "info": "_TOTAL_ registros",
+                "search":"Buscar",
+                "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                },
+                "lengthMenu": 'Ver <select>'+
+                                '<option value="8">8</option>'+
+                                '<option value="25">25</option>'+
+                                '<option value="50">50</option>'+
+                                '<option value="-1">Todos</option>'+
+                                '</select> registros',
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando",
+                "emptyTable": "No hay datos",
+                "zeroRecords":"No hay conincidencias",
+                "infoEmpty": "",
+                "infoFiltered":"",
+            }
+        });
+    });
+</script>
 
 <script type="text/javascript">
+    $(document).ready(function() {
+        $(".modalProv").on("hidden.bs.modal", function() {
+            $(".modal-body1Prov").html("ss Where did he go?!?!?!");
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".modalRedes").on("hidden.bs.modal", function() {
+            $(".modal-body1Redes").html("Recagafar pafonoWhere did he go?!?!?!");
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+// Select año y mes
     $(document).ready(function() {
         $('.anno').select2({
             dropdownAutoWidth: true
@@ -399,7 +659,7 @@ $(function () {
 
     var ctx = document.getElementById('redes').getContext('2d');
     new Chart(ctx, {
-                    type: 'horizontalBar',
+                    type: 'bar',
                     data: barChartData,
                     options: {
                                 responsive: true,

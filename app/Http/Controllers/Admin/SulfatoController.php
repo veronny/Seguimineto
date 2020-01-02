@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Exports\SulfatoExport;
+use App\Exports\SulfatoExportEstablecimiento;
+use App\Exports\SulfatoExportMicrored;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -13,7 +15,8 @@ class SulfatoController extends Controller
 {
     Public function index(Request $request)
     {
-        $m_anno = [ 2018 => "2018",
+        // Matrices para select
+        $m_anno = [ 
                     2019 => "2019",
                     2020 => "2020",
                 ];
@@ -33,9 +36,23 @@ class SulfatoController extends Controller
                   12 =>"Diciembre",
                 ];
                 
-        // REQUEST
+        // Request
         $anno = $request->get('anno');
         $mes = $request->get('mes');
+        
+        // Request para Graficos
+        $r_anno =  DB::table('indicador_sulfato')
+                        ->select('ANNO')
+                        ->where('ANNO','=',$anno)
+                        ->groupBy('ANNO')
+                        ->get();
+        
+        $r_mes =  DB::table('indicador_sulfato')
+                        ->select('MES')
+                        ->where('MES','=',$mes)
+                        ->groupBy('MES')
+                        ->get();
+
         // Grafico de Region
         $regionnum = DB::table('indicador_sulfato')
                     ->select([
@@ -47,6 +64,7 @@ class SulfatoController extends Controller
                     ->groupBy('ANNO')
                     ->groupBy('MES')
                     ->get()->toArray();
+
         $regionnum = array_column($regionnum,'NUM_R');
 
         $regionden = DB::table('indicador_sulfato')
@@ -135,6 +153,27 @@ class SulfatoController extends Controller
                         ->get()->toArray();
         $red_den = array_column($red_den,'DEN_RED');
 
+        // Tabla de Provincia
+        $provincia = DB::table('indicador_sulfato')
+                ->select([
+                        'PERIODO',
+                        'ANNO',
+                        'MES',
+                        'PROVINCIA',
+                        DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                        DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                        DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                        ])
+                ->where('ANNO','=', $anno)
+                ->where('MES','=', $mes)
+                ->groupBy('PERIODO')
+                ->groupBy('ANNO')
+                ->groupBy('MES')
+                ->groupBy('PROVINCIA')
+                ->orderBy('PORCENTAJE', 'desc')
+                ->get();
+        
+        
         // Tabla de Distrito
         $distrito = DB::table('indicador_sulfato')
                 ->select([
@@ -155,6 +194,66 @@ class SulfatoController extends Controller
                 ->orderBy('PORCENTAJE', 'desc')
                 ->get();
 
+        // Tabla de Red
+        $redes = DB::table('indicador_sulfato')
+                ->select([
+                        'PERIODO',
+                        'ANNO',
+                        'MES',
+                        'NOMBRE_RED',
+                        DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                        DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                        DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                        ])
+                ->where('ANNO','=', $anno)
+                ->where('MES','=', $mes)
+                ->groupBy('PERIODO')
+                ->groupBy('ANNO')
+                ->groupBy('MES')
+                ->groupBy('NOMBRE_RED')
+                ->orderBy('PORCENTAJE', 'desc')
+                ->get();
+        
+        // Tabla de MicroRed
+        $microred = DB::table('indicador_sulfato')
+                ->select([
+                        'PERIODO',
+                        'ANNO',
+                        'MES',
+                        'NOMBRE_MICRORED',
+                        DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                        DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                        DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                        ])
+                ->where('ANNO','=', $anno)
+                ->where('MES','=', $mes)
+                ->groupBy('PERIODO')
+                ->groupBy('ANNO')
+                ->groupBy('MES')
+                ->groupBy('NOMBRE_MICRORED')
+                ->orderBy('PORCENTAJE', 'desc')
+                ->get();
+        
+        // Tabla de Establecimiento
+        $establecimiento = DB::table('indicador_sulfato')
+                ->select([
+                        'PERIODO',
+                        'ANNO',
+                        'MES',
+                        'Nombre_EESS_atencion',
+                        DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                        DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                        DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
+                        ])
+                ->where('ANNO','=', $anno)
+                ->where('MES','=', $mes)
+                ->groupBy('PERIODO')
+                ->groupBy('ANNO')
+                ->groupBy('MES')
+                ->groupBy('Nombre_EESS_atencion')
+                ->orderBy('PORCENTAJE', 'desc')
+                ->get();
+
         return view('admin.sulfato.index')
                 ->with('regionnum',json_encode($regionnum,JSON_NUMERIC_CHECK))
                 ->with('regionden',json_encode($regionden,JSON_NUMERIC_CHECK))
@@ -164,17 +263,42 @@ class SulfatoController extends Controller
                 ->with('red',json_encode($red,JSON_NUMERIC_CHECK))
                 ->with('red_num',json_encode($red_num,JSON_NUMERIC_CHECK)) 
                 ->with('red_den',json_encode($red_den,JSON_NUMERIC_CHECK))
+                ->with(['provincia' => $provincia])
                 ->with(['distrito' => $distrito])
+                ->with(['redes' => $redes])
+                ->with(['microred' => $microred])
+                ->with(['establecimiento' => $establecimiento])
                 ->with(['m_anno' => $m_anno])
-                ->with(['m_mes' => $m_mes]);
+                ->with(['m_mes' => $m_mes])
+                ->with(['r_anno' => $r_anno])
+                ->with(['r_mes' => $r_mes]);                                
     }
 
     public function exportExcel(Request $request)
     {
         // REQUEST
-        $anno = $request->get('anno');
-        $mes = $request->get('mes');
+        $anno = $request->get('r_anno');
+        $mes = $request->get('r_mes');
+        
         return Excel::download(new SulfatoExport($anno,$mes),'Sulfato-list.xlsx');
+    }
+
+    public function exportExcelMicrored(Request $request)
+    {
+        // REQUEST
+        $anno = $request->get('r_anno');
+        $mes = $request->get('r_mes');
+        
+        return Excel::download(new SulfatoExportMicrored($anno,$mes),'Sulfato-microred.xlsx');
+    }
+
+    public function exportExcelEstablecimiento(Request $request)
+    {
+        // REQUEST
+        $anno = $request->get('r_anno');
+        $mes = $request->get('r_mes');
+        
+        return Excel::download(new SulfatoExportEstablecimiento($anno,$mes),'Sulfato-establecimiento.xlsx');
     }
 
 }
