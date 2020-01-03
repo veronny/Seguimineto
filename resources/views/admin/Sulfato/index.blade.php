@@ -46,9 +46,10 @@
             <div class="box-header with-border">
                 <h3 class="box-title">
                     <div class="box-tools">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myMo">
-                            Informacion Nominal
-                        </button>  
+                        <td width="10px">
+                            <a href="{{ route('admin.sulfato.show') }}" class="btn btn-primary">
+                                <i class="fa fa-users"></i> Informacion Nominal</a>
+                        </td>
                     </div>
                 </h3>
             <!-- /.box-tools -->
@@ -156,12 +157,12 @@
                     <div class="box-tools pull-right">
                         {{ Form::open(['route' => 'admin.sulfato.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
-                            <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden" />
+                            <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
                         <div class="form-group">
-                            <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden" />
+                            <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
-                            <div class="form-group">
+                        <div class="form-group pull-right">
                             <button type="submit" class="btn btn-success btn-sm">
                                 <i class="fa fa-file-excel-o"></i> Descargar
                             </button>                           
@@ -236,7 +237,7 @@
                                                     <div class=""></div>
                                                 </div>
                                             </div>
-                                                <canvas id="redes" style="width: 100%; display: block;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+                                                <canvas id="redes" style="width: 100%; display: block;" width="6000" height="5000" class="chartjs-render-monitor"></canvas>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -288,10 +289,10 @@
                     <div class="box-tools pull-right">
                         {{ Form::open(['route' => 'admin.sulfato.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
-                            <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden" />
+                            <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
                         <div class="form-group">
-                            <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden" />
+                            <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
                             <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">
@@ -343,10 +344,10 @@
                         <div class="box-tools pull-right">
                             {{ Form::open(['route' => 'admin.sulfato.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
-                                <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden" />
+                                <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                             </div>
                             <div class="form-group">
-                                <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden" />
+                                <input name="r_mes" id="r_mes" value="@foreach($r_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                             </div>
                                 <div class="form-group">
                                 <button type="submit" class="btn btn-success btn-sm">
@@ -364,7 +365,7 @@
                     <table id="establecimiento" class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ESTABLECIMIENTO</th>
+                                <th>ESTABLEC</th>
                                 <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
@@ -590,27 +591,27 @@ $(function () {
                                         position: 'top',
                                         },
                                 title: {
-                                        display: true,
+                                        display: false,
                                         },
                                 legend: {
                                         display: false,
                                     },
                                 scales: {
                                         yAxes: [{
-                                                ticks:{
-                                                        fontSize: 10,
-                                                        gridLines: {
-                                                                    display: false,
-                                                                    }
-                                                }
-                                            }],
-                                        xAxes: [{
                                             ticks:{
                                                 fontSize: 8,
                                                 gridLines: {
                                                             display: false,
                                                             }
-                                            }
+                                                }
+                                            }],
+                                        xAxes: [{
+                                            ticks:{
+                                                fontSize: 6,
+                                                gridLines: {
+                                                            display: false,
+                                                            }
+                                                }
                                             }],
                                         },
                     }
@@ -667,23 +668,23 @@ $(function () {
                                         position: 'top',
                                         },
                                 title: {
-                                        display: true,
+                                        display: false,
                                         },
                                 legend: {
                                         display: false,
                                 },
                                 scales: {
-                                            yAxes: [{
-                                                    ticks:{
-                                                            fontSize: 8,
-                                                            gridLines: {
-                                                                        display: false,
-                                                                        }
+                                        yAxes: [{
+                                                ticks:{
+                                                    fontSize: 8,
+                                                    gridLines: {
+                                                                display: false,
+                                                               }
                                                     }
                                                 }],
-                                            xAxes: [{
+                                        xAxes: [{
                                                 ticks:{
-                                                    fontSize: 10,
+                                                    fontSize: 4,
                                                     gridLines: {
                                                                 display: false,
                                                                 }
@@ -691,7 +692,7 @@ $(function () {
                                                 }],
                                             },
                     }
-             });
+            });
 });    
 </script>
 @stop
