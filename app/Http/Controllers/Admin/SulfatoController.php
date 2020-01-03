@@ -301,4 +301,9 @@ class SulfatoController extends Controller
         return Excel::download(new SulfatoExportEstablecimiento($anno,$mes),'Sulfato-establecimiento.xlsx');
     }
 
+    public function show()
+    {     
+        return view('admin.sulfato.show');
+    }
+
 }

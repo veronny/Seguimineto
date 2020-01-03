@@ -15,6 +15,7 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
 
     //Sulfato
     Route::get('sulfato', 'SulfatoController@index')->name('admin.sulfato');
+    Route::get('sulfato/show','SulfatoController@show')->name('admin.sulfato.show');
     //Excel distrito
     Route::get('sulfato-list', 'SulfatoController@exportExcel')->name('admin.sulfato.excel');
     //Excel microred
