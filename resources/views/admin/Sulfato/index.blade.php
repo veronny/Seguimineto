@@ -61,7 +61,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="box">
+        <div class="box box-danger">
             <div class="box-header with-border">
                 <h3 class="box-title">Avance Regional</h3>
                     <div class="box-tools pull-right"></div>
@@ -76,7 +76,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="box">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por redes de Salud</h3>
                     <div class="box-tools pull-right">
@@ -151,7 +151,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="box">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
                     <div class="box-tools pull-right">

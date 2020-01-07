@@ -13,7 +13,7 @@
         <div class="pull-left">
             <!-- Button con nombre-->
             <div class="btn-group" style="margin-right: 5px" data-toggle="buttons">
-                <label class="btn btn-sm btn-primary active" title="Cribado">
+                <label class="btn btn-sm btn-primary btn-filter active" title="Cribado">
                     <input type="checkbox"><i class="fa fa-filter"></i><span class="hidden-xs"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">  Seleccione Filtros</font></font></span>
                 </label>
                 <!-- button de lista desplegable -->
@@ -89,283 +89,408 @@
         </div>
         <!-- /.box-tools -->
     </div>
-
-    <!-- PROVINCIA -->
-    <div class="box-header with-border" id="filter-box">
-        {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8"></div>
-                <div class="box-body">
-                    <div class="fields-group">
-                        <div class="form-group">
-                            <select name="anno" class="form-control dynamic anno" id="anno">
-                                    @foreach($m_anno as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach      
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="mes" class="form-control dynamic mes" id="mes">
-                                    @foreach($m_mes as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
+    <div class="box-header with-border">
+        <!-- PROVINCIA -->
+        <div id="filter-box">
+            {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-8"></div>
+                    <div class="box-body">
+                        <div class="fields-group">
+                            <div class="form-group">
+                                <select name="anno" class="form-control dynamic anno" id="anno">
+                                        @foreach($m_anno as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach      
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="mes" class="form-control dynamic mes" id="mes">
+                                        @foreach($m_mes as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="provincia" class="form-control dynamic provincia">
+                                    <option>-- Seleccione provincia --</option>    
+                                    @foreach($provincia as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option> 
+                                        @endforeach
+                                    </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <select name="provincia" class="form-control dynamic provincia">
-                                <option>-- Seleccione provincia --</option>    
-                                @foreach($provincia as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-left">
+                                        <button class="btn btn-success submit btn-sm">
+                                            <i class="fa fa-search"></i>  Buscar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ Form::close()}}
+        </div>
+
+        <!-- DISTRITO -->
+        <div id="filter-distrito">
+            {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-8"></div>
+                    <div class="box-body">
+                        <div class="fields-group">
+                            <div class="form-group">
+                                <select name="anno" class="form-control dynamic anno" id="anno">
+                                        @foreach($m_anno as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach      
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="mes" class="form-control dynamic mes" id="mes">
+                                        @foreach($m_mes as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="distrito" class="form-control dynamic distrito">
+                                    <option>-- Seleccione distrito --</option>
+                                        @foreach($distrito as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-2"></div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="btn-group pull-left">
-                                    <button class="btn btn-success submit btn-sm">
-                                        <i class="fa fa-search"></i>  Buscar
-                                    </button>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-left">
+                                        <button class="btn btn-success submit btn-sm">
+                                            <i class="fa fa-search"></i>  Buscar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {{ Form::close()}}
         </div>
-        {{ Form::close()}}
-    </div>
 
-    <!-- DISTRITO -->
-    <div class="box-header with-border" id="filter-distrito">
-        {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8"></div>
-                <div class="box-body">
-                    <div class="fields-group">
-                        <div class="form-group">
-                            <select name="anno" class="form-control dynamic anno" id="anno">
-                                    @foreach($m_anno as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach      
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="mes" class="form-control dynamic mes" id="mes">
-                                    @foreach($m_mes as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="distrito" class="form-control dynamic distrito">
-                                <option>-- Seleccione distrito --</option>
-                                    @foreach($distrito as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
+        <!-- RED -->
+        <div id="filter-red">
+            {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-8"></div>
+                    <div class="box-body">
+                        <div class="fields-group">
+                            <div class="form-group">
+                                <select name="anno" class="form-control dynamic anno" id="anno">
+                                        @foreach($m_anno as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach      
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="mes" class="form-control dynamic mes" id="mes">
+                                        @foreach($m_mes as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="red" class="form-control dynamic red">
+                                    <option>-- Seleccione Red --</option>
+                                        @foreach($red as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-2"></div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="btn-group pull-left">
-                                    <button class="btn btn-success submit btn-sm">
-                                        <i class="fa fa-search"></i>  Buscar
-                                    </button>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-left">
+                                        <button class="btn btn-success submit btn-sm">
+                                            <i class="fa fa-search"></i>  Buscar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {{ Form::close()}}
         </div>
-        {{ Form::close()}}
-    </div>
 
-    <!-- RED -->
-    <div class="box-header with-border" id="filter-red">
-        {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8"></div>
-                <div class="box-body">
-                    <div class="fields-group">
-                        <div class="form-group">
-                            <select name="anno" class="form-control dynamic anno" id="anno">
-                                    @foreach($m_anno as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach      
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="mes" class="form-control dynamic mes" id="mes">
-                                    @foreach($m_mes as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="red" class="form-control dynamic red">
-                                <option>-- Seleccione Red --</option>
-                                    @foreach($red as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
+        <!-- MICRO RED -->
+        <div id="filter-microred">
+            {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-8"></div>
+                    <div class="box-body">
+                        <div class="fields-group">
+                            <div class="form-group">
+                                <select name="anno" class="form-control dynamic anno" id="anno">
+                                        @foreach($m_anno as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach      
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="mes" class="form-control dynamic mes" id="mes">
+                                        @foreach($m_mes as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="microred" class="form-control dynamic microred" id="microred">
+                                    <option>-- Seleccione Micro Red --</option>
+                                        @foreach($microred as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-2"></div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="btn-group pull-left">
-                                    <button class="btn btn-success submit btn-sm">
-                                        <i class="fa fa-search"></i>  Buscar
-                                    </button>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-left">
+                                        <button class="btn btn-success submit btn-sm">
+                                            <i class="fa fa-search"></i>  Buscar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {{ Form::close()}}
         </div>
-        {{ Form::close()}}
-    </div>
 
-    <!-- MICRO RED -->
-    <div class="box-header with-border" id="filter-microred">
-        {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8"></div>
-                <div class="box-body">
-                    <div class="fields-group">
-                        <div class="form-group">
-                            <select name="anno" class="form-control dynamic anno" id="anno">
-                                    @foreach($m_anno as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach      
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="mes" class="form-control dynamic mes" id="mes">
-                                    @foreach($m_mes as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="red" class="form-control dynamic microred">
-                                <option>-- Seleccione Micro Red --</option>
-                                    @foreach($microred as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
+        <!-- ESTABLECIMIENTO -->
+        <div id="filter-establecimiento">
+            {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-8"></div>
+                    <div class="box-body">
+                        <div class="fields-group">
+                            <div class="form-group">
+                                <select name="anno" class="form-control dynamic anno" id="anno">
+                                        @foreach($m_anno as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach      
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="mes" class="form-control dynamic mes" id="mes">
+                                        @foreach($m_mes as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="red" class="form-control dynamic establecimiento">
+                                        <option>-- Seleccione establecimiento --</option>
+                                        @foreach($establecimiento as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option> 
+                                        @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-2"></div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="btn-group pull-left">
-                                    <button class="btn btn-success submit btn-sm">
-                                        <i class="fa fa-search"></i>  Buscar
-                                    </button>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-left">
+                                        <button class="btn btn-success submit btn-sm">
+                                            <i class="fa fa-search"></i>  Buscar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {{ Form::close()}}
         </div>
-        {{ Form::close()}}
-    </div>
-
-    <!-- ESTABLECIMIENTO -->
-    <div class="box-header with-border" id="filter-establecimiento">
-        {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8"></div>
-                <div class="box-body">
-                    <div class="fields-group">
-                        <div class="form-group">
-                            <select name="anno" class="form-control dynamic anno" id="anno">
-                                    @foreach($m_anno as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach      
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="mes" class="form-control dynamic mes" id="mes">
-                                    @foreach($m_mes as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="red" class="form-control dynamic establecimiento">
-                                    <option>-- Seleccione establecimiento --</option>
-                                    @foreach($establecimiento as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option> 
-                                    @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-12">
-                                <div class="btn-group pull-left">
-                                    <button class="btn btn-success submit btn-sm">
-                                        <i class="fa fa-search"></i>  Buscar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{ Form::close()}}
     </div>
     <!-- /.box-header -->
-    <!-- box-body -->
-    <div class="box-body">
+
+    <!-- Tabla Provincia -->
+    <div class="box-body" style="display: block;">
         <div class="box-body table-responsive no-padding">
-            <a class="product-title">Padron de Niños</a>
-            <table class="table table-hover table-striped">
+            <table id="dt_provincia" class="table table-striped table-hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th width="20px">SISMED</th>
-                        <th>NOMBRE (Denom,Conc,Pres,FF)</th>
-                        <th>PRES</th>
-                        <th>ENTR</th>
-                        <th>DX</th>
-                        <th colspan="2">&nbsp;</th>
+                        <th width="20px">DNI</th>
+                        <th>NOMBRE DEL NIÑO</th>
+                        <th>FECHA NAC</th>
+                        <th>RANGO INICIO</th>
+                        <th>FECHA ATE</th>
+                        <th>EDAD ATE</th>
+                        <th>RANGO FINAL</th>
+                        <th>INDICADOR</th>
+                        <th>TIPO SEGURO</th>
+                        <th>DISTRITO</th>
+                        <th>ESTABLECIMIENTO</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($t_provincia as $provin)
+                        <tr>
+                            <td><font color="#4682B4">{{ $provin->DNI_NINIO }}</font></td>
+                            <td><font color="#4682B4">{{ $provin->NOMBRE_NINIO }}</font></td>
+                            <td>{{ $provin->FECHA_NAC }}</td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($provin->FECHA_INICIO)) }}</font></td>
+                            @if($provin->DNI_cumple_HIS != null)
+                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($provin->Fecha_HIS)) }}</font></td>  
+                            @else
+                                <td><font color="#2E8B57">{{ $provin->Fecha_HIS }}</font></td>
+                            @endif                           
+                            <td><font color="#008000">{{ $provin->edad_dias_HIS }}</font></td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($provin->FECHA_FIN)) }}</font></td>
+                            @if($provin->DNI_cumple_HIS >= 1)         
+                                <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
+                            @else
+                                <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
+                            @endif      
+                            <td>{{ $provin->TIPO_SEGURO }}</td> 
+                            <td>{{ $provin->DISTRITO }}</td>
+                            <td>{{ $provin->Nombre_EESS_atencion }}</td>
+                        </tr>
+                    @endforeach
+                    <!-- Tabla Distrito -->
+                    @foreach($t_distrito as $distri)
+                        <tr>
+                            <td><font color="#4682B4">{{ $distri->DNI_NINIO }}</font></td>
+                            <td><font color="#4682B4">{{ $distri->NOMBRE_NINIO }}</font></td>
+                            <td>{{ $distri->FECHA_NAC }}</td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($distri->FECHA_INICIO)) }}</font></td>
+                            @if($distri->DNI_cumple_HIS != null)
+                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($distri->Fecha_HIS)) }}</font></td>  
+                            @else
+                                <td><font color="#2E8B57">{{ $distri->Fecha_HIS }}</font></td>
+                            @endif                           
+                            <td><font color="#008000">{{ $distri->edad_dias_HIS }}</font></td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($distri->FECHA_FIN)) }}</font></td>
+                            @if($distri->DNI_cumple_HIS >= 1)         
+                                <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
+                            @else
+                                <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
+                            @endif      
+                            <td>{{ $distri->TIPO_SEGURO }}</td> 
+                            <td>{{ $distri->DISTRITO }}</td>
+                            <td>{{ $distri->Nombre_EESS_atencion }}</td>
+                        </tr>
+                    @endforeach
+                    <!-- Tabla Red -->
+                    @foreach($t_red as $re)
+                        <tr>
+                            <td><font color="#4682B4">{{ $re->DNI_NINIO }}</font></td>
+                            <td><font color="#4682B4">{{ $re->NOMBRE_NINIO }}</font></td>
+                            <td>{{ $re->FECHA_NAC }}</td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($re->FECHA_INICIO)) }}</font></td>
+                            @if($re->DNI_cumple_HIS != null)
+                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($re->Fecha_HIS)) }}</font></td>  
+                            @else
+                                <td><font color="#2E8B57">{{ $re->Fecha_HIS }}</font></td>
+                            @endif                           
+                            <td><font color="#008000">{{ $re->edad_dias_HIS }}</font></td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($re->FECHA_FIN)) }}</font></td>
+                            @if($re->DNI_cumple_HIS >= 1)         
+                                <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
+                            @else
+                                <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
+                            @endif      
+                            <td>{{ $re->TIPO_SEGURO }}</td> 
+                            <td>{{ $re->DISTRITO }}</td>
+                            <td>{{ $re->Nombre_EESS_atencion }}</td>
+                        </tr>
+                    @endforeach
+                    <!-- Tabla Microred -->
+                    @foreach($t_microred as $mi)
+                    <tr>
+                        <td><font color="#4682B4">{{ $mi->DNI_NINIO }}</font></td>
+                        <td><font color="#4682B4">{{ $mi->NOMBRE_NINIO }}</font></td>
+                        <td>{{ $mi->FECHA_NAC }}</td>
+                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($mi->FECHA_INICIO)) }}</font></td>
+                        @if($mi->DNI_cumple_HIS != null)
+                            <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($mi->Fecha_HIS)) }}</font></td>  
+                        @else
+                            <td><font color="#2E8B57">{{ $mi->Fecha_HIS }}</font></td>
+                        @endif                           
+                        <td><font color="#008000">{{ $mi->edad_dias_HIS }}</font></td>
+                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($mi->FECHA_FIN)) }}</font></td>
+                        @if($mi->DNI_cumple_HIS >= 1)         
+                            <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
+                        @else
+                            <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
+                        @endif      
+                        <td>{{ $mi->TIPO_SEGURO }}</td> 
+                        <td>{{ $mi->DISTRITO }}</td>
+                        <td>{{ $mi->Nombre_EESS_atencion }}</td>
+                    </tr>
+                    @endforeach
+                    <!-- Tabla Establecimiento -->
+                    @foreach($t_establec as $es)
+                    <tr>
+                        <td><font color="#4682B4">{{ $es->DNI_NINIO }}</font></td>
+                        <td><font color="#4682B4">{{ $es->NOMBRE_NINIO }}</font></td>
+                        <td>{{ $es->FECHA_NAC }}</td>
+                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($es->FECHA_INICIO)) }}</font></td>
+                        @if($es->DNI_cumple_HIS != null)
+                            <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($es->Fecha_HIS)) }}</font></td>  
+                        @else
+                            <td><font color="#2E8B57">{{ $es->Fecha_HIS }}</font></td>
+                        @endif                           
+                        <td><font color="#008000">{{ $es->edad_dias_HIS }}</font></td>
+                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($es->FECHA_FIN)) }}</font></td>
+                        @if($es->DNI_cumple_HIS >= 1)         
+                            <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
+                        @else
+                            <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
+                        @endif      
+                        <td>{{ $es->TIPO_SEGURO }}</td> 
+                        <td>{{ $es->DISTRITO }}</td>
+                        <td>{{ $es->Nombre_EESS_atencion }}</td>
+                    </tr>
+                    @endforeach
 
                 </tbody>
             </table>
@@ -403,6 +528,18 @@
         $('.establecimiento').select2({
             dropdownAutoWidth: true
         });
+    });
+</script>
+
+<script type="text/javascript">
+    // boton para ocular todos
+    $('.btn-filter').unbind('click');
+    $('.btn-filter').click(function(e) {    
+        $('#filter-box').addClass('hide');
+        $('#filter-distrito').addClass('hide');
+        $('#filter-red').addClass('hide');
+        $('#filter-microred').addClass('hide');
+        $('#filter-establecimiento').addClass('hide');
     });
 </script>
 
@@ -468,6 +605,36 @@
         } else {
             $('#filter-establecimiento').removeClass('hide');
         }
+    });
+</script>
+
+<script type="text/javascript">   
+    $(document).ready(function() {
+        $('#dt_provincia').DataTable({  
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "fixedHeader": true,
+            "order": [[ 6, "asc" ]],
+            "language": {
+                "info": "_TOTAL_ registros",
+                "search":"Buscar",
+                "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                },
+                "lengthMenu": 'Ver <select>'+
+                                '<option value="10">10</option>'+
+                                '<option value="25">25</option>'+
+                                '<option value="50">50</option>'+
+                                '<option value="-1">Todos</option>'+
+                                '</select> registros',
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando",
+                "emptyTable": "No hay datos",
+                "zeroRecords":"No hay conincidencias",
+                "infoEmpty": "",
+                "infoFiltered":"",
+            }
+        });
     });
 </script>
 
