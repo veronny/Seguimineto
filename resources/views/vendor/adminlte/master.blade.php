@@ -26,7 +26,8 @@
     @if(config('adminlte.plugins.datatables'))
         <!-- DataTables -->
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+     <!--   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  -->
     @endif
 
     @yield('adminlte_css')

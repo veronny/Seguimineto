@@ -172,8 +172,7 @@ class SulfatoController extends Controller
                 ->groupBy('PROVINCIA')
                 ->orderBy('PORCENTAJE', 'desc')
                 ->get();
-        
-        
+
         // Tabla de Distrito
         $distrito = DB::table('indicador_sulfato')
                 ->select([
@@ -301,8 +300,17 @@ class SulfatoController extends Controller
         return Excel::download(new SulfatoExportEstablecimiento($anno,$mes),'Sulfato-establecimiento.xlsx');
     }
 
-    public function show()
+    public function show(Request $request)
     {     
+        // Request
+        $r_anno = $request->get('anno');
+        $r_mes = $request->get('mes');
+        $r_provincia = $request->get('provincia');
+        $r_distrito = $request->get('distrito');
+        $r_red = $request->get('red');
+        $r_microred = $request->get('microred');
+        $r_establec = $request->get('establecimiento');
+        
         // Matrices para select
         $m_anno = [ 
                 2019 => "2019",
@@ -323,7 +331,7 @@ class SulfatoController extends Controller
               11 =>"Noviembre",
               12 =>"Diciembre",
             ];
-        
+
         // Provincia
         $provincia = DB::table('indicador_sulfato')
                 ->select([DB::raw('PROVINCIA')])
@@ -359,6 +367,126 @@ class SulfatoController extends Controller
                 ->get()->toArray();
         $establecimiento = array_column($establecimiento,'Nombre_EESS_atencion');
 
+        // Query Tabla Provincia       
+        $t_provincia  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('PROVINCIA','=', $r_provincia)
+                        ->orderBy('NOMBRE_NINIO')
+                        ->get();
+
+        // Query Tabla Distrito       
+        $t_distrito  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('DISTRITO','=', $r_distrito)
+                        ->orderBy('NOMBRE_NINIO')
+                        ->get();
+        
+        // Query Tabla Red    
+        $t_red  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('NOMBRE_RED','=', $r_red)
+                        ->orderBy('FECHA_FIN')
+                        ->get();
+
+        // Query Tabla Red    
+        $t_microred  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('NOMBRE_MICRORED','=', $r_microred)
+                        ->orderBy('FECHA_FIN')
+                        ->get();
+        
+        // Query Tabla Red    
+        $t_establec  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('Nombre_EESS_atencion','=',$r_establec)
+                        ->orderBy('FECHA_FIN')
+                        ->get();
+       // dd($t_provincia);
         return view('admin.sulfato.show')
                 ->with(['m_anno' => $m_anno])
                 ->with(['m_mes' => $m_mes])
@@ -366,7 +494,12 @@ class SulfatoController extends Controller
                 ->with(['distrito' => $distrito])
                 ->with(['red' => $red])
                 ->with(['microred' => $microred])
-                ->with(['establecimiento' => $establecimiento]);
+                ->with(['establecimiento' => $establecimiento])
+                ->with(['t_provincia' => $t_provincia])
+                ->with(['t_distrito' => $t_distrito])
+                ->with(['t_red' => $t_red])
+                ->with(['t_microred' => $t_microred])
+                ->with(['t_establec' => $t_establec]);
     }
 
 }
