@@ -303,7 +303,70 @@ class SulfatoController extends Controller
 
     public function show()
     {     
-        return view('admin.sulfato.show');
+        // Matrices para select
+        $m_anno = [ 
+                2019 => "2019",
+                2020 => "2020",
+            ];
+    
+        $m_mes = [      
+               1 => "Enero",
+               2 => "Febrero",
+               3 => "Marzo",
+               4 => "Abril",
+               5 => "Mayo",
+               6 => "Junio",
+               7 => "Julio",
+               8 => "Agosto",
+               9 => "Setiembre",
+              10 => "Octubre",
+              11 =>"Noviembre",
+              12 =>"Diciembre",
+            ];
+        
+        // Provincia
+        $provincia = DB::table('indicador_sulfato')
+                ->select([DB::raw('PROVINCIA')])
+                ->groupBy('PROVINCIA')
+                ->get()->toArray();
+        $provincia = array_column($provincia,'PROVINCIA');
+
+        // Distrito
+        $distrito = DB::table('indicador_sulfato')
+                ->select([DB::raw('DISTRITO')])
+                ->groupBy('DISTRITO')
+                ->get()->toArray();
+        $distrito = array_column($distrito,'DISTRITO');
+        
+        // Red
+        $red = DB::table('indicador_sulfato')
+                ->select([DB::raw('NOMBRE_RED')])
+                ->groupBy('NOMBRE_RED')
+                ->get()->toArray();
+        $red = array_column($red,'NOMBRE_RED');
+
+        // Microred
+        $microred = DB::table('indicador_sulfato')
+                ->select([DB::raw('NOMBRE_MICRORED')])
+                ->groupBy('NOMBRE_MICRORED')
+                ->get()->toArray();
+        $microred = array_column($microred,'NOMBRE_MICRORED');
+        
+        // Establecimiento
+        $establecimiento = DB::table('indicador_sulfato')
+                ->select([DB::raw('Nombre_EESS_atencion')])
+                ->groupBy('Nombre_EESS_atencion')
+                ->get()->toArray();
+        $establecimiento = array_column($establecimiento,'Nombre_EESS_atencion');
+
+        return view('admin.sulfato.show')
+                ->with(['m_anno' => $m_anno])
+                ->with(['m_mes' => $m_mes])
+                ->with(['provincia' => $provincia])
+                ->with(['distrito' => $distrito])
+                ->with(['red' => $red])
+                ->with(['microred' => $microred])
+                ->with(['establecimiento' => $establecimiento]);
     }
 
 }
