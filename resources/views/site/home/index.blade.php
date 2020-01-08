@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Auditor SIS</title>
+    <title>SS SALUD</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -16,9 +16,9 @@
         @if (Route::has('login'))
         <div class="top-right links">
             @auth
-            <a href="{{ url('/home') }}">Home</a> @else
-            <a href="{{ route('login') }}">Login</a>
-            <a href="{{ route('register') }}">Register</a> @endauth
+            <a href="{{ route('login') }}">Inicio</a> @else
+            <a href="{{ route('login') }}">Ingresar</a>
+            <a href="{{ route('register') }}">Registrate</a> @endauth
         </div>
         @endif
 
