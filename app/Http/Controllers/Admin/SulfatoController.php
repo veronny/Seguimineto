@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\SulfatoExport;
 use App\Exports\SulfatoExportEstablecimiento;
 use App\Exports\SulfatoExportMicrored;
+use App\Exports\SulfatoDetalleExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -303,14 +304,16 @@ class SulfatoController extends Controller
     public function show(Request $request)
     {                  
         
-                // Request
-                $r_anno = $request->get('anno');
-                $r_mes = $request->get('mes');
-                $r_provincia = $request->get('provincia');
-                $r_distrito = $request->get('distrito');
-                $r_red = $request->get('red');
-                $r_microred = $request->get('microred');
-                $r_establec = $request->get('establecimiento');
+        // Request
+        $r_anno = $request->get('anno');
+        $r_mes = $request->get('mes');
+        $r_provincia = $request->get('provincia');
+        $r_distrito = $request->get('distrito');
+        $r_red = $request->get('red');
+        $r_microred = $request->get('microred');
+        $r_establec = $request->get('establecimiento');
+        $r_dni = $request->get('dni');
+        $r_nombre = $request->get('nombre');
                 
         // Matrices para select
         $m_anno = [ 
@@ -333,6 +336,49 @@ class SulfatoController extends Controller
               12 =>"Diciembre",
             ];
 
+        // Request Excel
+        $e_anno =  DB::table('indicador_sulfato')
+                ->select('ANNO')
+                ->where('ANNO','=',$r_anno)
+                ->groupBy('ANNO')
+                ->get();
+
+        $e_mes =  DB::table('indicador_sulfato')
+                ->select('MES')
+                ->where('MES','=',$r_mes)
+                ->groupBy('MES')
+                ->get();
+        
+        $e_provincia = DB::table('indicador_sulfato')
+                ->select([DB::raw('PROVINCIA')])
+                ->where('PROVINCIA','=',$r_provincia)
+                ->groupBy('PROVINCIA')
+                ->get();
+        
+        $e_distrito = DB::table('indicador_sulfato')
+                ->select([DB::raw('DISTRITO')])
+                ->where('DISTRITO','=',$r_distrito)
+                ->groupBy('DISTRITO')
+                ->get();
+
+        $e_red = DB::table('indicador_sulfato')
+                ->select([DB::raw('NOMBRE_RED')])
+                ->where('NOMBRE_RED','=',$r_red)
+                ->groupBy('NOMBRE_RED')
+                ->get();
+        
+        $e_microred = DB::table('indicador_sulfato')
+                ->select([DB::raw('NOMBRE_MICRORED')])
+                ->where('NOMBRE_MICRORED','=',$r_microred)
+                ->groupBy('NOMBRE_MICRORED')
+                ->get();
+        
+        $e_establecimiento = DB::table('indicador_sulfato')
+                ->select([DB::raw('Nombre_EESS_atencion')])
+                ->where('Nombre_EESS_atencion','=',$r_establec)
+                ->groupBy('Nombre_EESS_atencion')
+                ->get();
+        
         // Provincia
         $provincia = DB::table('indicador_sulfato')
                 ->select([DB::raw('PROVINCIA')])
@@ -490,8 +536,76 @@ class SulfatoController extends Controller
                         ->where('Nombre_EESS_atencion','=',$r_establec)
                         ->get();
         }
+        if ($r_dni != "")
+        { 
+        // Query Tabla establecimiento    
+        $t_sulfato  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('DNI_NINIO','=',$r_dni)
+                        ->get();
+        }
+        if ($r_nombre != "")
+        { 
+        // Query Tabla establecimiento    
+        $t_sulfato  = DB::table('indicador_sulfato')
+                        ->select([
+                                'DNI_NINIO',
+                                'NOMBRE_NINIO',
+                                'FECHA_NAC',
+                                'FECHA_INICIO',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'FECHA_FIN',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_MADRE',
+                                'NOMBRE_MADRE',
+                                ])
+                        ->where('NOMBRE_NINIO','like','%'.$r_nombre.'%')
+                        ->get();
+        }
                         //dd($t_establec);
-        return view('admin.sulfato.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_sulfato'));
+        return view('admin.sulfato.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_sulfato'))
+                        ->with(['e_anno' => $e_anno])
+                        ->with(['e_mes' => $e_mes])
+                        ->with(['e_provincia' => $e_provincia])
+                        ->with(['e_distrito' => $e_distrito])
+                        ->with(['e_red' => $e_red])
+                        ->with(['e_microred' => $e_microred])
+                        ->with(['e_establecimiento' => $e_establecimiento]);
+                         
+    }
+
+    public function exportExcelDetalle(Request $request)
+    {
+        // REQUEST
+        $anno = $request->get('e_anno');
+        $mes = $request->get('e_mes');
+        $provincia = $request->get('e_provincia');
+        $distrito = $request->get('e_distrito');
+        $red = $request->get('e_red');
+        $microred = $request->get('e_microred');
+        $establecimiento = $request->get('e_establecimiento');
+        
+        return Excel::download(new SulfatoDetalleExport($anno,$mes,$provincia,$distrito,$red,$microred,$establecimiento),'Detalle-Sulfato.xlsx');
     }
 
 }
