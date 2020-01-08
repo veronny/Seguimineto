@@ -113,7 +113,7 @@
                                     </select>
                             </div>
                             <div class="form-group">
-                                <select name="provincia" class="form-control dynamic provincia">
+                                <select name="provincia" class="form-control dynamic provincia" id="provicia">
                                     <option>-- Seleccione provincia --</option>    
                                     @foreach($provincia as $key => $value)
                                             <option value="{{ $value }}">{{ $value }}</option> 
@@ -165,7 +165,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="distrito" class="form-control dynamic distrito">
+                                <select name="distrito" class="form-control dynamic distrito" id="distrito">
                                     <option>-- Seleccione distrito --</option>
                                         @foreach($distrito as $key => $value)
                                             <option value="{{ $value }}">{{ $value }}</option> 
@@ -217,7 +217,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="red" class="form-control dynamic red">
+                                <select name="red" class="form-control dynamic red" id="red">
                                     <option>-- Seleccione Red --</option>
                                         @foreach($red as $key => $value)
                                             <option value="{{ $value }}">{{ $value }}</option> 
@@ -321,7 +321,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="red" class="form-control dynamic establecimiento">
+                                <select name="establecimiento" class="form-control dynamic establecimiento">
                                         <option>-- Seleccione establecimiento --</option>
                                         @foreach($establecimiento as $key => $value)
                                             <option value="{{ $value }}">{{ $value }}</option> 
@@ -371,127 +371,30 @@
                         <th>ESTABLECIMIENTO</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($t_provincia as $provin)
+                <tbody> 
+                    @foreach($t_sulfato as $s)
                         <tr>
-                            <td><font color="#4682B4">{{ $provin->DNI_NINIO }}</font></td>
-                            <td><font color="#4682B4">{{ $provin->NOMBRE_NINIO }}</font></td>
-                            <td>{{ $provin->FECHA_NAC }}</td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($provin->FECHA_INICIO)) }}</font></td>
-                            @if($provin->DNI_cumple_HIS != null)
-                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($provin->Fecha_HIS)) }}</font></td>  
+                            <td><font color="#4682B4">{{ $s->DNI_NINIO }}</font></td>
+                            <td><font color="#4682B4">{{ $s->NOMBRE_NINIO }}</font></td>
+                            <td>{{ $s->FECHA_NAC }}</td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_INICIO)) }}</font></td>
+                            @if($s->DNI_cumple_HIS != null)
+                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</font></td>  
                             @else
-                                <td><font color="#2E8B57">{{ $provin->Fecha_HIS }}</font></td>
+                                <td><font color="#2E8B57">{{ $s->Fecha_HIS }}</font></td>
                             @endif                           
-                            <td><font color="#008000">{{ $provin->edad_dias_HIS }}</font></td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($provin->FECHA_FIN)) }}</font></td>
-                            @if($provin->DNI_cumple_HIS >= 1)         
+                            <td><font color="#008000">{{ $s->edad_dias_HIS }}</font></td>
+                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_FIN)) }}</font></td>
+                            @if($s->DNI_cumple_HIS >= 1)         
                                 <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
                             @else
                                 <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
                             @endif      
-                            <td>{{ $provin->TIPO_SEGURO }}</td> 
-                            <td>{{ $provin->DISTRITO }}</td>
-                            <td>{{ $provin->Nombre_EESS_atencion }}</td>
+                            <td>{{ $s->TIPO_SEGURO }}</td> 
+                            <td>{{ $s->DISTRITO }}</td>
+                            <td>{{ $s->Nombre_EESS_atencion }}</td>
                         </tr>
                     @endforeach
-                    <!-- Tabla Distrito -->
-                    @foreach($t_distrito as $distri)
-                        <tr>
-                            <td><font color="#4682B4">{{ $distri->DNI_NINIO }}</font></td>
-                            <td><font color="#4682B4">{{ $distri->NOMBRE_NINIO }}</font></td>
-                            <td>{{ $distri->FECHA_NAC }}</td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($distri->FECHA_INICIO)) }}</font></td>
-                            @if($distri->DNI_cumple_HIS != null)
-                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($distri->Fecha_HIS)) }}</font></td>  
-                            @else
-                                <td><font color="#2E8B57">{{ $distri->Fecha_HIS }}</font></td>
-                            @endif                           
-                            <td><font color="#008000">{{ $distri->edad_dias_HIS }}</font></td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($distri->FECHA_FIN)) }}</font></td>
-                            @if($distri->DNI_cumple_HIS >= 1)         
-                                <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
-                            @else
-                                <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
-                            @endif      
-                            <td>{{ $distri->TIPO_SEGURO }}</td> 
-                            <td>{{ $distri->DISTRITO }}</td>
-                            <td>{{ $distri->Nombre_EESS_atencion }}</td>
-                        </tr>
-                    @endforeach
-                    <!-- Tabla Red -->
-                    @foreach($t_red as $re)
-                        <tr>
-                            <td><font color="#4682B4">{{ $re->DNI_NINIO }}</font></td>
-                            <td><font color="#4682B4">{{ $re->NOMBRE_NINIO }}</font></td>
-                            <td>{{ $re->FECHA_NAC }}</td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($re->FECHA_INICIO)) }}</font></td>
-                            @if($re->DNI_cumple_HIS != null)
-                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($re->Fecha_HIS)) }}</font></td>  
-                            @else
-                                <td><font color="#2E8B57">{{ $re->Fecha_HIS }}</font></td>
-                            @endif                           
-                            <td><font color="#008000">{{ $re->edad_dias_HIS }}</font></td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($re->FECHA_FIN)) }}</font></td>
-                            @if($re->DNI_cumple_HIS >= 1)         
-                                <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
-                            @else
-                                <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
-                            @endif      
-                            <td>{{ $re->TIPO_SEGURO }}</td> 
-                            <td>{{ $re->DISTRITO }}</td>
-                            <td>{{ $re->Nombre_EESS_atencion }}</td>
-                        </tr>
-                    @endforeach
-                    <!-- Tabla Microred -->
-                    @foreach($t_microred as $mi)
-                    <tr>
-                        <td><font color="#4682B4">{{ $mi->DNI_NINIO }}</font></td>
-                        <td><font color="#4682B4">{{ $mi->NOMBRE_NINIO }}</font></td>
-                        <td>{{ $mi->FECHA_NAC }}</td>
-                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($mi->FECHA_INICIO)) }}</font></td>
-                        @if($mi->DNI_cumple_HIS != null)
-                            <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($mi->Fecha_HIS)) }}</font></td>  
-                        @else
-                            <td><font color="#2E8B57">{{ $mi->Fecha_HIS }}</font></td>
-                        @endif                           
-                        <td><font color="#008000">{{ $mi->edad_dias_HIS }}</font></td>
-                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($mi->FECHA_FIN)) }}</font></td>
-                        @if($mi->DNI_cumple_HIS >= 1)         
-                            <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
-                        @else
-                            <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
-                        @endif      
-                        <td>{{ $mi->TIPO_SEGURO }}</td> 
-                        <td>{{ $mi->DISTRITO }}</td>
-                        <td>{{ $mi->Nombre_EESS_atencion }}</td>
-                    </tr>
-                    @endforeach
-                    <!-- Tabla Establecimiento -->
-                    @foreach($t_establec as $es)
-                    <tr>
-                        <td><font color="#4682B4">{{ $es->DNI_NINIO }}</font></td>
-                        <td><font color="#4682B4">{{ $es->NOMBRE_NINIO }}</font></td>
-                        <td>{{ $es->FECHA_NAC }}</td>
-                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($es->FECHA_INICIO)) }}</font></td>
-                        @if($es->DNI_cumple_HIS != null)
-                            <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($es->Fecha_HIS)) }}</font></td>  
-                        @else
-                            <td><font color="#2E8B57">{{ $es->Fecha_HIS }}</font></td>
-                        @endif                           
-                        <td><font color="#008000">{{ $es->edad_dias_HIS }}</font></td>
-                        <td><font color="#F08080">{{ date('d-m-Y', strtotime($es->FECHA_FIN)) }}</font></td>
-                        @if($es->DNI_cumple_HIS >= 1)         
-                            <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
-                        @else
-                            <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
-                        @endif      
-                        <td>{{ $es->TIPO_SEGURO }}</td> 
-                        <td>{{ $es->DISTRITO }}</td>
-                        <td>{{ $es->Nombre_EESS_atencion }}</td>
-                    </tr>
-                    @endforeach
-
                 </tbody>
             </table>
         </div>
@@ -613,7 +516,7 @@
         $('#dt_provincia').DataTable({  
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
             "fixedHeader": true,
-            "order": [[ 6, "asc" ]],
+            "order": [[ 6,"asc"]],
             "language": {
                 "info": "_TOTAL_ registros",
                 "search":"Buscar",
