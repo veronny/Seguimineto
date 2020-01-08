@@ -65,23 +65,27 @@
                 </ul>
             </div>
             <!-- Botton de DNI-->
-            <form action="#" pjax-container="" style="display: inline-block;">
+            <div class="btn-group" style="margin-right: 5px">
+                {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
                 <div class="input-group input-group-sm" style="display: inline-block;">
-                    <input type="text" name="__search__" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Ingrese de Nro DNI">
+                    <input type="text" name="dni" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Ingrese de Nro DNI">
                     <div class="input-group-btn" style="display: inline-block;">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
-            </form>
+                {{ Form::close()}}
+            </div>
             <!-- Botton de Nombre-->
-            <form action="#" pjax-container="" style="display: inline-block;">
+            <div class="btn-group" style="margin-right: 5px">
+                {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
                 <div class="input-group input-group-sm" style="display: inline-block;">
-                    <input type="text" name="__search__" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Nombre Apellidos y Nombres">
+                    <input type="text" name="nombre" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Nombre Apellidos y Nombres">
                     <div class="input-group-btn" style="display: inline-block;">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
-            </form>
+                {{ Form::close()}}
+        </div>
         </div>
         <!-- Botton para volver -->
         <div class="box-tools pull-right">
@@ -351,6 +355,41 @@
         </div>
     </div>
     <!-- /.box-header -->
+    <!-- EXPORTAR -->
+    <div class="box-header with-border">
+        <div class="pull-right">
+        {{ Form::open(['route' => 'admin.sulfato.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="form-group">                                
+                <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+            <div class="form-group">
+                <input name="e_mes" id="e_mes" value="@foreach($e_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+            <div class="form-group">                                
+                <input name="e_provincia" id="e_provincia" value="@foreach($e_provincia as $p){{ $p->PROVINCIA }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+            <div class="form-group">
+                <input name="e_distrito" id="e_distrito" value="@foreach($e_distrito as $d){{ $d->DISTRITO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+            <div class="form-group">                                
+                <input name="e_red" id="e_red" value="@foreach($e_red as $r){{ $r->NOMBRE_RED }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+            <div class="form-group">
+                <input name="e_microred" id="e_microred" value="@foreach($e_microred as $mr){{ $mr->NOMBRE_MICRORED }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+            <div class="form-group">
+                <input name="e_establecimiento" id="e_establecimiento" value="@foreach($e_establecimiento as $e){{ $e->Nombre_EESS_atencion }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            </div>
+        <div class="btn-group pull-right" style="margin-right: 10px">
+            <div class="form-group pull-right">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="fa fa-download"></i> Exportar Excel
+                </button>                           
+            </div>
+        </div>
+        {{ Form::close()}}
+    </div>
+    </div>
 
     <!-- Tabla Provincia -->
     <div class="box-body" style="display: block;">
@@ -401,7 +440,7 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        Desarrollado por: Veronny Morales Castillo
+        <font color="#4682B4">Desarrollado por: </font><em>Veronny Jhony Morales Castillo</em>
     </div>
     <!-- box-footer -->
 </div>
