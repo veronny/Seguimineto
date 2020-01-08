@@ -301,16 +301,17 @@ class SulfatoController extends Controller
     }
 
     public function show(Request $request)
-    {     
-        // Request
-        $r_anno = $request->get('anno');
-        $r_mes = $request->get('mes');
-        $r_provincia = $request->get('provincia');
-        $r_distrito = $request->get('distrito');
-        $r_red = $request->get('red');
-        $r_microred = $request->get('microred');
-        $r_establec = $request->get('establecimiento');
+    {                  
         
+                // Request
+                $r_anno = $request->get('anno');
+                $r_mes = $request->get('mes');
+                $r_provincia = $request->get('provincia');
+                $r_distrito = $request->get('distrito');
+                $r_red = $request->get('red');
+                $r_microred = $request->get('microred');
+                $r_establec = $request->get('establecimiento');
+                
         // Matrices para select
         $m_anno = [ 
                 2019 => "2019",
@@ -345,7 +346,7 @@ class SulfatoController extends Controller
                 ->groupBy('DISTRITO')
                 ->get()->toArray();
         $distrito = array_column($distrito,'DISTRITO');
-        
+
         // Red
         $red = DB::table('indicador_sulfato')
                 ->select([DB::raw('NOMBRE_RED')])
@@ -359,16 +360,15 @@ class SulfatoController extends Controller
                 ->groupBy('NOMBRE_MICRORED')
                 ->get()->toArray();
         $microred = array_column($microred,'NOMBRE_MICRORED');
-        
+
         // Establecimiento
         $establecimiento = DB::table('indicador_sulfato')
                 ->select([DB::raw('Nombre_EESS_atencion')])
                 ->groupBy('Nombre_EESS_atencion')
                 ->get()->toArray();
         $establecimiento = array_column($establecimiento,'Nombre_EESS_atencion');
-
         // Query Tabla Provincia       
-        $t_provincia  = DB::table('indicador_sulfato')
+        $t_sulfato  = DB::table('indicador_sulfato')
                         ->select([
                                 'DNI_NINIO',
                                 'NOMBRE_NINIO',
@@ -388,11 +388,12 @@ class SulfatoController extends Controller
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('PROVINCIA','=', $r_provincia)
-                        ->orderBy('NOMBRE_NINIO')
+                        ->orderBy('FECHA_FIN')
                         ->get();
-
+        if ($r_distrito != "")
+        {
         // Query Tabla Distrito       
-        $t_distrito  = DB::table('indicador_sulfato')
+        $t_sulfato  = DB::table('indicador_sulfato')
                         ->select([
                                 'DNI_NINIO',
                                 'NOMBRE_NINIO',
@@ -412,11 +413,12 @@ class SulfatoController extends Controller
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('DISTRITO','=', $r_distrito)
-                        ->orderBy('NOMBRE_NINIO')
                         ->get();
-        
+        } 
+        if ($r_red != "")
+        {
         // Query Tabla Red    
-        $t_red  = DB::table('indicador_sulfato')
+        $t_sulfato = DB::table('indicador_sulfato')
                         ->select([
                                 'DNI_NINIO',
                                 'NOMBRE_NINIO',
@@ -436,11 +438,12 @@ class SulfatoController extends Controller
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('NOMBRE_RED','=', $r_red)
-                        ->orderBy('FECHA_FIN')
                         ->get();
-
-        // Query Tabla Red    
-        $t_microred  = DB::table('indicador_sulfato')
+        } 
+        if ($r_microred != "")
+        {                        
+        // Query Tabla microred    
+        $t_sulfato  = DB::table('indicador_sulfato')
                         ->select([
                                 'DNI_NINIO',
                                 'NOMBRE_NINIO',
@@ -460,11 +463,12 @@ class SulfatoController extends Controller
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('NOMBRE_MICRORED','=', $r_microred)
-                        ->orderBy('FECHA_FIN')
                         ->get();
-        
-        // Query Tabla Red    
-        $t_establec  = DB::table('indicador_sulfato')
+        } 
+        if ($r_establec != "")
+        { 
+        // Query Tabla establecimiento    
+        $t_sulfato  = DB::table('indicador_sulfato')
                         ->select([
                                 'DNI_NINIO',
                                 'NOMBRE_NINIO',
@@ -484,22 +488,10 @@ class SulfatoController extends Controller
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('Nombre_EESS_atencion','=',$r_establec)
-                        ->orderBy('FECHA_FIN')
                         ->get();
-       // dd($t_provincia);
-        return view('admin.sulfato.show')
-                ->with(['m_anno' => $m_anno])
-                ->with(['m_mes' => $m_mes])
-                ->with(['provincia' => $provincia])
-                ->with(['distrito' => $distrito])
-                ->with(['red' => $red])
-                ->with(['microred' => $microred])
-                ->with(['establecimiento' => $establecimiento])
-                ->with(['t_provincia' => $t_provincia])
-                ->with(['t_distrito' => $t_distrito])
-                ->with(['t_red' => $t_red])
-                ->with(['t_microred' => $t_microred])
-                ->with(['t_establec' => $t_establec]);
+        }
+                        //dd($t_establec);
+        return view('admin.sulfato.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_sulfato'));
     }
 
 }
