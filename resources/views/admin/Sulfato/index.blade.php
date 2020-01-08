@@ -47,7 +47,7 @@
                 <h3 class="box-title">
                     <div class="box-tools">
                         <td width="10px">
-                            <a href="{{ route('admin.sulfato.show') }}" class="btn btn-primary">
+                            <a href="{{ route('admin.sulfato.show') }}" class="btn btn-warning">
                                 <i class="fa fa-users"></i> Informacion Nominal</a>
                         </td>
                     </div>

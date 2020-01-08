@@ -115,18 +115,13 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Pacientes',
-            'url'         => 'admin/paciente',
+            'text'        => 'Padron Nominal',
+            'url'         => 'https://app.powerbi.com/view?r=eyJrIjoiYjM0ODA2OWMtYjViMS00MmZmLWExNzItZmVmNzVjMmIwZTVkIiwidCI6Ijk0OWM4OGY0LWU4NzMtNDg1Ny04YzQxLWVkMDI1ZTI3ZTYyYyJ9',
             'icon'        => 'user',
-            'label'       => 4,
+            'label'       => 138627,
             'label_color' => 'success',
         ],
         'INDICADORES DE SALUD',
-        [
-            'text' => 'Consulta Externa',
-            'url'  => 'admin/pacientesis',
-            'icon' => 'user-md',
-        ],
         [
             'text'    => 'INDICARES AP-ENDIS',
             'icon'    => 'child',
@@ -146,63 +141,7 @@ return [
                 ],
             ],
         ],
-        [
-            'text' => 'Hospitalizacion',
-            'url'  => 'admin/settings',
-            'icon' => 'heartbeat',
-        ],
-        [
-            'text' => 'Emergencia',
-            'url' => 'admin/settings',
-            'icon' => 'ambulance',
-        ],
-        [
-            'text'    => 'Consultas',
-            'icon'    => 'share',
-            'submenu' => [
-                [
-                    'text' => 'Tarifario',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'CIE 10',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Principal',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Level Two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Medicamentos',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        'REPORTES',
-        [
-            'text'       => 'Reportes por Auditoria',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Reporte de Recetas',
-            'icon_color' => 'yellow',
-        ],
+        'ACERCA DE ',
         [
             'text'       => 'Directorio Telefonico',
             'icon_color' => 'aqua',
