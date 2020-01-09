@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 {{ Form::close()}}
-        </div>
+            </div>
         </div>
         <!-- Botton para volver -->
         <div class="box-tools pull-right">
@@ -358,37 +358,71 @@
     <!-- EXPORTAR -->
     <div class="box-header with-border">
         <div class="pull-right">
-        {{ Form::open(['route' => 'admin.sulfato.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
-            <div class="form-group">                                
-                <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+            {{ Form::open(['route' => 'admin.sulfato.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="form-group">
+                <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
             <div class="form-group">
-                <input name="e_mes" id="e_mes" value="@foreach($e_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
-            </div>
-            <div class="form-group">                                
-                <input name="e_provincia" id="e_provincia" value="@foreach($e_provincia as $p){{ $p->PROVINCIA }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+                <input name="e_mes" id="e_mes" value="@foreach($e_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
             <div class="form-group">
-                <input name="e_distrito" id="e_distrito" value="@foreach($e_distrito as $d){{ $d->DISTRITO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
-            </div>
-            <div class="form-group">                                
-                <input name="e_red" id="e_red" value="@foreach($e_red as $r){{ $r->NOMBRE_RED }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+                <input name="e_provincia" id="e_provincia" value="@foreach($e_provincia as $p){{ $p->PROVINCIA }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
             <div class="form-group">
-                <input name="e_microred" id="e_microred" value="@foreach($e_microred as $mr){{ $mr->NOMBRE_MICRORED }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+                <input name="e_distrito" id="e_distrito" value="@foreach($e_distrito as $d){{ $d->DISTRITO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
             <div class="form-group">
-                <input name="e_establecimiento" id="e_establecimiento" value="@foreach($e_establecimiento as $e){{ $e->Nombre_EESS_atencion }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
+                <input name="e_red" id="e_red" value="@foreach($e_red as $r){{ $r->NOMBRE_RED }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
-        <div class="btn-group pull-right" style="margin-right: 10px">
-            <div class="form-group pull-right">
-                <button type="submit" class="btn btn-success btn-sm">
-                    <i class="fa fa-download"></i> Exportar Excel
-                </button>                           
+            <div class="form-group">
+                <input name="e_microred" id="e_microred" value="@foreach($e_microred as $mr){{ $mr->NOMBRE_MICRORED }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
+            <div class="form-group">
+                <input name="e_establecimiento" id="e_establecimiento" value="@foreach($e_establecimiento as $e){{ $e->Nombre_EESS_atencion }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="btn-group pull-right" style="margin-right: 10px">
+                <div class="form-group pull-right">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-download"></i> Exportar Excel
+                    </button>
+                </div>
+            </div>
+            {{ Form::close()}}
         </div>
-        {{ Form::close()}}
-    </div>
+        <!-- PDF NO CUMPLEN -->
+        <div class="pull-right">
+            {{ Form::open(['route' => 'admin.sulfato.reporte','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            <div class="form-group">
+                <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="form-group">
+                <input name="e_mes" id="e_mes" value="@foreach($e_mes as $m){{ $m->MES }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="form-group">
+                <input name="e_provincia" id="e_provincia" value="@foreach($e_provincia as $p){{ $p->PROVINCIA }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="form-group">
+                <input name="e_distrito" id="e_distrito" value="@foreach($e_distrito as $d){{ $d->DISTRITO }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="form-group">
+                <input name="e_red" id="e_red" value="@foreach($e_red as $r){{ $r->NOMBRE_RED }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="form-group">
+                <input name="e_microred" id="e_microred" value="@foreach($e_microred as $mr){{ $mr->NOMBRE_MICRORED }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="form-group">
+                <input name="e_establecimiento" id="e_establecimiento" value="@foreach($e_establecimiento as $e){{ $e->Nombre_EESS_atencion }}@endforeach" style="visibility:hidden;width:1px;" />
+            </div>
+            <div class="btn-group pull-right" style="margin-right: 10px">
+                <div class="form-group pull-right">
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa fa-file-pdf-o"></i>  No Cumplen
+                    </button>
+                </div>
+            </div>
+            {{ Form::close()}}
+        </div>
+
     </div>
 
     <!-- Tabla Provincia -->
@@ -410,29 +444,43 @@
                         <th>ESTABLECIMIENTO</th>
                     </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                     @foreach($t_sulfato as $s)
-                        <tr>
-                            <td><font color="#4682B4">{{ $s->DNI_NINIO }}</font></td>
-                            <td><font color="#4682B4">{{ $s->NOMBRE_NINIO }}</font></td>
-                            <td>{{ $s->FECHA_NAC }}</td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_INICIO)) }}</font></td>
-                            @if($s->DNI_cumple_HIS != null)
-                                <td><font color="#2E8B57">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</font></td>  
-                            @else
-                                <td><font color="#2E8B57">{{ $s->Fecha_HIS }}</font></td>
-                            @endif                           
-                            <td><font color="#008000">{{ $s->edad_dias_HIS }}</font></td>
-                            <td><font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_FIN)) }}</font></td>
-                            @if($s->DNI_cumple_HIS >= 1)         
-                                <td class="badge bg-green" style="font-size: 10px;">Cumple</td>         
-                            @else
-                                <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>          
-                            @endif      
-                            <td>{{ $s->TIPO_SEGURO }}</td> 
-                            <td>{{ $s->DISTRITO }}</td>
-                            <td>{{ $s->Nombre_EESS_atencion }}</td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <font color="#4682B4">{{ $s->DNI_NINIO }}</font>
+                        </td>
+                        <td>
+                            <font color="#4682B4">{{ $s->NOMBRE_NINIO }}</font>
+                        </td>
+                        <td>{{ $s->FECHA_NAC }}</td>
+                        <td>
+                            <font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_INICIO)) }}</font>
+                        </td>
+                        @if($s->DNI_cumple_HIS != null)
+                        <td>
+                            <font color="#2E8B57">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</font>
+                        </td>
+                        @else
+                        <td>
+                            <font color="#2E8B57">{{ $s->Fecha_HIS }}</font>
+                        </td>
+                        @endif
+                        <td>
+                            <font color="#008000">{{ $s->edad_dias_HIS }}</font>
+                        </td>
+                        <td>
+                            <font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_FIN)) }}</font>
+                        </td>
+                        @if($s->DNI_cumple_HIS >= 1)
+                        <td class="badge bg-green" style="font-size: 10px;">Cumple</td>
+                        @else
+                        <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>
+                        @endif
+                        <td>{{ $s->TIPO_SEGURO }}</td>
+                        <td>{{ $s->DISTRITO }}</td>
+                        <td>{{ $s->Nombre_EESS_atencion }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -476,7 +524,7 @@
 <script type="text/javascript">
     // boton para ocular todos
     $('.btn-filter').unbind('click');
-    $('.btn-filter').click(function(e) {    
+    $('.btn-filter').click(function(e) {
         $('#filter-box').addClass('hide');
         $('#filter-distrito').addClass('hide');
         $('#filter-red').addClass('hide');
@@ -550,34 +598,38 @@
     });
 </script>
 
-<script type="text/javascript">   
+<script type="text/javascript">
     $(document).ready(function() {
-        $('#dt_provincia').DataTable({  
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        $('#dt_provincia').DataTable({
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
             "fixedHeader": true,
-            "order": [[ 6,"asc"]],
+            "order": [
+                [6, "asc"]
+            ],
             "language": {
                 "info": "_TOTAL_ registros",
-                "search":"Buscar",
+                "search": "Buscar",
                 "paginate": {
-                        "next": "Siguiente",
-                        "previous": "Anterior",
+                    "next": "Siguiente",
+                    "previous": "Anterior",
                 },
-                "lengthMenu": 'Ver <select>'+
-                                '<option value="10">10</option>'+
-                                '<option value="25">25</option>'+
-                                '<option value="50">50</option>'+
-                                '<option value="-1">Todos</option>'+
-                                '</select> registros',
+                "lengthMenu": 'Ver <select>' +
+                    '<option value="10">10</option>' +
+                    '<option value="25">25</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="-1">Todos</option>' +
+                    '</select> registros',
                 "loadingRecords": "Cargando...",
                 "processing": "Procesando",
                 "emptyTable": "No hay datos",
-                "zeroRecords":"No hay conincidencias",
+                "zeroRecords": "No hay conincidencias",
                 "infoEmpty": "",
-                "infoFiltered":"",
+                "infoFiltered": "",
             }
         });
     });
 </script>
-
 @stop
