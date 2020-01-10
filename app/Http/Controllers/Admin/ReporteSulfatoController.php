@@ -148,7 +148,7 @@ class ReporteSulfatoController extends Controller
                         ->get();
         }
         $date = date("d-m-Y");
-        $pdf = PDF::loadView('admin.sulfato.reporte', compact('t_sulfato','date'))->setPaper('a4','landscape');
-        return $pdf->stream('reporte.pdf');
+        $pdf = PDF::loadView('admin.sulfato.reporte', compact('t_sulfato','date'))->setPaper('a4','landscape')->save('myfile.pdf');
+        return $pdf->download('reporte.pdf');
     }
 }

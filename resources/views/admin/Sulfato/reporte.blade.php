@@ -38,7 +38,7 @@
         }
     </style>
     <div class="date" style="text-align: right;font-size: x-small;">
-        Fecha del reporte: {{ $date }}
+        <em><font color="gray">Fecha del reporte: {{ $date }}</font></em>
     </div>
     <h4><em>DIRECCION REGIONAL DE SALUD JUNIN</em></h4>
 </head>
@@ -82,7 +82,8 @@
     </div>
     <!-- /.box-body -->
     <footer style="text-align: left;font-size: x-small;">
-        <em>Copyright © 2020 Veronny</em>
+        <br>
+        <em><font color="gray">Copyright © 2020 -- Developer Veronny --</font></em>
     </footer>
 </body>
 

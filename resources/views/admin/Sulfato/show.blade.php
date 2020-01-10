@@ -454,28 +454,24 @@
                             <font color="#4682B4">{{ $s->NOMBRE_NINIO }}</font>
                         </td>
                         <td>{{ $s->FECHA_NAC }}</td>
-                        <td>
-                            <font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_INICIO)) }}</font>
-                        </td>
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->FECHA_INICIO)) }}</td>
                         @if($s->DNI_cumple_HIS != null)
                         <td>
                             <font color="#2E8B57">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</font>
                         </td>
                         @else
-                        <td>
+                        <td >
                             <font color="#2E8B57">{{ $s->Fecha_HIS }}</font>
                         </td>
                         @endif
                         <td>
                             <font color="#008000">{{ $s->edad_dias_HIS }}</font>
                         </td>
-                        <td>
-                            <font color="#F08080">{{ date('d-m-Y', strtotime($s->FECHA_FIN)) }}</font>
-                        </td>
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->FECHA_FIN)) }}</td>
                         @if($s->DNI_cumple_HIS >= 1)
-                        <td class="badge bg-green" style="font-size: 10px;">Cumple</td>
+                        <td><span class="label label-success">Cumple</span></td>
                         @else
-                        <td class="badge bg-red" style="font-size: 10px;">No Cumple</td>
+                        <td><span class="label label-danger">No Cumple</td>
                         @endif
                         <td>{{ $s->TIPO_SEGURO }}</td>
                         <td>{{ $s->DISTRITO }}</td>
