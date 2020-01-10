@@ -14,7 +14,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">
                     <div class="box-tools">                       
-                        {{ Form::open(['route' => 'admin.sulfato','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.sulfato.index','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                     <select name="anno" class="form-control dynamic anno" id="anno">
                                         @foreach($m_anno as $key => $value)
