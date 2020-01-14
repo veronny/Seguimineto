@@ -78,7 +78,7 @@
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Avance por redes de Salud</h3>
+                <h3 class="box-title">Avance por provincia</h3>
                     <div class="box-tools pull-right">
                     <!-- modal grafico -->
                         <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalProv">
@@ -285,7 +285,7 @@
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Micro Redes</h3>
+                <h3 class="box-title">Avance por Micro Redes</h3>
                     <div class="box-tools pull-right">
                         {{ Form::open(['route' => 'admin.sulfato.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
@@ -339,7 +339,7 @@
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Establecimientos</h3>
+                <h3 class="box-title">Avance por Establecimientos</h3>
                     <div class="box-tools pull-right">
                         <div class="box-tools pull-right">
                             {{ Form::open(['route' => 'admin.sulfato.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
