@@ -178,7 +178,7 @@
                         <thead>
                             <tr>
                                 <th>DISTRITO</th>
-                                <th>NIÑOS</th>
+                                <th>GESTANTE</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -256,7 +256,7 @@
                         <thead>
                             <tr>
                                 <th>REDES</th>
-                                <th>NIÑOS</th>
+                                <th>GESTANTE</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -310,7 +310,7 @@
                         <thead>
                             <tr>
                                 <th>MICRORED</th>
-                                <th>NIÑOS</th>
+                                <th>GESTANTE</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -366,7 +366,7 @@
                         <thead>
                             <tr>
                                 <th>ESTABLEC</th>
-                                <th>NIÑOS</th>
+                                <th>GESTANTE</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>

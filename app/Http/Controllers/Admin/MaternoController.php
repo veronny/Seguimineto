@@ -336,124 +336,142 @@ class MaternoController extends Controller
             ];
 
         // Request Excel
-        $e_anno =  DB::table('indicador_materno')
+        $e_anno =  DB::table('indicador_gestante')
                 ->select('ANNO')
                 ->where('ANNO','=',$r_anno)
                 ->groupBy('ANNO')
                 ->get();
 
-        $e_mes =  DB::table('indicador_materno')
+        $e_mes =  DB::table('indicador_gestante')
                 ->select('MES')
                 ->where('MES','=',$r_mes)
                 ->groupBy('MES')
                 ->get();
         
-        $e_provincia = DB::table('indicador_materno')
+        $e_provincia = DB::table('indicador_gestante')
                 ->select([DB::raw('PROVINCIA')])
                 ->where('PROVINCIA','=',$r_provincia)
                 ->groupBy('PROVINCIA')
                 ->get();
         
-        $e_distrito = DB::table('indicador_materno')
+        $e_distrito = DB::table('indicador_gestante')
                 ->select([DB::raw('DISTRITO')])
                 ->where('DISTRITO','=',$r_distrito)
                 ->groupBy('DISTRITO')
                 ->get();
 
-        $e_red = DB::table('indicador_materno')
+        $e_red = DB::table('indicador_gestante')
                 ->select([DB::raw('NOMBRE_RED')])
                 ->where('NOMBRE_RED','=',$r_red)
                 ->groupBy('NOMBRE_RED')
                 ->get();
         
-        $e_microred = DB::table('indicador_materno')
+        $e_microred = DB::table('indicador_gestante')
                 ->select([DB::raw('NOMBRE_MICRORED')])
                 ->where('NOMBRE_MICRORED','=',$r_microred)
                 ->groupBy('NOMBRE_MICRORED')
                 ->get();
         
-        $e_establecimiento = DB::table('indicador_materno')
-                ->select([DB::raw('Nombre_EESS_atencion')])
-                ->where('Nombre_EESS_atencion','=',$r_establec)
-                ->groupBy('Nombre_EESS_atencion')
+        $e_establecimiento = DB::table('indicador_gestante')
+                ->select([DB::raw('NOM_EESS')])
+                ->where('NOM_EESS','=',$r_establec)
+                ->groupBy('NOM_EESS')
                 ->get();
         
         // Provincia
-        $provincia = DB::table('indicador_materno')
+        $provincia = DB::table('indicador_gestante')
                 ->select([DB::raw('PROVINCIA')])
                 ->groupBy('PROVINCIA')
                 ->get()->toArray();
         $provincia = array_column($provincia,'PROVINCIA');
 
         // Distrito
-        $distrito = DB::table('indicador_materno')
+        $distrito = DB::table('indicador_gestante')
                 ->select([DB::raw('DISTRITO')])
                 ->groupBy('DISTRITO')
                 ->get()->toArray();
         $distrito = array_column($distrito,'DISTRITO');
 
         // Red
-        $red = DB::table('indicador_materno')
+        $red = DB::table('indicador_gestante')
                 ->select([DB::raw('NOMBRE_RED')])
                 ->groupBy('NOMBRE_RED')
                 ->get()->toArray();
         $red = array_column($red,'NOMBRE_RED');
 
         // Microred
-        $microred = DB::table('indicador_materno')
+        $microred = DB::table('indicador_gestante')
                 ->select([DB::raw('NOMBRE_MICRORED')])
                 ->groupBy('NOMBRE_MICRORED')
                 ->get()->toArray();
         $microred = array_column($microred,'NOMBRE_MICRORED');
 
         // Establecimiento
-        $establecimiento = DB::table('indicador_materno')
+        $establecimiento = DB::table('indicador_gestante')
                 ->select([DB::raw('NOM_EESS')])
                 ->groupBy('NOM_EESS')
                 ->get()->toArray();
         $establecimiento = array_column($establecimiento,'NOM_EESS');
         // Query Tabla Provincia       
-        $t_sulfato  = DB::table('indicador_materno')
+        $t_materno  = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('PROVINCIA','=', $r_provincia)
-                        ->orderBy('FECHA_FIN')
+                        ->orderBy('Fecha_parto')
                         ->get();
         if ($r_distrito != "")
         {
         // Query Tabla Distrito       
-        $t_sulfato  = DB::table('indicador_materno')
+        $t_materno  = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
@@ -463,22 +481,31 @@ class MaternoController extends Controller
         if ($r_red != "")
         {
         // Query Tabla Red    
-        $t_sulfato = DB::table('indicador_materno')
+        $t_materno = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
@@ -488,22 +515,31 @@ class MaternoController extends Controller
         if ($r_microred != "")
         {                        
         // Query Tabla microred    
-        $t_sulfato  = DB::table('indicador_materno')
+        $t_materno  = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
@@ -513,76 +549,103 @@ class MaternoController extends Controller
         if ($r_establec != "")
         { 
         // Query Tabla establecimiento    
-        $t_sulfato  = DB::table('indicador_materno')
+        $t_materno  = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
-                        ->where('Nombre_EESS_atencion','=',$r_establec)
+                        ->where('NOM_EESS','=',$r_establec)
                         ->get();
         }
         if ($r_dni != "")
         { 
         // Query Tabla establecimiento    
-        $t_sulfato  = DB::table('indicador_materno')
+        $t_materno  = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
-                        ->where('DNI_NINIO','=',$r_dni)
+                        ->where('Documento','=',$r_dni)
                         ->get();
         }
         if ($r_nombre != "")
         { 
         // Query Tabla establecimiento    
-        $t_sulfato  = DB::table('indicador_materno')
+        $t_materno  = DB::table('indicador_gestante')
                         ->select([
-                                'DNI_NINIO',
-                                'NOMBRE_NINIO',
-                                'FECHA_NAC',
-                                'FECHA_INICIO',
-                                'Fecha_HIS',
-                                'edad_dias_HIS',
-                                'DNI_cumple_HIS',
-                                'FECHA_FIN',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'TIPO_SEGURO',
-                                'DIRECCION',
-                                'DNI_MADRE',
-                                'NOMBRE_MADRE',
+                                'Documento',
+                                'NOMBRE_COMPLETO',
+                                'Gestacion',
+                                'NOM_EESS',
+                                'Nom_EESS_Prenatal',
+                                'Fecha_parto',
+                                'Fecha_Inico',
+                                'Fecha_Primer_Trimestre',
+                                'Fecha_Segundo_Trimestre',
+                                'cumple_acido_folico',
+                                'cumple_hemoglobina',
+                                'cumple_exam_orina',
+                                'cumple_prueba_sifilis',
+                                'cumple_pueba_VIH',
+                                'cumple_perfil_obstetrico',
+                                'cumple_atenciones',
+                                'cantidad_atenciones',
+                                'cantidad_atenciones',
+                                'DNI_cumple_suplemento',
+                                'cantidad_suplemento',
+                                'cantidad_suplemento_compuesto',
+                                'cantidad_anemia_materno',
+                                'DNI_cumple_gestante',
                                 ])
-                        ->where('NOMBRE_NINIO','like','%'.$r_nombre.'%')
+                        ->where('NOMBRE_COMPLETO','like','%'.$r_nombre.'%')
                         ->get();
         }
                         //dd($t_establec);
-        return view('admin.materno.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_sulfato'))
+        return view('admin.materno.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_materno'))
                         ->with(['e_anno' => $e_anno])
                         ->with(['e_mes' => $e_mes])
                         ->with(['e_provincia' => $e_provincia])
