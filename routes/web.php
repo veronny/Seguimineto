@@ -27,6 +27,12 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     //Reporte sulfato
     Route::get('reporte', 'ReporteSulfatoController@reporte')->name('admin.sulfato.reporte'); 
     ///*****************************************************************************************//
+    
+    //Materno
+    Route::get('materno', 'MaternoController@index')->name('admin.materno.index');
+    Route::get('materno/show','MaternoController@show')->name('admin.materno.show');
+
+    ///*****************************************************************************************//
     //Reporte
     Route::get('reporte/{paciente}', 'ReporteController@show')->name('admin.reporte.show'); 
     
