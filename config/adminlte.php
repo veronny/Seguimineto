@@ -137,7 +137,7 @@ return [
                 ],
                 [
                     'text'    => 'Gestantes y atencion pre natal',
-                    'url'     => '#',
+                    'url'     => 'admin/materno',
                 ],
             ],
         ],
