@@ -66,7 +66,7 @@
             </div>
             <!-- Botton de DNI-->
             <div class="btn-group" style="margin-right: 5px">
-                {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+                {{ Form::open(['route' => 'admin.materno.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
                 <div class="input-group input-group-sm" style="display: inline-block;">
                     <input type="text" name="dni" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Ingrese de Nro DNI">
                     <div class="input-group-btn" style="display: inline-block;">
@@ -77,7 +77,7 @@
             </div>
             <!-- Botton de Nombre-->
             <div class="btn-group" style="margin-right: 5px">
-                {{ Form::open(['route' => 'admin.sulfato.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+                {{ Form::open(['route' => 'admin.materno.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
                 <div class="input-group input-group-sm" style="display: inline-block;">
                     <input type="text" name="nombre" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Nombre Apellidos y Nombres">
                     <div class="input-group-btn" style="display: inline-block;">
@@ -358,7 +358,7 @@
     <!-- EXPORTAR -->
     <div class="box-header with-border">
         <div class="pull-right">
-            {{ Form::open(['route' => 'admin.materno.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.sulfato.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="form-group">
                 <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
@@ -432,29 +432,37 @@
                 <thead>
                     <tr>
                         <th width="20px">DNI</th>
-                        <th>NOMBRE DEL NIÑO</th>
-                        <th>FECHA NAC</th>
-                        <th>RANGO INICIO</th>
-                        <th>FECHA ATE</th>
-                        <th>EDAD ATE</th>
-                        <th>RANGO FINAL</th>
-                        <th>INDICADOR</th>
-                        <th>TIPO SEGURO</th>
-                        <th>DISTRITO</th>
-                        <th>ESTABLECIMIENTO</th>
+                        <th>NOMBRE MADRE</th>
+                        <th>FECHA PARTO</th>
+                        <th>GESTACION</th>
+                        <th>F. PARTO</th>
+                        <th>F. INICIO</th>
+                        <th>1ER TRIMESTRE</th>
+                        <th>2DO TRIMESTRE</th>
+                        <th>ACIDO FOLICO</th>
+                        <th>HEMOGLOBINA</th>
+                        <th>ORINA</th>
+                        <th>SIFILIS</th>
+                        <th>VIH</th>
+                        <th>PERFIL</th>
+                        <th>CANT ATE</th>
+                        <th>ATENCIONES</th>
+                        <th>CANT SUPLE</th>
+                        <th>SUPLEMENTACION</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($t_sulfato as $s)
+                    @foreach($t_materno as $s)
                     <tr>
                         <td>
-                            <font color="#4682B4">{{ $s->DNI_NINIO }}</font>
+                            <font color="#4682B4">{{ $s->Documento }}</font>
                         </td>
                         <td>
-                            <font color="#4682B4">{{ $s->NOMBRE_NINIO }}</font>
+                            <font color="#4682B4">{{ $s->NOMBRE_COMPLETO }}</font>
                         </td>
-                        <td>{{ $s->FECHA_NAC }}</td>
-                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->FECHA_INICIO)) }}</td>
+                        <td>{{ $s->Fecha_parto }}</td>
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Gestacion)) }}</td>
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Gestacion)) }}</td>
                         @if($s->DNI_cumple_HIS != null)
                         <td>
                             <font color="#2E8B57">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</font>
