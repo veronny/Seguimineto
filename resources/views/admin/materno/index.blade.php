@@ -155,7 +155,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.sulfato.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.materno.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
@@ -287,7 +287,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Micro Redes</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.sulfato.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.materno.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
@@ -342,7 +342,7 @@
                 <h3 class="box-title">Avance por Establecimientos</h3>
                     <div class="box-tools pull-right">
                         <div class="box-tools pull-right">
-                            {{ Form::open(['route' => 'admin.sulfato.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                            {{ Form::open(['route' => 'admin.materno.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                 <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                             </div>

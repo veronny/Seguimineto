@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Exports\SulfatoExport;
-use App\Exports\SulfatoExportEstablecimiento;
-use App\Exports\SulfatoExportMicrored;
-use App\Exports\SulfatoDetalleExport;
+use App\Exports\MaternoExport;
+use App\Exports\MaternoExportEstablecimiento;
+use App\Exports\MaternoExportMicrored;
+use App\Exports\MaternoDetalleExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MaternoController extends Controller
@@ -279,7 +279,7 @@ class MaternoController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new SulfatoExport($anno,$mes),'Sulfato-list.xlsx');
+        return Excel::download(new MaternoExport($anno,$mes),'Materno-list.xlsx');
     }
 
     public function exportExcelMicrored(Request $request)
@@ -288,7 +288,7 @@ class MaternoController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new SulfatoExportMicrored($anno,$mes),'Sulfato-microred.xlsx');
+        return Excel::download(new MaternoExportMicrored($anno,$mes),'Materno-microred.xlsx');
     }
 
     public function exportExcelEstablecimiento(Request $request)
@@ -297,7 +297,7 @@ class MaternoController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new SulfatoExportEstablecimiento($anno,$mes),'Sulfato-establecimiento.xlsx');
+        return Excel::download(new MaternoExportEstablecimiento($anno,$mes),'Materno-establecimiento.xlsx');
     }
 
     public function show(Request $request)
@@ -667,7 +667,7 @@ class MaternoController extends Controller
         $microred = $request->get('e_microred');
         $establecimiento = $request->get('e_establecimiento');
         
-        return Excel::download(new SulfatoDetalleExport($anno,$mes,$provincia,$distrito,$red,$microred,$establecimiento),'Detalle-Sulfato.xlsx');
+        return Excel::download(new MaternoDetalleExport($anno,$mes,$provincia,$distrito,$red,$microred,$establecimiento),'Detalle-Materno.xlsx');
     }
 
 
