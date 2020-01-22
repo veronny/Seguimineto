@@ -32,6 +32,14 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     Route::get('materno', 'MaternoController@index')->name('admin.materno.index');
     Route::get('materno/show','MaternoController@show')->name('admin.materno.show');
 
+    //Excel distrito
+    Route::get('materno-list', 'MaternoController@exportExcel')->name('admin.materno.excel');
+    //Excel microred
+    Route::get('materno-microred', 'MaternoController@exportExcelMicrored')->name('admin.materno.excel.microred');
+    //Excel establecimineto
+    Route::get('materno-establecimiento', 'MaternoController@exportExcelEstablecimiento')->name('admin.materno.excel.establecimiento');
+    //Excel detalle materno
+    Route::get('materno-detalle', 'MaternoController@exportExcelDetalle')->name('admin.materno.show.excel');
     ///*****************************************************************************************//
     //Reporte
     Route::get('reporte/{paciente}', 'ReporteController@show')->name('admin.reporte.show'); 

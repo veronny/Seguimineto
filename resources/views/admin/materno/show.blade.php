@@ -358,7 +358,7 @@
     <!-- EXPORTAR -->
     <div class="box-header with-border">
         <div class="pull-right">
-            {{ Form::open(['route' => 'admin.sulfato.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.materno.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="form-group">
                 <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
@@ -432,23 +432,20 @@
                 <thead>
                     <tr>
                         <th width="20px">DNI</th>
-                        <th>NOMBRE MADRE</th>
-                        <th>FECHA PARTO</th>
-                        <th>GESTACION</th>
-                        <th>F. PARTO</th>
-                        <th>F. INICIO</th>
-                        <th>1ER TRIMESTRE</th>
-                        <th>2DO TRIMESTRE</th>
-                        <th>ACIDO FOLICO</th>
-                        <th>HEMOGLOBINA</th>
-                        <th>ORINA</th>
-                        <th>SIFILIS</th>
+                        <th>Nombre Madre</th>
+                        <th>Gest</th>
+                        <th>F. Parto</th>
+                        <th>Acido Folico</th>
+                        <th>1er Trimestre</th>
+                        <th>Hemoglo</th>
+                        <th>Orina</th>
+                        <th>Sifilis</th>
                         <th>VIH</th>
-                        <th>PERFIL</th>
-                        <th>CANT ATE</th>
-                        <th>ATENCIONES</th>
-                        <th>CANT SUPLE</th>
-                        <th>SUPLEMENTACION</th>
+                        <th>Perfil</th>
+                        <th>2do Trimestre</th>
+                        <th>Cant Ate.</th>
+                        <th>Cant Suple</th>
+                        <th>INDICADOR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -460,30 +457,59 @@
                         <td>
                             <font color="#4682B4">{{ $s->NOMBRE_COMPLETO }}</font>
                         </td>
-                        <td>{{ $s->Fecha_parto }}</td>
-                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Gestacion)) }}</td>
-                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Gestacion)) }}</td>
-                        @if($s->DNI_cumple_HIS != null)
                         <td>
-                            <font color="#2E8B57">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</font>
+                            <font color="#4682B4">{{ $s->Gestacion }}</font>
                         </td>
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_parto)) }}</td>   
+                        @if($s->cumple_acido_folico >= 1)
+                        <td><span class="label label-success">Cumple</span></td>
                         @else
-                        <td >
-                            <font color="#2E8B57">{{ $s->Fecha_HIS }}</font>
-                        </td>
-                        @endif
-                        <td>
-                            <font color="#008000">{{ $s->edad_dias_HIS }}</font>
-                        </td>
-                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->FECHA_FIN)) }}</td>
-                        @if($s->DNI_cumple_HIS >= 1)
+                        <td><span class="label label-danger">No Cumple</td>
+                        @endif                        
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_Primer_Trimestre)) }}</td>
+                        @if($s->cumple_hemoglobina >= 1)
                         <td><span class="label label-success">Cumple</span></td>
                         @else
                         <td><span class="label label-danger">No Cumple</td>
                         @endif
-                        <td>{{ $s->TIPO_SEGURO }}</td>
-                        <td>{{ $s->DISTRITO }}</td>
-                        <td>{{ $s->Nombre_EESS_atencion }}</td>
+                        @if($s->cumple_exam_orina >= 1)
+                        <td><span class="label label-success">Cumple</span></td>
+                        @else
+                        <td><span class="label label-danger">No Cumple</td>
+                        @endif
+                        @if($s->cumple_prueba_sifilis >= 1)
+                        <td><span class="label label-success">Cumple</span></td>
+                        @else
+                        <td><span class="label label-danger">No Cumple</td>
+                        @endif
+                        @if($s->cumple_pueba_VIH >= 1)
+                        <td><span class="label label-success">Cumple</span></td>
+                        @else
+                        <td><span class="label label-danger">No Cumple</td>
+                        @endif
+                        @if($s->cumple_perfil_obstetrico  >= 1)
+                        <td><span class="label label-success">Cumple</span></td>
+                        @else
+                        <td><span class="label label-danger">No Cumple</td>
+                        @endif
+                        <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_Segundo_Trimestre)) }}</td>
+
+                        @if($s->cantidad_atenciones >= 6)
+                        <td><font color="#008000">{{ $s->cantidad_atenciones }}</font></td>
+                        @else
+                        <td><font color="#FF0000">{{ $s->cantidad_atenciones }}</font></td>
+                        @endif
+
+                        @if($s->cantidad_suplemento >= 6)
+                        <td><font color="#008000">{{ $s->cantidad_suplemento }}</font></td>
+                        @else
+                        <td><font color="#FF0000">{{ $s->cantidad_suplemento }}</font></td>
+                        @endif
+                        @if($s->DNI_cumple_gestante  >= 1)
+                        <td><span class="label label-success">Cumple</span></td>
+                        @else
+                        <td><span class="label label-danger">No Cumple</td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
