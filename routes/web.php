@@ -40,6 +40,8 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     Route::get('materno-establecimiento', 'MaternoController@exportExcelEstablecimiento')->name('admin.materno.excel.establecimiento');
     //Excel detalle materno
     Route::get('materno-detalle', 'MaternoController@exportExcelDetalle')->name('admin.materno.show.excel');
+    //Reporte materno
+    Route::get('reporte/materno', 'ReporteMaternoController@reporte')->name('admin.materno.reporte'); 
     ///*****************************************************************************************//
     //Reporte
     Route::get('reporte/{paciente}', 'ReporteController@show')->name('admin.reporte.show'); 

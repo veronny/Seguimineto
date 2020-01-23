@@ -391,7 +391,7 @@
         </div>
         <!-- PDF NO CUMPLEN -->
         <div class="pull-right">
-            {{ Form::open(['route' => 'admin.sulfato.reporte','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.materno.reporte','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="form-group">
                 <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
