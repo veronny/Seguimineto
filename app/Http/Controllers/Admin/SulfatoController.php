@@ -18,7 +18,6 @@ class SulfatoController extends Controller
     {
         // Matrices para select
         $m_anno = [ 
-                    2019 => "2019",
                     2020 => "2020",
                 ];
         
@@ -317,8 +316,7 @@ class SulfatoController extends Controller
                 
         // Matrices para select
         $m_anno = [ 
-                2019 => "2019",
-                2020 => "2020",
+                  2020 => "2020",
             ];
     
         $m_mes = [      
