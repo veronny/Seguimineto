@@ -239,7 +239,7 @@ class EntregaController extends Controller
                         'PERIODO',
                         'ANNO',
                         'MES',
-                        'NOM_EESS',
+                        'Nombre_EESS_atencion',
                         DB::raw('COUNT(DNI_cumple_HIS) AS NUM'),
                         DB::raw('SUM(DNI_cumple_HIS) AS DEN'),
                         DB::raw('ROUND((SUM(DNI_cumple_HIS)*100/COUNT(DNI_cumple_HIS)),2) AS PORCENTAJE'),
@@ -249,7 +249,7 @@ class EntregaController extends Controller
                 ->groupBy('PERIODO')
                 ->groupBy('ANNO')
                 ->groupBy('MES')
-                ->groupBy('NOM_EESS')
+                ->groupBy('Nombre_EESS_atencion')
                 ->orderBy('PORCENTAJE', 'desc')
                 ->get();
 
@@ -372,9 +372,9 @@ class EntregaController extends Controller
                 ->get();
         
         $e_establecimiento = DB::table('indicador_12meses')
-                ->select([DB::raw('NOM_EESS')])
-                ->where('NOM_EESS','=',$r_establec)
-                ->groupBy('NOM_EESS')
+                ->select([DB::raw('Nombre_EESS_atencion')])
+                ->where('Nombre_EESS_atencion','=',$r_establec)
+                ->groupBy('Nombre_EESS_atencion')
                 ->get();
         
         // Provincia
@@ -407,10 +407,10 @@ class EntregaController extends Controller
 
         // Establecimiento
         $establecimiento = DB::table('indicador_12meses')
-                ->select([DB::raw('NOM_EESS')])
-                ->groupBy('NOM_EESS')
+                ->select([DB::raw('Nombre_EESS_atencion')])
+                ->groupBy('Nombre_EESS_atencion')
                 ->get()->toArray();
-        $establecimiento = array_column($establecimiento,'NOM_EESS');
+        $establecimiento = array_column($establecimiento,'Nombre_EESS_atencion');
         // Detalle de Entrega
         // Query Tabla Provincia       
         $t_entrega  = DB::table('indicador_12meses')
@@ -642,7 +642,7 @@ class EntregaController extends Controller
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
-                        ->where('NOM_EESS','=',$r_establec)
+                        ->where('Nombre_EESS_atencion','=',$r_establec)
                         ->get();
         }
         if ($r_dni != "")
@@ -687,7 +687,7 @@ class EntregaController extends Controller
                                 'edad_dias_tx_ter',
                                 'DNI_cumple_HIS',
                                 ])
-                        ->where('Documento','=',$r_dni)
+                        ->where('DNI_MENOR','=',$r_dni)
                         ->get();
         }
         if ($r_nombre != "")

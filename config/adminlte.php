@@ -133,7 +133,7 @@ return [
                 ],
                 [
                     'text'    => 'Tratamiento anemia a 12 meses',
-                    'url'     => '#',
+                    'url'     => 'admin/entrega',
                 ],
                 [
                     'text'    => 'Gestantes y atencion pre natal',
