@@ -1,9 +1,9 @@
-@extends('adminlte::page') @section('title', 'Materno') @section('content_header')
-<h1>Paquete preventivo de Gestante</h1>
+@extends('adminlte::page') @section('title', 'Entrega') @section('content_header')
+<h1>Niños de 12 meses que recibieron tratamiento con hierro o suplementacion preventiva</h1>
 <ol class="breadcrumb" style="margin-right: 30px;">
     <li><a href="#">Principal</a></li>
     <li><a href="#">AP ENDIS</a></li>
-    <li><a href="#">Paquete de Gestante</a></li>
+    <li><a href="#">Entrega 12 meses</a></li>
 </ol>
 @stop
 
@@ -14,7 +14,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">
                     <div class="box-tools">                       
-                        {{ Form::open(['route' => 'admin.materno.index','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.entrega.index','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                     <select name="anno" class="form-control dynamic anno" id="anno">
                                         @foreach($m_anno as $key => $value)
@@ -47,7 +47,7 @@
                 <h3 class="box-title">
                     <div class="box-tools">
                         <td width="10px">
-                            <a href="{{ route('admin.materno.show') }}" class="btn btn-warning">
+                            <a href="{{ route('admin.entrega.show') }}" class="btn btn-warning">
                                 <i class="fa fa-users"></i> Informacion Nominal</a>
                         </td>
                     </div>
@@ -124,7 +124,7 @@
                         <thead>
                             <tr>
                                 <th>PROVINCIA</th>
-                                <th>GESTANTE</th>
+                                <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -155,7 +155,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.materno.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.entrega.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
@@ -178,7 +178,7 @@
                         <thead>
                             <tr>
                                 <th>DISTRITO</th>
-                                <th>GESTANTE</th>
+                                <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -256,7 +256,7 @@
                         <thead>
                             <tr>
                                 <th>REDES</th>
-                                <th>GESTANTE</th>
+                                <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -287,7 +287,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Micro Redes</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.materno.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.entrega.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
@@ -310,7 +310,7 @@
                         <thead>
                             <tr>
                                 <th>MICRORED</th>
-                                <th>GESTANTE</th>
+                                <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -342,7 +342,7 @@
                 <h3 class="box-title">Avance por Establecimientos</h3>
                     <div class="box-tools pull-right">
                         <div class="box-tools pull-right">
-                            {{ Form::open(['route' => 'admin.materno.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                            {{ Form::open(['route' => 'admin.entrega.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                 <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                             </div>
@@ -366,7 +366,7 @@
                         <thead>
                             <tr>
                                 <th>ESTABLEC</th>
-                                <th>GESTANTE</th>
+                                <th>NIÑOS</th>
                                 <th>CUMPLEN</th>
                                 <th>%</th>
                             </tr>
@@ -374,7 +374,7 @@
                         <tbody>
                             @foreach($establecimiento as $e)
                             <tr>
-                                <td><font color="#4682B4">{{ $e->NOM_EESS }}</font></td>
+                                <td><font color="#4682B4">{{ $e->Nombre_EESS_atencion }}</font></td>
                                 <td>{{ $e->NUM }}</td>
                                 <td>{{ $e->DEN }}</td>
                                 @if($e->PORCENTAJE <= 90)         

@@ -1,5 +1,5 @@
 @extends('adminlte::page') @section('title', 'Seguimiento SALUD') @section('content_header')
-<h1>Panel de Control</h1>
+<h1>Panel de Control - <font color="red"><em>Actualizado al 31 de Enero del 2020</em></font></h1>
 @stop @section('content')
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">

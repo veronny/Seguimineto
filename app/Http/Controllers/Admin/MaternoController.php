@@ -17,7 +17,6 @@ class MaternoController extends Controller
     {
         // Matrices para select
         $m_anno = [ 
-                    2019 => "2019",
                     2020 => "2020",
                 ];
         
@@ -316,7 +315,6 @@ class MaternoController extends Controller
                 
         // Matrices para select
         $m_anno = [ 
-                2019 => "2019",
                 2020 => "2020",
             ];
     
