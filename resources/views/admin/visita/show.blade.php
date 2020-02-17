@@ -1,10 +1,10 @@
-@extends('adminlte::page') @section('title', 'Paciente') @section('content_header')
-<h1>Niños de 12 meses que recibieron tratamiento con hierro o suplementacion preventiva</h1>
+@extends('adminlte::page') @section('title', 'visita') @section('content_header')
+<h1>Niñ@s de 5 meses de edad que reciben 02 visitas domiciliarias</h1>
 
 <ol class="breadcrumb ">
     <li><a href="">Principal</a></a>
     </li>
-    <li><a href="">12 Meses de Tratamiento o Suplemento</a>
+    <li><a href="">5 Meses con 02 visitas</a>
     </li>
 </ol>
 @stop @section('content')
@@ -66,7 +66,7 @@
             </div>
             <!-- Botton de DNI-->
             <div class="btn-group" style="margin-right: 5px">
-                {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+                {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
                 <div class="input-group input-group-sm" style="display: inline-block;">
                     <input type="text" name="dni" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Ingrese de Nro DNI">
                     <div class="input-group-btn" style="display: inline-block;">
@@ -77,7 +77,7 @@
             </div>
             <!-- Botton de Nombre-->
             <div class="btn-group" style="margin-right: 5px">
-                {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+                {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
                 <div class="input-group input-group-sm" style="display: inline-block;">
                     <input type="text" name="nombre" class="form-control grid-quick-search" style="width: 200px;" value="" placeholder="Nombre Apellidos y Nombres">
                     <div class="input-group-btn" style="display: inline-block;">
@@ -96,7 +96,7 @@
     <div class="box-header with-border">
         <!-- PROVINCIA -->
         <div id="filter-box">
-            {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-8"></div>
@@ -148,7 +148,7 @@
 
         <!-- DISTRITO -->
         <div id="filter-distrito">
-            {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-8"></div>
@@ -200,7 +200,7 @@
 
         <!-- RED -->
         <div id="filter-red">
-            {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-8"></div>
@@ -252,7 +252,7 @@
 
         <!-- MICRO RED -->
         <div id="filter-microred">
-            {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-8"></div>
@@ -304,7 +304,7 @@
 
         <!-- ESTABLECIMIENTO -->
         <div id="filter-establecimiento">
-            {{ Form::open(['route' => 'admin.entrega.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.show','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-8"></div>
@@ -358,7 +358,7 @@
     <!-- EXPORTAR -->
     <div class="box-header with-border">
         <div class="pull-right">
-            {{ Form::open(['route' => 'admin.entrega.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.show.excel','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="form-group">
                 <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
@@ -391,7 +391,7 @@
         </div>
         <!-- PDF NO CUMPLEN -->
         <div class="pull-right">
-            {{ Form::open(['route' => 'admin.entrega.reporte','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
+            {{ Form::open(['route' => 'admin.visita.reporte','method' => 'GET', 'class' => 'form-inline pull-left' ]) }}
             <div class="form-group">
                 <input name="e_anno" id="e_anno" value="@foreach($e_anno as $a){{ $a->ANNO }}@endforeach" style="visibility:hidden;width:1px;" />
             </div>
@@ -428,35 +428,23 @@
     <!-- Tabla Provincia -->
     <div class="box-body" style="display: block;">
         <div class="box-body table-responsive no-padding">
-            <table id="dt_provincia" class="table table-striped table-hover" style="width:100%">
+            <table id="dt_indicador" class="table table-striped table-hover" style="width:100%">
                 <thead>
                     <tr>
                         <th width="20px">DNI</th>
                         <th>Nombre Niño</th>
                         <th>F. Nac</th>
                         <th>F. Inicio</th>
-                        <th><font color="#4272A6">Tamizaje</th>
-                        <th>Dia Tam</th>
-                        <th>1er Suplem.</th>
-                        <th>Dia 1S</th>
-                        <th>2do Suplem.</th>
-                        <th>Dia 2S</th>
-                        <th>3er Suplem.</th>
-                        <th>Dia 3S</th>
-                        <th><font color="#4272A6">Dx Anemia</th>
-                        <th>DDX</th>
-                        <th>1er Tratam.</th>
-                        <th>D1T</th>
-                        <th>2er Tratam.</th>
-                        <th>D2T</th>
-                        <th>3er Tratam.</th>
-                        <th>D3T</th>
+                        <th><font color="#2E8B57">1ra visita</th>
+                        <th><font color="#2E8B57">Edad 1v</th>
+                        <th><font color="#4272A6">2da visita</th>
+                        <th><font color="#4272A6">Edad 2v</th>
                         <th>Fecha Fin</th>
                         <th>Indicador</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($t_entrega as $s)
+                    @foreach($t_visita as $s)
                     <tr>
                         <td>
                             <font color="#4682B4">{{ $s->DNI_MENOR }}</font>
@@ -468,105 +456,35 @@
                             <font color="#4682B4">{{ $s->Fecha_Nacimiento }}</font>
                         </td>
                         <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_inicio)) }}</td>
-                        <!-- Tamizaje --> 
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_tamizaje)) }}</td>
-                        <td class="text-green">{{ $s->edad_dias_tamizaje }}</td>   
-                    
-
-                        <!-- 1 Suplem -->
-                        @if($s->Fecha_su != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_su)) }}</td>
+                        <!-- 1ra fecha visita --> 
+                        @if($s->Fecha_1v != null)
+                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_1v)) }}</td>
                         @else
-                        <td class="text-green">{{ $s->Fecha_su }}</td>
+                        <td class="text-green">{{ $s->Fecha_1v }}</td>
                         @endif
 
-                        @if($s->edad_dias_su >= 0 && $s->edad_dias_su <=7)
-                        <td><font color="#008000">{{ $s->edad_dias_su }}</font></td>
+                        @if($s->edad_dias_1v >= 0 && $s->edad_dias_1v <=149)
+                        <td><font color="#008000">{{ $s->edad_dias_1v }}</font></td>
                         @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_su }}</font></td>
+                        <td><font color="#FF0000">{{ $s->edad_dias_1v }}</font></td>
+                        @endif  
+
+                        <!-- 2da fecha visita -->
+                        @if($s->Fecha_2v != null)
+                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_2v)) }}</td>
+                        @else
+                        <td class="text-green">{{ $s->Fecha_2v }}</td>
                         @endif
 
-                        <!-- 2 Suplem -->
-                        @if($s->edad_dias_su_seg != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_su_seg)) }}</td>
+                        @if($s->edad_dias_2v >= 151 && $s->edad_dias_2v <=179)
+                        <td><font color="#008000">{{ $s->edad_dias_2v }}</font></td>
                         @else
-                        <td class="text-green">{{ $s->Fecha_su_seg }}</td>
+                        <td><font color="#FF0000">{{ $s->edad_dias_2v }}</font></td>
                         @endif
-
-                        @if($s->edad_dias_su_seg >= 25 && $s->edad_dias_su_seg <=35)
-                        <td><font color="#008000">{{ $s->edad_dias_su_seg }}</font></td>
-                        @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_su_seg }}</font></td>
-                        @endif
-                        
-                        <!-- 3 Suplem -->
-                        @if($s->Fecha_su_ter != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_su_ter)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_su_ter }}</td>
-                        @endif
-                        
-                        @if($s->edad_dias_su_ter >= 25 && $s->edad_dias_su_ter <=35)
-                        <td><font color="#008000">{{ $s->edad_dias_su_ter }}</font></td>
-                        @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_su_ter }}</font></td>
-                        @endif                      
-                                                
-                        <!-- Diagnostico -->
-                        @if($s->Fecha_anemia != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_anemia)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_anemia }}</td>
-                        @endif
-                        
-                        @if($s->edad_dias_anemia >= 0 && $s->edad_dias_anemia <=7)
-                        <td><font color="#008000">{{ $s->edad_dias_anemia }}</font></td>
-                        @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_anemia }}</font></td>
-                        @endif    
-                        
-                        <!-- 1 Tramamiento -->
-                        @if($s->Fecha_tx != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_tx)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_tx }}</td>
-                        @endif
-                        
-                        @if($s->edad_dias_tx >= 0 && $s->edad_dias_tx <=7)
-                        <td><font color="#008000">{{ $s->edad_dias_tx }}</font></td>
-                        @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_tx }}</font></td>
-                        @endif
-
-                        <!-- 2 Tramamiento -->
-                        @if($s->Fecha_tx_seg != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_tx_seg)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_tx_seg }}</td>
-                        @endif
-                        
-                        @if($s->edad_dias_tx_seg >=25 && $s->edad_dias_tx_seg <=35)
-                        <td><font color="#008000">{{ $s->edad_dias_tx_seg }}</font></td>
-                        @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_tx_seg }}</font></td>
-                        @endif
-                        
-                        <!-- 3 Tramamiento -->
-                        @if($s->Fecha_tx_ter != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_tx_ter)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_tx_ter }}</td>
-                        @endif
-                        
-                        @if($s->edad_dias_tx_ter >=25 && $s->edad_dias_tx_ter <=35)
-                        <td><font color="#008000">{{ $s->edad_dias_tx_ter }}</font></td>
-                        @else
-                        <td><font color="#FF0000">{{ $s->edad_dias_tx_ter }}</font></td>
-                        @endif
-                        
+                                                                            
                         <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_fin)) }}</td>
                                                
-                        @if($s->DNI_cumple_HIS  >= 1)
+                        @if($s->DNI_cumple_HIS >= 1)
                         <td><span class="label label-success">Cumple</span></td>
                         @else
                         <td><span class="label label-danger">No Cumple</td>
@@ -691,14 +609,14 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#dt_provincia').DataTable({
+        $('#dt_indicador').DataTable({
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
             "fixedHeader": true,
             "order": [
-                [20, "asc"]
+                [8, "asc"]
             ],
             "language": {
                 "info": "_TOTAL_ registros",

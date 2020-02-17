@@ -122,8 +122,8 @@ return [
             'label_color' => 'success',
         ],
         'INDICADORES DE SALUD',
-        [
-            'text'    => 'INDICARES AP-ENDIS',
+        [  
+            'text'    => 'INDICADORES AP-ENDIS',
             'icon'    => 'child',
             'submenu' => [
                 [
@@ -132,12 +132,54 @@ return [
                     
                 ],
                 [
-                    'text'    => 'Tratamiento anemia a 12 meses',
-                    'url'     => 'admin/entrega',
+                    'text' => 'Tratamiento anemia a 12 meses',
+                    'url'  => 'admin/entrega',
                 ],
                 [
-                    'text'    => 'Gestantes y atencion pre natal',
-                    'url'     => 'admin/materno',
+                    'text' => 'Gestantes y atencion pre natal',
+                    'url'  => 'admin/materno',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'INDICADORES FED',
+            'icon'    => 'medkit',
+            'submenu' => [
+                [
+                    'text' => '8 meses iniciaron TX o Suplem',
+                    'url'  => 'admin/inicio',
+                    
+                ],
+                [
+                    'text' => '5 meses que reciben 02 visitas',
+                    'url'  => 'admin/visita',
+                ],
+                [
+                    'text' => '8 meses que reciben 02 visitas',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => '6 a 8 meses sesion demostrativa',
+                    'url'  => '#',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'INDICADORES GESTION',
+            'icon'    => 'heartbeat',
+            'submenu' => [
+                [
+                    'text' => 'RN con 2 CRED',
+                    'url'  => '#',
+                    
+                ],
+                [
+                    'text' => '18 meses DX Anemia Recuperados',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => '18 meses paquete Integrado',
+                    'url'  => '#',
                 ],
             ],
         ],
