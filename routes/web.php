@@ -59,7 +59,39 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     //Reporte 12 meses
     Route::get('reporte/entrega', 'ReporteEntregaController@reporte')->name('admin.entrega.reporte'); 
     ///*****************************************************************************************//
-    
+
+    //Inicio
+    Route::get('inicio', 'InicioController@index')->name('admin.inicio.index');
+    Route::get('inicio/show','InicioController@show')->name('admin.inicio.show');
+
+    //Excel distrito
+    Route::get('inicio-list', 'InicioController@exportExcel')->name('admin.inicio.excel');
+    //Excel microred
+    Route::get('inicio-microred', 'InicioController@exportExcelMicrored')->name('admin.inicio.excel.microred');
+    //Excel establecimineto
+    Route::get('inicio-establecimiento', 'InicioController@exportExcelEstablecimiento')->name('admin.inicio.excel.establecimiento');
+    //Excel detalle 12meses
+    Route::get('inicio-detalle', 'InicioController@exportExcelDetalle')->name('admin.inicio.show.excel');
+    //Reporte 12 meses
+    Route::get('reporte/inicio', 'ReporteInicioController@reporte')->name('admin.inicio.reporte'); 
+    ///*****************************************************************************************//
+
+    //Visita
+    Route::get('visita', 'VisitaController@index')->name('admin.visita.index');
+    Route::get('visita/show','VisitaController@show')->name('admin.visita.show');
+
+    //Excel distrito
+    Route::get('visita-list', 'VisitaController@exportExcel')->name('admin.visita.excel');
+    //Excel microred
+    Route::get('visita-microred', 'VisitaController@exportExcelMicrored')->name('admin.visita.excel.microred');
+    //Excel establecimineto
+    Route::get('visita-establecimiento', 'VisitaController@exportExcelEstablecimiento')->name('admin.visita.excel.establecimiento');
+    //Excel detalle 12meses
+    Route::get('visita-detalle', 'VisitaController@exportExcelDetalle')->name('admin.visita.show.excel');
+    //Reporte 12 meses
+    Route::get('reporte/visita', 'ReporteVisitaController@reporte')->name('admin.visita.reporte'); 
+    ///*****************************************************************************************//
+
     
     
     

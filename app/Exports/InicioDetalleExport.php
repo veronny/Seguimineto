@@ -2,12 +2,12 @@
 
 namespace App\Exports;
 
-use App\Entrega;
+use App\Inicio;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class EntregaDetalleExport implements FromCollection, WithHeadings
+class InicioDetalleExport implements FromCollection, WithHeadings
 {
     public function __construct($e_anno,$e_mes,$e_provincia,$e_distrito,$e_red,$e_microred,$e_establecimiento) {
         
@@ -19,16 +19,17 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
         $this->microred = $e_microred;
         $this->establecimiento = $e_establecimiento;
     }
+    
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        $t_entrega = [];
+        $t_inicio = [];
 
         if ($this->provincia != "")
         {
-        $t_entrega  = DB::table('indicador_12meses')
+        $t_inicio  = DB::table('indicador_inicio')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
@@ -53,30 +54,18 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
                                 'DNI_cumple_su',
                                 'Fecha_su',
                                 'edad_dias_su',
-                                'DNI_cumple_su_seg',
-                                'Fecha_su_seg',
-                                'edad_dias_su_seg',
-                                'DNI_cumple_su_ter',
-                                'Fecha_su_ter',
-                                'edad_dias_su_ter',
-                                'DNI_cumple_tx_seg',
-                                'Fecha_tx_seg',
-                                'edad_dias_tx_seg',
-                                'DNI_cumple_tx_ter',
-                                'Fecha_tx_ter',
-                                'edad_dias_tx_ter',
                                 'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $this->anno)
                         ->where('MES','=', $this->mes)
-                        ->where('PROVINCIA','=', $this->provincia)
+                        ->where('PROVINCIA','=',$this->provincia)
                         ->orderBy('Fecha_fin')
                         ->get();
-        } 
+        }
         if ($this->distrito != "")
         {
         // Query Tabla Distrito       
-        $t_entrega  = DB::table('indicador_12meses')
+        $t_inicio  = DB::table('indicador_inicio')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
@@ -101,18 +90,6 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
                                 'DNI_cumple_su',
                                 'Fecha_su',
                                 'edad_dias_su',
-                                'DNI_cumple_su_seg',
-                                'Fecha_su_seg',
-                                'edad_dias_su_seg',
-                                'DNI_cumple_su_ter',
-                                'Fecha_su_ter',
-                                'edad_dias_su_ter',
-                                'DNI_cumple_tx_seg',
-                                'Fecha_tx_seg',
-                                'edad_dias_tx_seg',
-                                'DNI_cumple_tx_ter',
-                                'Fecha_tx_ter',
-                                'edad_dias_tx_ter',
                                 'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $this->anno)
@@ -123,7 +100,7 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
         if ($this->red != "")
         {
         // Query Tabla Red    
-        $t_entrega = DB::table('indicador_12meses')
+        $t_inicio = DB::table('indicador_inicio')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
@@ -148,19 +125,6 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
                                 'DNI_cumple_su',
                                 'Fecha_su',
                                 'edad_dias_su',
-                                'DNI_cumple_su_seg',
-                                'Fecha_su_seg',
-                                'edad_dias_su_seg',
-                                'DNI_cumple_su_ter',
-                                'Fecha_su_ter',
-                                'edad_dias_su_ter',
-                                'DNI_cumple_tx_seg',
-                                'Fecha_tx_seg',
-                                'edad_dias_tx_seg',
-                                'DNI_cumple_tx_ter',
-                                'Fecha_tx_ter',
-                                'edad_dias_tx_ter',
-                                'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $this->anno)
                         ->where('MES','=', $this->mes)
@@ -170,7 +134,7 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
         if ($this->microred != "")
         {                        
         // Query Tabla microred    
-        $t_entrega  = DB::table('indicador_12meses')
+        $t_inicio  = DB::table('indicador_inicio')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
@@ -195,18 +159,6 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
                                 'DNI_cumple_su',
                                 'Fecha_su',
                                 'edad_dias_su',
-                                'DNI_cumple_su_seg',
-                                'Fecha_su_seg',
-                                'edad_dias_su_seg',
-                                'DNI_cumple_su_ter',
-                                'Fecha_su_ter',
-                                'edad_dias_su_ter',
-                                'DNI_cumple_tx_seg',
-                                'Fecha_tx_seg',
-                                'edad_dias_tx_seg',
-                                'DNI_cumple_tx_ter',
-                                'Fecha_tx_ter',
-                                'edad_dias_tx_ter',
                                 'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $this->anno)
@@ -217,7 +169,7 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
         if ($this->establecimiento != "")
         { 
         // Query Tabla establecimiento    
-        $t_entrega  = DB::table('indicador_12meses')
+        $t_inicio  = DB::table('indicador_inicio')
                         ->select([
                                     'DNI_MENOR',
                                     'NOMBRE_COMPLETO',
@@ -242,18 +194,6 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
                                     'DNI_cumple_su',
                                     'Fecha_su',
                                     'edad_dias_su',
-                                    'DNI_cumple_su_seg',
-                                    'Fecha_su_seg',
-                                    'edad_dias_su_seg',
-                                    'DNI_cumple_su_ter',
-                                    'Fecha_su_ter',
-                                    'edad_dias_su_ter',
-                                    'DNI_cumple_tx_seg',
-                                    'Fecha_tx_seg',
-                                    'edad_dias_tx_seg',
-                                    'DNI_cumple_tx_ter',
-                                    'Fecha_tx_ter',
-                                    'edad_dias_tx_ter',
                                     'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $this->anno)
@@ -261,7 +201,7 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
                         ->where('Nombre_EESS_atencion','=',$this->establecimiento)
                         ->get();
         }
-        return collect($t_entrega);
+        return collect($t_inicio);
     }
 
     public function headings(): array
@@ -290,19 +230,8 @@ class EntregaDetalleExport implements FromCollection, WithHeadings
             'DNI_cumple_su',
             'Fecha_su',
             'edad_dias_su',
-            'DNI_cumple_su_seg',
-            'Fecha_su_seg',
-            'edad_dias_su_seg',
-            'DNI_cumple_su_ter',
-            'Fecha_su_ter',
-            'edad_dias_su_ter',
-            'DNI_cumple_tx_seg',
-            'Fecha_tx_seg',
-            'edad_dias_tx_seg',
-            'DNI_cumple_tx_ter',
-            'Fecha_tx_ter',
-            'edad_dias_tx_ter',
             'DNI_cumple_HIS',            
         ];
     }
+
 }
