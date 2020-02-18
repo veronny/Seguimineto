@@ -156,7 +156,7 @@ return [
                 ],
                 [
                     'text' => '8 meses que reciben 02 visitas',
-                    'url'  => '#',
+                    'url'  => 'admin/visita_tratamiento',
                 ],
                 [
                     'text' => '6 a 8 meses sesion demostrativa',
