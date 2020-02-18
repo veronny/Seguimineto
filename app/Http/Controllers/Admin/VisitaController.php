@@ -32,8 +32,8 @@ class VisitaController extends Controller
                    8 => "Agosto",
                    9 => "Setiembre",
                   10 => "Octubre",
-                  11 =>"Noviembre",
-                  12 =>"Diciembre",
+                  11 => "Noviembre",
+                  12 => "Diciembre",
                 ];
                 
         // Request
@@ -279,7 +279,7 @@ class VisitaController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new visitaExport($anno,$mes),'visita-list.xlsx');
+        return Excel::download(new VisitaExport($anno,$mes),'visita-list.xlsx');
     }
 
     public function exportExcelMicrored(Request $request)

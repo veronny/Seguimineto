@@ -105,7 +105,7 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     //Excel detalle 12meses
     Route::get('visita-detalle', 'VisitaTratamientoController@exportExcelDetalle')->name('admin.visita_tratamiento.show.excel');
     //Reporte 12 meses
-    Route::get('reporte/visita', 'ReporteVisitaTratamientoController@reporte')->name('admin.visita_tratamiento.reporte'); 
+    Route::get('reporte/visita-tratamiento', 'ReporteVisitaTratamientoController@reporte')->name('admin.visita_tratamiento.reporte'); 
     ///*****************************************************************************************//
 
     

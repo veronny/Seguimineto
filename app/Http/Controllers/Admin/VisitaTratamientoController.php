@@ -447,27 +447,27 @@ class VisitaTratamientoController extends Controller
         // Query Tabla Distrito       
         $t_visita_tto  = DB::table('indicador_visita_tratamiento')
                         ->select([
-                            'DNI_MENOR',
-                            'NOMBRE_COMPLETO',
-                            'Fecha_Nacimiento',
-                            'Fecha_inicio',
-                            'Fecha_fin',
-                            'DISTRITO',
-                            'Nombre_EESS_atencion',
-                            'DNI_Madre',
-                            'AP_Madre',
-                            'AM_Madre',
-                            'Nombre_Madre',
-                            'DNI_cumple_dx',
-                            'Fecha_dx',
-                            'edad_dias_dx',
-                            'DNI_cumple_1v',
-                            'Fecha_1v',
-                            'edad_dias_1v',
-                            'DNI_cumple_2v',
-                            'Fecha_2v',
-                            'edad_dias_2v',
-                            'DNI_cumple_HIS',
+                                'DNI_MENOR',
+                                'NOMBRE_COMPLETO',
+                                'Fecha_Nacimiento',
+                                'Fecha_inicio',
+                                'Fecha_fin',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'DNI_Madre',
+                                'AP_Madre',
+                                'AM_Madre',
+                                'Nombre_Madre',
+                                'DNI_cumple_dx',
+                                'Fecha_dx',
+                                'edad_dias_dx',
+                                'DNI_cumple_1v',
+                                'Fecha_1v',
+                                'edad_dias_1v',
+                                'DNI_cumple_2v',
+                                'Fecha_2v',
+                                'edad_dias_2v',
+                                'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
@@ -479,7 +479,7 @@ class VisitaTratamientoController extends Controller
         // Query Tabla Red    
         $t_visita_tto = DB::table('indicador_visita_tratamiento')
                         ->select([
-                            'DNI_MENOR',
+                                'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
                                 'Fecha_Nacimiento',
                                 'Fecha_inicio',
@@ -536,109 +536,14 @@ class VisitaTratamientoController extends Controller
                             ])
                     ->where('ANNO','=', $r_anno)
                     ->where('MES','=', $r_mes)
-                    ->where('MICRORED','=', $r_microred)
+                    ->where('NOMBRE_MICRORED','=', $r_microred)
                     ->orderBy('Fecha_fin')
                     ->get();
         }
         if ($r_establec != "")
         {
-    // Query Tabla Distrito       
+        // Query Tabla Establecimiento       
         $t_visita_tto  = DB::table('indicador_visita_tratamiento')
-                    ->select([
-                        'DNI_MENOR',
-                        'NOMBRE_COMPLETO',
-                        'Fecha_Nacimiento',
-                        'Fecha_inicio',
-                        'Fecha_fin',
-                        'DISTRITO',
-                        'Nombre_EESS_atencion',
-                        'DNI_Madre',
-                        'AP_Madre',
-                        'AM_Madre',
-                        'Nombre_Madre',
-                        'DNI_cumple_dx',
-                        'Fecha_dx',
-                        'edad_dias_dx',
-                        'DNI_cumple_1v',
-                        'Fecha_1v',
-                        'edad_dias_1v',
-                        'DNI_cumple_2v',
-                        'Fecha_2v',
-                        'edad_dias_2v',
-                        'DNI_cumple_HIS',
-                                ])
-                        ->where('ANNO','=', $r_anno)
-                        ->where('MES','=', $r_mes)
-                        ->where('Nombre_EESS_atencion','=',$r_establec)
-                        ->get();
-        }
-        if ($r_dni != "")
-        { 
-        // Query Tabla establecimiento    
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
-                        ->select([
-                            'DNI_MENOR',
-                                'NOMBRE_COMPLETO',
-                                'Fecha_Nacimiento',
-                                'Fecha_inicio',
-                                'Fecha_fin',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'DNI_Madre',
-                                'AP_Madre',
-                                'AM_Madre',
-                                'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
-                                'DNI_cumple_HIS',
-                            ])
-                    ->where('ANNO','=', $r_anno)
-                    ->where('MES','=', $r_mes)
-                    ->where('PROVINCIA','=', $r_provincia)
-                    ->orderBy('Fecha_fin')
-                    ->get();
-        }
-        if ($r_distrito != "")
-        {
-    // Query Tabla Distrito       
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
-                    ->select([
-                            'DNI_MENOR',
-                            'NOMBRE_COMPLETO',
-                            'Fecha_Nacimiento',
-                            'Fecha_inicio',
-                            'Fecha_fin',
-                            'DISTRITO',
-                            'Nombre_EESS_atencion',
-                            'DNI_Madre',
-                            'AP_Madre',
-                            'AM_Madre',
-                            'Nombre_Madre',
-                            'DNI_cumple_dx',
-                            'Fecha_dx',
-                            'edad_dias_dx',
-                            'DNI_cumple_1v',
-                            'Fecha_1v',
-                            'edad_dias_1v',
-                            'DNI_cumple_2v',
-                            'Fecha_2v',
-                            'edad_dias_2v',
-                            'DNI_cumple_HIS',
-                                ])
-                        ->where('DNI_MENOR','=',$r_dni)
-                        ->get();
-        }
-        if ($r_nombre != "")
-        { 
-        // Query Tabla establecimiento    
-        $t_visita_tto = DB::table('indicador_visita_tratamiento')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
@@ -661,16 +566,45 @@ class VisitaTratamientoController extends Controller
                                 'Fecha_2v',
                                 'edad_dias_2v',
                                 'DNI_cumple_HIS',
-                            ])
-                    ->where('ANNO','=', $r_anno)
-                    ->where('MES','=', $r_mes)
-                    ->where('PROVINCIA','=', $r_provincia)
-                    ->orderBy('Fecha_fin')
-                    ->get();
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('Nombre_EESS_atencion','=',$r_establec)
+                        ->get();
         }
-        if ($r_distrito != "")
+        if ($r_dni != "")
         {
-    // Query Tabla Distrito       
+        // Query Tabla Distrito       
+        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
+                    ->select([
+                                'DNI_MENOR',
+                                'NOMBRE_COMPLETO',
+                                'Fecha_Nacimiento',
+                                'Fecha_inicio',
+                                'Fecha_fin',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'DNI_Madre',
+                                'AP_Madre',
+                                'AM_Madre',
+                                'Nombre_Madre',
+                                'DNI_cumple_dx',
+                                'Fecha_dx',
+                                'edad_dias_dx',
+                                'DNI_cumple_1v',
+                                'Fecha_1v',
+                                'edad_dias_1v',
+                                'DNI_cumple_2v',
+                                'Fecha_2v',
+                                'edad_dias_2v',
+                                'DNI_cumple_HIS',
+                                ])
+                        ->where('DNI_MENOR','like','%'.$r_dni.'%')
+                        ->get();
+        }        
+        if ($r_nombre != "")
+        {
+        // Query Tabla Distrito       
         $t_visita_tto  = DB::table('indicador_visita_tratamiento')
                              ->select([
                                     'DNI_MENOR',

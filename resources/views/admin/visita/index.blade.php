@@ -155,7 +155,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.visita.excel','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.visita.excel','method' =>'GET', 'class' =>'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>

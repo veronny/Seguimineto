@@ -12,9 +12,8 @@ class VisitaExport implements FromCollection, WithHeadings
     public function __construct($r_anno,$r_mes) {
         
         $this->anno = $r_anno;
-        $this->mes = $r_mes;
-      
-   }
+        $this->mes = $r_mes;  
+    }
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -49,7 +48,7 @@ class VisitaExport implements FromCollection, WithHeadings
             'Distrito',
             'Cantidad Niños',
             'Niños Cumple',
-            '% Avance'
+            '% Avance',
         ];
     }
 }

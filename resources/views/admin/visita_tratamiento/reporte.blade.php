@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <h4><em>REPORTE 5 MESES QUE VISITAS DOMICILIARIAS NO CUMPLEN EL INDICADOR</em></h4>
+    <h4><em>REPORTE 8 MESES QUE VISITAS DOMICILIARIAS NO CUMPLEN EL INDICADOR</em></h4>
     <!-- Tabla Provincia -->
     <div class="box-body" style="display: block;">
         <div class="box-body table-responsive no-padding">
@@ -64,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($t_visita as $s)
+                    @foreach($t_visita_tratamiento as $s)
                     <tr>
                         <td>{{ $s->DNI_MENOR }}</td>
                         <td>{{ $s->NOMBRE_COMPLETO }}</td>
