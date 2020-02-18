@@ -97,15 +97,15 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     Route::get('visita_tratamiento/show','VisitaTratamientoController@show')->name('admin.visita_tratamiento.show');
 
     //Excel distrito
-    Route::get('visita-list', 'VisitaTratamientoController@exportExcel')->name('admin.visita_tratamiento.excel');
+    Route::get('visita-tratamiento-list', 'VisitaTratamientoController@exportExcel')->name('admin.visita_tratamiento.excel');
     //Excel microred
-    Route::get('visita-microred', 'VisitaTratamientoController@exportExcelMicrored')->name('admin.visita_tratamiento.excel.microred');
+    Route::get('visita-tratamiento-microred', 'VisitaTratamientoController@exportExcelMicrored')->name('admin.visita_tratamiento.excel.microred');
     //Excel establecimineto
-    Route::get('visita-establecimiento', 'VisitaTratamientoController@exportExcelEstablecimiento')->name('admin.visita_tratamiento.excel.establecimiento');
+    Route::get('visita-tratamiento-establecimiento', 'VisitaTratamientoController@exportExcelEstablecimiento')->name('admin.visita_tratamiento.excel.establecimiento');
     //Excel detalle 12meses
-    Route::get('visita-detalle', 'VisitaTratamientoController@exportExcelDetalle')->name('admin.visita_tratamiento.show.excel');
+    Route::get('visita-tratamiento-detalle', 'VisitaTratamientoController@exportExcelDetalle')->name('admin.visita_tratamiento.show.excel');
     //Reporte 12 meses
-    Route::get('reporte/visita', 'ReporteVisitaTratamientoController@reporte')->name('admin.visita_tratamiento.reporte'); 
+    Route::get('reporte/visita_tratamiento', 'ReporteVisitaTratamientoController@reporte')->name('admin.visita_tratamiento.reporte'); 
     ///*****************************************************************************************//
 
     
