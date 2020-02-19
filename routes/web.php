@@ -97,17 +97,32 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
     Route::get('visita_tratamiento/show','VisitaTratamientoController@show')->name('admin.visita_tratamiento.show');
 
     //Excel distrito
-    Route::get('visita-list', 'VisitaTratamientoController@exportExcel')->name('admin.visita_tratamiento.excel');
+    Route::get('visita-tratamiento-list', 'VisitaTratamientoController@exportExcel')->name('admin.visita_tratamiento.excel');
     //Excel microred
-    Route::get('visita-microred', 'VisitaTratamientoController@exportExcelMicrored')->name('admin.visita_tratamiento.excel.microred');
+    Route::get('visita-tratamiento-microred', 'VisitaTratamientoController@exportExcelMicrored')->name('admin.visita_tratamiento.excel.microred');
     //Excel establecimineto
-    Route::get('visita-establecimiento', 'VisitaTratamientoController@exportExcelEstablecimiento')->name('admin.visita_tratamiento.excel.establecimiento');
+    Route::get('visita-tratamiento-establecimiento', 'VisitaTratamientoController@exportExcelEstablecimiento')->name('admin.visita_tratamiento.excel.establecimiento');
     //Excel detalle 12meses
-    Route::get('visita-detalle', 'VisitaTratamientoController@exportExcelDetalle')->name('admin.visita_tratamiento.show.excel');
+    Route::get('visita-tratamiento-detalle', 'VisitaTratamientoController@exportExcelDetalle')->name('admin.visita_tratamiento.show.excel');
     //Reporte 12 meses
     Route::get('reporte/visita-tratamiento', 'ReporteVisitaTratamientoController@reporte')->name('admin.visita_tratamiento.reporte'); 
     ///*****************************************************************************************//
 
+    //Sesion
+    Route::get('sesion', 'SesionController@index')->name('admin.sesion.index');
+    Route::get('sesion/show','SesionController@show')->name('admin.sesion.show');
+
+    //Excel distrito
+    Route::get('sesion-list', 'SesionController@exportExcel')->name('admin.sesion.excel');
+    //Excel microred
+    Route::get('sesion-microred', 'SesionController@exportExcelMicrored')->name('admin.sesion.excel.microred');
+    //Excel establecimineto
+    Route::get('sesion-establecimiento', 'SesionController@exportExcelEstablecimiento')->name('admin.sesion.excel.establecimiento');
+    //Excel detalle sesion
+    Route::get('sesion-detalle', 'SesionController@exportExcelDetalle')->name('admin.sesion.show.excel');
+    //Reporte sesion
+    Route::get('reporte/sesion', 'ReporteSesionController@reporte')->name('admin.sesion.reporte'); 
+    ///*****************************************************************************************//
     
     
     

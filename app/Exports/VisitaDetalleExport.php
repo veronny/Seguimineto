@@ -25,7 +25,7 @@ class VisitaDetalleExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $t_visita = [];
+        $t_inicio = [];
 
         if ($this->provincia != "")
         {
