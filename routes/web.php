@@ -158,6 +158,8 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
 
 
     Route::get('/', 'AdminController@index')->name('admin.home');
+    //Fecha de actualizacion
+    Route::get('/', 'FechaController@index')->name('admin.home.index');
 
 });
 

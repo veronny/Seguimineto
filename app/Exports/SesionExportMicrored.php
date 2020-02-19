@@ -20,7 +20,7 @@ class SesionExportMicrored implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        DB::table('indicador_sesion')
+        return DB::table('indicador_sesion')
                     ->select([
                             'PERIODO',
                             'ANNO',
