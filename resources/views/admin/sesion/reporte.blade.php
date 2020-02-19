@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <h4><em>REPORTE 8 MESES QUE VISITAS DOMICILIARIAS NO CUMPLEN EL INDICADOR</em></h4>
+    <h4><em>REPORTE SESIONES DEMOSTRATIVAS QUE NO CUMPLEN EL INDICADOR</em></h4>
     <!-- Tabla Provincia -->
     <div class="box-body" style="display: block;">
         <div class="box-body table-responsive no-padding">
@@ -55,18 +55,16 @@
                         <th>Nombre Niño</th>
                         <th>F. Nac</th>
                         <th>F. Inicio</th>
-                        <th>Diagnostico</th>
-                        <th>Edad Dx</th>
-                        <th>1ra visita</th>
-                        <th>Edad 1v</th>
-                        <th>2da visita</th>
-                        <th>Edad 2v</th>
+                        <th>Fecha Sesion</th>
+                        <th>Edad Sesion</th>
                         <th>Fecha Fin</th>
                         <th>Indicador</th>
+                        <th>Nombre EESS</th>
+                        <th>Distrito</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($t_visita_tratamiento as $s)
+                    @foreach($t_sesion as $s)
                     <tr>
                         <td>
                             {{ $s->DNI_MENOR }}</font>
@@ -78,45 +76,19 @@
                             {{ $s->Fecha_Nacimiento }}</font>
                         </td>
                         <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_inicio)) }}</td>
-                        <!-- Diagnostico de anemia --> 
-                        @if($s->Fecha_dx != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_dx)) }}</td>
+                        <!-- 1ra fecha sesion --> 
+                        @if($s->Fecha_HIS != null)
+                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_HIS)) }}</td>
                         @else
-                        <td class="text-green">{{ $s->Fecha_dx }}</td>
+                        <td class="text-green">{{ $s->Fecha_HIS }}</td>
                         @endif
 
-                        @if($s->edad_dias_dx >= 0 && $s->edad_dias_dx <=225)
-                        <td>{{ $s->edad_dias_dx }}</font></td>
+                        @if($s->edad_dias_HIS >= 0 && $s->edad_dias_HIS <=256)
+                        <td>{{ $s->edad_dias_HIS }}</font></td>
                         @else
-                        <td>{{ $s->edad_dias_dx }}</font></td>
+                        <td>{{ $s->edad_dias_HIS }}</font></td>
                         @endif  
-                        
-                        <!-- 1ra fecha visita --> 
-                        @if($s->Fecha_1v != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_1v)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_1v }}</td>
-                        @endif
-
-                        @if($s->edad_dias_1v >= 0 && $s->edad_dias_1v <=149)
-                        <td>{{ $s->edad_dias_1v }}</font></td>
-                        @else
-                        <td>{{ $s->edad_dias_1v }}</font></td>
-                        @endif  
-
-                        <!-- 2da fecha visita -->
-                        @if($s->Fecha_2v != null)
-                        <td class="text-green">{{ date('d-m-Y', strtotime($s->Fecha_2v)) }}</td>
-                        @else
-                        <td class="text-green">{{ $s->Fecha_2v }}</td>
-                        @endif
-
-                        @if($s->edad_dias_2v >= 151 && $s->edad_dias_2v <=179)
-                        <td>{{ $s->edad_dias_2v }}</font></td>
-                        @else
-                        <td>{{ $s->edad_dias_2v }}</font></td>
-                        @endif
-                                                                            
+                                                                           
                         <td class="text-yellow">{{ date('d-m-Y', strtotime($s->Fecha_fin)) }}</td>
                                                
                         @if($s->DNI_cumple_HIS >= 1)
@@ -124,6 +96,9 @@
                         @else
                         <td><span class="label label-danger">No Cumple</td>
                         @endif
+
+                        <td>{{ $s->Nombre_EESS_atencion }}</td>
+                        <td>{{ $s->DISTRITO }}</td>
                     </tr>
                     @endforeach
                 </tbody>

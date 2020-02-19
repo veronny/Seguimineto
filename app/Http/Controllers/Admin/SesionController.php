@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Exports\VisitaTratamientoExport;
-use App\Exports\VisitaTratamientoExportEstablecimiento;
-use App\Exports\VisitaTratamientoExportMicrored;
-use App\Exports\VisitaTratamientoDetalleExport;
+use App\Exports\SesionExport;
+use App\Exports\SesionExportEstablecimiento;
+use App\Exports\SesionExportMicrored;
+use App\Exports\SesionDetalleExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class VisitaTratamientoController extends Controller
+class SesionController extends Controller
 {
     Public function index(Request $request)
     {
-        // Matrices 
         // Matrices para select
         $m_anno = [ 
                     2020 => "2020",
@@ -41,20 +40,20 @@ class VisitaTratamientoController extends Controller
         $mes = $request->get('mes');
         
         // Request para Graficos
-        $r_anno =  DB::table('indicador_visita_tratamiento')
+        $r_anno =  DB::table('indicador_sesion')
                         ->select('ANNO')
                         ->where('ANNO','=',$anno)
                         ->groupBy('ANNO')
                         ->get();
         
-        $r_mes =  DB::table('indicador_visita_tratamiento')
+        $r_mes =  DB::table('indicador_sesion')
                         ->select('MES')
                         ->where('MES','=',$mes)
                         ->groupBy('MES')
                         ->get();
 
         // Grafico de Region
-        $regionnum = DB::table('indicador_visita_tratamiento')
+        $regionnum = DB::table('indicador_sesion')
                     ->select([
                             DB::raw('COUNT(DNI_cumple_HIS) AS NUM_R'),
                             ])
@@ -67,7 +66,7 @@ class VisitaTratamientoController extends Controller
 
         $regionnum = array_column($regionnum,'NUM_R');
 
-        $regionden = DB::table('indicador_visita_tratamiento')
+        $regionden = DB::table('indicador_sesion')
                     ->select([
                             DB::raw('SUM(DNI_cumple_HIS) AS DEN_R'),
                             ])
@@ -80,7 +79,7 @@ class VisitaTratamientoController extends Controller
         $regionden = array_column($regionden,'DEN_R');
         
         // Grafico de provincia
-        $prov = DB::table('indicador_visita_tratamiento')
+        $prov = DB::table('indicador_sesion')
                   ->select([
                           DB::raw('PROVINCIA'),
                           ])
@@ -92,7 +91,7 @@ class VisitaTratamientoController extends Controller
                   ->get()->toArray();
         $prov = array_column($prov,'PROVINCIA');
                 
-        $prov_num = DB::table('indicador_visita_tratamiento')
+        $prov_num = DB::table('indicador_sesion')
                         ->select([
                                 DB::raw('COUNT(DNI_cumple_HIS) AS NUM_PROV'),
                                 ])
@@ -104,7 +103,7 @@ class VisitaTratamientoController extends Controller
                         ->get()->toArray();
         $prov_num = array_column($prov_num,'NUM_PROV');
 
-        $prov_den = DB::table('indicador_visita_tratamiento')
+        $prov_den = DB::table('indicador_sesion')
                         ->select([
                                 DB::raw('SUM(DNI_cumple_HIS) AS DEN_PROV'),
                                 ])
@@ -117,7 +116,7 @@ class VisitaTratamientoController extends Controller
         $prov_den = array_column($prov_den,'DEN_PROV');
         
         // Grafico de Red
-        $red = DB::table('indicador_visita_tratamiento')
+        $red = DB::table('indicador_sesion')
                   ->select([
                           DB::raw('NOMBRE_RED'),
                           ])
@@ -129,7 +128,7 @@ class VisitaTratamientoController extends Controller
                   ->get()->toArray();
         $red = array_column($red,'NOMBRE_RED');
         
-        $red_num = DB::table('indicador_visita_tratamiento')
+        $red_num = DB::table('indicador_sesion')
                         ->select([
                                 DB::raw('COUNT(DNI_cumple_HIS) AS NUM_RED'),
                                 ])
@@ -141,7 +140,7 @@ class VisitaTratamientoController extends Controller
                         ->get()->toArray();
         $red_num = array_column($red_num,'NUM_RED');
         
-        $red_den = DB::table('indicador_visita_tratamiento')
+        $red_den = DB::table('indicador_sesion')
                         ->select([
                                 DB::raw('SUM(DNI_cumple_HIS) AS DEN_RED'),
                                 ])
@@ -154,7 +153,7 @@ class VisitaTratamientoController extends Controller
         $red_den = array_column($red_den,'DEN_RED');
 
         // Tabla de Provincia
-        $provincia = DB::table('indicador_visita_tratamiento')
+        $provincia = DB::table('indicador_sesion')
                 ->select([
                         'PERIODO',
                         'ANNO',
@@ -174,7 +173,7 @@ class VisitaTratamientoController extends Controller
                 ->get();
 
         // Tabla de Distrito
-        $distrito = DB::table('indicador_visita_tratamiento')
+        $distrito = DB::table('indicador_sesion')
                 ->select([
                         'PERIODO',
                         'ANNO',
@@ -194,7 +193,7 @@ class VisitaTratamientoController extends Controller
                 ->get();
 
         // Tabla de Red
-        $redes = DB::table('indicador_visita_tratamiento')
+        $redes = DB::table('indicador_sesion')
                 ->select([
                         'PERIODO',
                         'ANNO',
@@ -214,7 +213,7 @@ class VisitaTratamientoController extends Controller
                 ->get();
         
         // Tabla de MicroRed
-        $microred = DB::table('indicador_visita_tratamiento')
+        $microred = DB::table('indicador_sesion')
                 ->select([
                         'PERIODO',
                         'ANNO',
@@ -234,7 +233,7 @@ class VisitaTratamientoController extends Controller
                 ->get();
         
         // Tabla de Establecimiento
-        $establecimiento = DB::table('indicador_visita_tratamiento')
+        $establecimiento = DB::table('indicador_sesion')
                 ->select([
                         'PERIODO',
                         'ANNO',
@@ -253,7 +252,7 @@ class VisitaTratamientoController extends Controller
                 ->orderBy('PORCENTAJE', 'desc')
                 ->get();
 
-        return view('admin.visita_tratamiento.index')
+        return view('admin.sesion.index')
                 ->with('regionnum',json_encode($regionnum,JSON_NUMERIC_CHECK))
                 ->with('regionden',json_encode($regionden,JSON_NUMERIC_CHECK))
                 ->with('prov',json_encode($prov,JSON_NUMERIC_CHECK))
@@ -279,7 +278,7 @@ class VisitaTratamientoController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new VisitaTratamientoExport($anno,$mes),'visita-list.xlsx');
+        return Excel::download(new SesionExport($anno,$mes),'sesion-list.xlsx');
     }
 
     public function exportExcelMicrored(Request $request)
@@ -288,7 +287,7 @@ class VisitaTratamientoController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new VisitaTratamientoExportMicrored($anno,$mes),'visita-microred.xlsx');
+        return Excel::download(new SesionExportMicrored($anno,$mes),'sesion-microred.xlsx');
     }
 
     public function exportExcelEstablecimiento(Request $request)
@@ -297,7 +296,7 @@ class VisitaTratamientoController extends Controller
         $anno = $request->get('r_anno');
         $mes = $request->get('r_mes');
         
-        return Excel::download(new VisitaTratamientoExportEstablecimiento($anno,$mes),'visita-establecimiento.xlsx');
+        return Excel::download(new SesionExportEstablecimiento($anno,$mes),'sesion-establecimiento.xlsx');
     }
 
     public function show(Request $request)
@@ -316,7 +315,7 @@ class VisitaTratamientoController extends Controller
                 
         // Matrices para select
         $m_anno = [ 
-                2020 => "2020",
+                  2020 => "2020",
             ];
     
         $m_mes = [      
@@ -330,144 +329,133 @@ class VisitaTratamientoController extends Controller
                8 => "Agosto",
                9 => "Setiembre",
               10 => "Octubre",
-              11 => "Noviembre",
-              12 => "Diciembre",
+              11 =>"Noviembre",
+              12 =>"Diciembre",
             ];
 
         // Request Excel
-        $e_anno =  DB::table('indicador_visita_tratamiento')
+        $e_anno =  DB::table('indicador_sesion')
                 ->select('ANNO')
                 ->where('ANNO','=',$r_anno)
                 ->groupBy('ANNO')
                 ->get();
 
-        $e_mes =  DB::table('indicador_visita_tratamiento')
+        $e_mes =  DB::table('indicador_sesion')
                 ->select('MES')
                 ->where('MES','=',$r_mes)
                 ->groupBy('MES')
                 ->get();
         
-        $e_provincia = DB::table('indicador_visita_tratamiento')
+        $e_provincia = DB::table('indicador_sesion')
                 ->select([DB::raw('PROVINCIA')])
                 ->where('PROVINCIA','=',$r_provincia)
                 ->groupBy('PROVINCIA')
                 ->get();
         
-        $e_distrito = DB::table('indicador_visita_tratamiento')
+        $e_distrito = DB::table('indicador_sesion')
                 ->select([DB::raw('DISTRITO')])
                 ->where('DISTRITO','=',$r_distrito)
                 ->groupBy('DISTRITO')
                 ->get();
 
-        $e_red = DB::table('indicador_visita_tratamiento')
+        $e_red = DB::table('indicador_sesion')
                 ->select([DB::raw('NOMBRE_RED')])
                 ->where('NOMBRE_RED','=',$r_red)
                 ->groupBy('NOMBRE_RED')
                 ->get();
         
-        $e_microred = DB::table('indicador_visita_tratamiento')
+        $e_microred = DB::table('indicador_sesion')
                 ->select([DB::raw('NOMBRE_MICRORED')])
                 ->where('NOMBRE_MICRORED','=',$r_microred)
                 ->groupBy('NOMBRE_MICRORED')
                 ->get();
         
-        $e_establecimiento = DB::table('indicador_visita_tratamiento')
+        $e_establecimiento = DB::table('indicador_sesion')
                 ->select([DB::raw('Nombre_EESS_atencion')])
                 ->where('Nombre_EESS_atencion','=',$r_establec)
                 ->groupBy('Nombre_EESS_atencion')
                 ->get();
         
         // Provincia
-        $provincia = DB::table('indicador_visita_tratamiento')
+        $provincia = DB::table('indicador_sesion')
                 ->select([DB::raw('PROVINCIA')])
                 ->groupBy('PROVINCIA')
                 ->get()->toArray();
         $provincia = array_column($provincia,'PROVINCIA');
 
         // Distrito
-        $distrito = DB::table('indicador_visita_tratamiento')
+        $distrito = DB::table('indicador_sesion')
                 ->select([DB::raw('DISTRITO')])
                 ->groupBy('DISTRITO')
                 ->get()->toArray();
         $distrito = array_column($distrito,'DISTRITO');
 
         // Red
-        $red = DB::table('indicador_visita_tratamiento')
+        $red = DB::table('indicador_sesion')
                 ->select([DB::raw('NOMBRE_RED')])
                 ->groupBy('NOMBRE_RED')
                 ->get()->toArray();
         $red = array_column($red,'NOMBRE_RED');
 
         // Microred
-        $microred = DB::table('indicador_visita_tratamiento')
+        $microred = DB::table('indicador_sesion')
                 ->select([DB::raw('NOMBRE_MICRORED')])
                 ->groupBy('NOMBRE_MICRORED')
                 ->get()->toArray();
         $microred = array_column($microred,'NOMBRE_MICRORED');
 
         // Establecimiento
-        $establecimiento = DB::table('indicador_visita_tratamiento')
+        $establecimiento = DB::table('indicador_sesion')
                 ->select([DB::raw('Nombre_EESS_atencion')])
                 ->groupBy('Nombre_EESS_atencion')
                 ->get()->toArray();
         $establecimiento = array_column($establecimiento,'Nombre_EESS_atencion');
-        // Detalle de visita
         // Query Tabla Provincia       
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
+        $t_sesion  = DB::table('indicador_sesion')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
                                 'Fecha_Nacimiento',
                                 'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
                                 'Fecha_fin',
                                 'DISTRITO',
                                 'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
                                 'DNI_Madre',
                                 'AP_Madre',
                                 'AM_Madre',
                                 'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
-                                'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
                         ->where('PROVINCIA','=', $r_provincia)
-                        ->orderBy('Fecha_fin')
+                        ->orderBy('FECHA_FIN')
                         ->get();
         if ($r_distrito != "")
         {
         // Query Tabla Distrito       
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
+        $t_sesion  = DB::table('indicador_sesion')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
                                 'Fecha_Nacimiento',
                                 'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
                                 'Fecha_fin',
                                 'DISTRITO',
                                 'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
                                 'DNI_Madre',
                                 'AP_Madre',
                                 'AM_Madre',
                                 'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
-                                'DNI_cumple_HIS',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
@@ -477,95 +465,78 @@ class VisitaTratamientoController extends Controller
         if ($r_red != "")
         {
         // Query Tabla Red    
-        $t_visita_tto = DB::table('indicador_visita_tratamiento')
+        $t_sesion = DB::table('indicador_sesion')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
                                 'Fecha_Nacimiento',
                                 'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
                                 'Fecha_fin',
                                 'DISTRITO',
                                 'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
                                 'DNI_Madre',
                                 'AP_Madre',
                                 'AM_Madre',
                                 'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
-                                'DNI_cumple_HIS',
-                            ])
-                    ->where('ANNO','=', $r_anno)
-                    ->where('MES','=', $r_mes)
-                    ->where('NOMBRE_RED','=', $r_red)
-                    ->orderBy('Fecha_fin')
-                    ->get();
-        }
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('NOMBRE_RED','=', $r_red)
+                        ->get();
+        } 
         if ($r_microred != "")
         {                        
         // Query Tabla microred    
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
-                        ->select([
-                            'DNI_MENOR',
-                                'NOMBRE_COMPLETO',
-                                'Fecha_Nacimiento',
-                                'Fecha_inicio',
-                                'Fecha_fin',
-                                'DISTRITO',
-                                'Nombre_EESS_atencion',
-                                'DNI_Madre',
-                                'AP_Madre',
-                                'AM_Madre',
-                                'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
-                                'DNI_cumple_HIS',
-                            ])
-                    ->where('ANNO','=', $r_anno)
-                    ->where('MES','=', $r_mes)
-                    ->where('NOMBRE_MICRORED','=', $r_microred)
-                    ->orderBy('Fecha_fin')
-                    ->get();
-        }
-        if ($r_establec != "")
-        {
-        // Query Tabla Establecimiento       
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
+        $t_sesion  = DB::table('indicador_sesion')
                         ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
                                 'Fecha_Nacimiento',
                                 'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
                                 'Fecha_fin',
                                 'DISTRITO',
                                 'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
                                 'DNI_Madre',
                                 'AP_Madre',
                                 'AM_Madre',
                                 'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
+                                ])
+                        ->where('ANNO','=', $r_anno)
+                        ->where('MES','=', $r_mes)
+                        ->where('NOMBRE_MICRORED','=', $r_microred)
+                        ->get();
+        } 
+        if ($r_establec != "")
+        { 
+        // Query Tabla establecimiento    
+        $t_sesion  = DB::table('indicador_sesion')
+                        ->select([
+                                'DNI_MENOR',
+                                'NOMBRE_COMPLETO',
+                                'Fecha_Nacimiento',
+                                'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
                                 'DNI_cumple_HIS',
+                                'Fecha_fin',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_Madre',
+                                'AP_Madre',
+                                'AM_Madre',
+                                'Nombre_Madre',
                                 ])
                         ->where('ANNO','=', $r_anno)
                         ->where('MES','=', $r_mes)
@@ -573,74 +544,65 @@ class VisitaTratamientoController extends Controller
                         ->get();
         }
         if ($r_dni != "")
-        {
-        // Query Tabla Distrito       
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
-                    ->select([
+        { 
+        // Query Tabla establecimiento    
+        $t_sesion  = DB::table('indicador_sesion')
+                        ->select([
                                 'DNI_MENOR',
                                 'NOMBRE_COMPLETO',
                                 'Fecha_Nacimiento',
                                 'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
                                 'Fecha_fin',
                                 'DISTRITO',
                                 'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
                                 'DNI_Madre',
                                 'AP_Madre',
                                 'AM_Madre',
                                 'Nombre_Madre',
-                                'DNI_cumple_dx',
-                                'Fecha_dx',
-                                'edad_dias_dx',
-                                'DNI_cumple_1v',
-                                'Fecha_1v',
-                                'edad_dias_1v',
-                                'DNI_cumple_2v',
-                                'Fecha_2v',
-                                'edad_dias_2v',
-                                'DNI_cumple_HIS',
                                 ])
-                        ->where('DNI_MENOR','like','%'.$r_dni.'%')
+                        ->where('DNI_MENOR','=',$r_dni)
                         ->get();
-        }        
+        }
         if ($r_nombre != "")
-        {
-        // Query Tabla Distrito       
-        $t_visita_tto  = DB::table('indicador_visita_tratamiento')
-                             ->select([
-                                    'DNI_MENOR',
-                                    'NOMBRE_COMPLETO',
-                                    'Fecha_Nacimiento',
-                                    'Fecha_inicio',
-                                    'Fecha_fin',
-                                    'DISTRITO',
-                                    'Nombre_EESS_atencion',
-                                    'DNI_Madre',
-                                    'AP_Madre',
-                                    'AM_Madre',
-                                    'Nombre_Madre',
-                                    'DNI_cumple_dx',
-                                    'Fecha_dx',
-                                    'edad_dias_dx',
-                                    'DNI_cumple_1v',
-                                    'Fecha_1v',
-                                    'edad_dias_1v',
-                                    'DNI_cumple_2v',
-                                    'Fecha_2v',
-                                    'edad_dias_2v',
-                                    'DNI_cumple_HIS',
+        { 
+        // Query Tabla establecimiento    
+        $t_sesion  = DB::table('indicador_sesion')
+                        ->select([
+                                'DNI_MENOR',
+                                'NOMBRE_COMPLETO',
+                                'Fecha_Nacimiento',
+                                'Fecha_inicio',
+                                'Fecha_HIS',
+                                'edad_dias_HIS',
+                                'DNI_cumple_HIS',
+                                'Fecha_fin',
+                                'DISTRITO',
+                                'Nombre_EESS_atencion',
+                                'TIPO_SEGURO',
+                                'DIRECCION',
+                                'DNI_Madre',
+                                'AP_Madre',
+                                'AM_Madre',
+                                'Nombre_Madre',
                                 ])
-                        ->where('NOMBRE_COMPLETO','like','%'.$r_nombre.'%')
+                        ->where('NOMBRE_NINIO','like','%'.$r_nombre.'%')
                         ->get();
         }
                         //dd($t_establec);
-        return view('admin.visita_tratamiento.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_visita_tto'))
+        return view('admin.sesion.show',compact('m_anno','m_mes','provincia','distrito','red','microred','establecimiento','t_sesion'))
                         ->with(['e_anno' => $e_anno])
                         ->with(['e_mes' => $e_mes])
                         ->with(['e_provincia' => $e_provincia])
                         ->with(['e_distrito' => $e_distrito])
                         ->with(['e_red' => $e_red])
                         ->with(['e_microred' => $e_microred])
-                        ->with(['e_establecimiento' => $e_establecimiento]);                 
+                        ->with(['e_establecimiento' => $e_establecimiento]);
+                         
     }
 
     public function exportExcelDetalle(Request $request)
@@ -654,6 +616,7 @@ class VisitaTratamientoController extends Controller
         $microred = $request->get('e_microred');
         $establecimiento = $request->get('e_establecimiento');
         
-        return Excel::download(new VisitaTratamientoDetalleExport($anno,$mes,$provincia,$distrito,$red,$microred,$establecimiento),'Detalle-visita.xlsx');
+        return Excel::download(new SesionDetalleExport($anno,$mes,$provincia,$distrito,$red,$microred,$establecimiento),'Detalle-sesion.xlsx');
     }
+
 }

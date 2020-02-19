@@ -1,9 +1,9 @@
-@extends('adminlte::page') @section('title', 'visita') @section('content_header')
-<h1>Niñ@s de 5 meses de edad que reciben 02 visitas domiciliarias</h1>
+@extends('adminlte::page') @section('title', 'sesion') @section('content_header')
+<h1>Niñ@s de 6 y 8 meses cuyas madres al menos participaron una sesion demostrativo</h1>
 <ol class="breadcrumb" style="margin-right: 30px;">
     <li><a href="#">Principal</a></li>
     <li><a href="#">FED</a></li>
-    <li><a href="#">visitas 5 meses</a></li>
+    <li><a href="#">sesion demostrativa</a></li>
 </ol>
 @stop
 
@@ -14,7 +14,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">
                     <div class="box-tools">                       
-                        {{ Form::open(['route' => 'admin.visita.index','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.sesion.index','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                     <select name="anno" class="form-control dynamic anno" id="anno">
                                         @foreach($m_anno as $key => $value)
@@ -47,7 +47,7 @@
                 <h3 class="box-title">
                     <div class="box-tools">
                         <td width="10px">
-                            <a href="{{ route('admin.visita.show') }}" class="btn btn-warning">
+                            <a href="{{ route('admin.sesion.show') }}" class="btn btn-warning">
                                 <i class="fa fa-users"></i> Informacion Nominal</a>
                         </td>
                     </div>
@@ -155,7 +155,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Distritos</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.visita.excel','method' =>'GET', 'class' =>'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.sesion.excel','method' =>'GET', 'class' =>'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
@@ -287,7 +287,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Avance por Micro Redes</h3>
                     <div class="box-tools pull-right">
-                        {{ Form::open(['route' => 'admin.visita.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                        {{ Form::open(['route' => 'admin.sesion.excel.microred','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                         <div class="form-group">                                
                             <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                         </div>
@@ -342,7 +342,7 @@
                 <h3 class="box-title">Avance por Establecimientos</h3>
                     <div class="box-tools pull-right">
                         <div class="box-tools pull-right">
-                            {{ Form::open(['route' => 'admin.visita.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
+                            {{ Form::open(['route' => 'admin.sesion.excel.establecimiento','method' => 'GET', 'class' => 'form-inline pull-right' ]) }}
                             <div class="form-group">                                
                                 <input name="r_anno" id="r_anno" value="@foreach($r_anno as $r){{ $r->ANNO }}@endforeach" style="visibility:hidden;width:1px;heigth:1px" />
                             </div>

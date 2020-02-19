@@ -160,7 +160,7 @@ return [
                 ],
                 [
                     'text' => '6 a 8 meses sesion demostrativa',
-                    'url'  => '#',
+                    'url'  => 'admin/sesion',
                 ],
             ],
         ],

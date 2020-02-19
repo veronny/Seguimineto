@@ -2,12 +2,12 @@
 
 namespace App\Exports;
 
-use App\Visita;
+use App\Sesion;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class VisitaExport implements FromCollection, WithHeadings
+class SesionExport implements FromCollection, WithHeadings
 {
     public function __construct($r_anno,$r_mes) {
         
@@ -19,16 +19,16 @@ class VisitaExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return  DB::table('indicador_visita')
-                ->select([
-                    'PERIODO',
-                    'ANNO',
-                    'MES',
-                    'DISTRITO',
-                    DB::raw('COUNT(DNI_cumple_HIS) AS NUM'),
-                    DB::raw('SUM(DNI_cumple_HIS) AS DEN'),
-                    DB::raw('ROUND((SUM(DNI_cumple_HIS)*100/COUNT(DNI_cumple_HIS)),2) AS PORCENTAJE'),
-                    ])
+        return DB::table('indicador_sesion')
+            ->select([
+                'PERIODO',
+                'ANNO',
+                'MES',
+                'DISTRITO',
+                DB::raw('COUNT(DNI_cumple_HIS) AS NUM'),
+                DB::raw('SUM(DNI_cumple_HIS) AS DEN'),
+                DB::raw('ROUND((SUM(DNI_cumple_HIS)*100/COUNT(DNI_cumple_HIS)),2) AS PORCENTAJE'),
+                ])
             ->where('ANNO','=', $this->anno)
             ->where('MES','=', $this->mes)
             ->groupBy('PERIODO')
@@ -46,7 +46,7 @@ class VisitaExport implements FromCollection, WithHeadings
             'Año',
             'Mes',
             'Distrito',
-            'Cantidad Niños',
+            'Cantidad   Niños',
             'Niños Cumple',
             '% Avance',
         ];

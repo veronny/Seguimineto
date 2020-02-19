@@ -2,42 +2,40 @@
 
 namespace App\Exports;
 
-use App\VisitaTratamiento;
+use App\Sesion;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class VisitaTratamientoExportEstablecimiento implements FromCollection, WithHeadings
+class SesionExportMicrored implements FromCollection, WithHeadings
 {
-    
     public function __construct($r_anno,$r_mes) {
         
         $this->anno = $r_anno;
         $this->mes = $r_mes;
       
-   }
-    
+    }
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return DB::table('indicador_visita_tratamiento')
+        DB::table('indicador_sesion')
                     ->select([
                             'PERIODO',
                             'ANNO',
                             'MES',
-                            'Nombre_EESS_atencion',
-                            DB::raw('COUNT(DNI_cumple_HIS) AS NUM'),
-                            DB::raw('SUM(DNI_cumple_HIS) AS DEN'),
-                            DB::raw('ROUND((SUM(DNI_cumple_HIS)*100/COUNT(DNI_cumple_HIS)),2) AS PORCENTAJE'),
+                            'NOMBRE_MICRORED',
+                            DB::raw('COUNT(DNI_CUMPLE_HIS) AS NUM'),
+                            DB::raw('SUM(DNI_CUMPLE_HIS) AS DEN'),
+                            DB::raw('ROUND((SUM(DNI_CUMPLE_HIS)*100/COUNT(DNI_CUMPLE_HIS)),2) AS PORCENTAJE'),
                             ])
-                    ->where('ANNO','=', $this->anno)
+                    ->where('ANNO','=',$this->anno)
                     ->where('MES','=', $this->mes)
                     ->groupBy('PERIODO')
                     ->groupBy('ANNO')
                     ->groupBy('MES')
-                    ->groupBy('Nombre_EESS_atencion')
+                    ->groupBy('NOMBRE_MICRORED')
                     ->orderBy('PORCENTAJE', 'desc')
                     ->get();
     }
@@ -48,7 +46,7 @@ class VisitaTratamientoExportEstablecimiento implements FromCollection, WithHead
             'Periodo',
             'Año',
             'Mes',
-            'Establecimiento',
+            'Micro Red',
             'Cantidad Niños',
             'Niños Cumple',
             '% Avance'
